@@ -17,7 +17,7 @@
   <body>
     <div class="row">
     <!-- Left menu -->
-      <div id="left-menu" class="col-md-2" >
+      <div id="left-menu" class="col-md-3" >
       <!-- Left menu panels -->
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -102,25 +102,28 @@
 
 
       <!-- Dashboard -->
-      <div class="col-md-10">
-        <!-- First row -->
-        <div class="row">
-            <!-- Map Widget-->
-            <div id="map-container" class="col-md-6">
-              <div class="panel panel-defaul">
-                <div class="panel-body" id="map" style="height: 500px"></div>
-              </div>
-            </div>
-            <!-- Heatmap Widget -->
-            <div id="heatmap-container" class="col-md-6">
-              <div class="panel panel-defaul">
-                <div class="panel-body" id="heatmap" ></div>
-              </div>
-            </div>
+      <!-- Main chart / second column -->
+      <div class="col-md-6">
+        <div id="map-container" class="col-md-6">
+          <div class="panel panel-defaul">
+            <div class="panel-body" id="map" style="height: 500px"></div>
+          </div>
         </div>
-        <!-- End of the first row -->
+      </div>
 
-        <!-- Second row -->
+      <!-- Third column / secondary charts -->
+      <div class="col-md-3">
+        <!-- First line -->
+        <div class="row">
+          <!-- Heatmap Widget -->
+          <div id="heatmap-container" class="col-md-6">
+            <div class="panel panel-defaul">
+              <div class="panel-body" id="heatmap" ></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second line -->
         <div class="row">
           <!-- Network diagram Widget -->
           <div id="network-diagram-container" class="col-md-6">
@@ -128,7 +131,10 @@
               <div class="panel-body" id="network-diagram" ></div>
             </div>
           </div>
+        </div>
 
+        <!-- Third line -->
+        <div class="row">
           <!-- Correlation diagram Widget -->
           <div id="correlation-container" class="col-md-6">
             <div class="panel panel-defaul">
@@ -143,12 +149,9 @@
               </div>
             </div>
           </div>
-
         </div>
-        <!-- End of the second row-->
+      <!-- End of the Third Line -->
       </div>
-      <!-- End of the Dashboard -->
-
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -29,7 +29,7 @@ g = mapSvg.append("g").attr("class", "leaflet-zoom-hide");
 var color = d3.scale.quantize().domain([0, 100]).range(colorbrewer.OrRd[7]);	//was 0, 85 - in OPP full range is 0-1970
 
 // THE MAP USES EPSG:4326 OR WGS84 ENCODING (SRS) - USE QGIS TO CHANGE THE FOMAT - THEN SAVE AS WITH NEW ENCODING - THEN SAVE AS JSON
-d3.json("amsterdam.geojson", function(collection) {		// was: groningen.geojson
+d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/amsterdam.geojson", function(collection) {		// was: groningen.geojson
     var bounds = d3.geo.bounds(collection),
     path = d3.geo.path().projection(project);
 
@@ -41,7 +41,7 @@ d3.json("amsterdam.geojson", function(collection) {		// was: groningen.geojson
         .append("path")
         .attr("fill", function(d) {
              // geef iedere buurt de kleur die bij de klasse hoort
-             return color(d.properties.OPP);				// was: P_EENP_HH
+             return color(Math.random() * 100);				// was: P_EENP_HH
         })            
         .append("title");
 
@@ -49,7 +49,7 @@ d3.json("amsterdam.geojson", function(collection) {		// was: groningen.geojson
         .select("title")
         .text(function(d) {
             // geef iedere buurt een titel met de buurtnaam en het percentage eenpersoonshuishoudens
-            return d.properties.BCNAAM + ": " + d.properties.OPP.toString();		//was: BU_NAAM 	//was: P_EENP_HH
+            return d.properties.BU_CODE + ": " + d.properties.BU_NAME.toString();		//was: BU_NAAM 	//was: P_EENP_HH
 			//return d.properties.BCNAAM;		//was: BU_NAAM 	//was: P_EENP_HH
         });
             

@@ -8,7 +8,7 @@ var heatmapMargin = { top: 50, right: 0, bottom: 100, left: 30 },
     colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
     variables = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"],
     buurts = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"];
-    datasets = ["file://///nlshgw035.nl.heiway.net/Users5$/ResenP01/My%20Documents/UvA/Infovis/Dashboard/dashboard%20-%20active/data/heatmap.tsv"];
+    datasets = ["file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/heatmap.tsv"];
 
 var heatmapSvg = d3.select("#heatmap").append("svg")
     .attr("width", heatmapWidth + heatmapMargin.left + heatmapMargin.right)
