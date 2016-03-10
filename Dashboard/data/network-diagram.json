@@ -1,0 +1,29 @@
+{
+  "nodes":  
+  [
+    { "name": "buurt1", "group":  1 }, 
+    { "name": "buurt2", "group":  2 },   
+    { "name": "buurt3", "group":  4 },
+    { "name": "buurt4", "group":  3 },
+    { "name": "buurt5", "group":  3 },
+    { "name": "buurt6", "group":  2 },
+    { "name": "buurt7", "group":  1 },
+    { "name": "buurt8", "group":  4 }
+  ],
+
+  "links":  
+  [
+    { "source":  0,  "target":  1,  "value": 1 },
+    { "source":  1,  "target":  2,  "value": 2 },
+    { "source":  1,  "target":  3,  "value": 5 },
+    { "source":  1,  "target":  4,  "value": 7 },
+    { "source":  1,  "target":  5,  "value": 8 },
+    { "source":  1,  "target":  6,  "value": 3 },
+    { "source":  1,  "target":  7,  "value": 6 },
+    { "source":  1,  "target":  8,  "value": 5 },
+    { "source":  2,  "target":  5,  "value": 6 },
+    { "source":  3,  "target":  7,  "value": 9 },
+    { "source":  4,  "target":  6,  "value": 1 },
+    { "source":  6,  "target":  8,  "value": 5 }
+  ]
+}

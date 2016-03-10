@@ -1,0 +1,20 @@
+{
+  "nodes":  
+  [
+    { "name": "variable1",  "group":  1 }, 
+    { "name": "variable2",  "group":  2 },   
+    { "name": "variable3",  "group":  3 },
+    { "name": "variable4",  "group":  4 },
+    { "name": "variable5",  "group":  4 }
+  ],
+
+  "links":  
+  [
+    { "source":  0,  "target":  1,  "value":  1 },
+    { "source":  1,  "target":  2,  "value": 10 },
+    { "source":  1,  "target":  3,  "value":  6 },
+    { "source":  2,  "target":  3,  "value":  6 },
+    { "source":  2,  "target":  4,  "value":  2 },
+    { "source":  3,  "target":  4,  "value":  8 }
+  ]
+}

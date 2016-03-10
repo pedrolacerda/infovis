@@ -1,0 +1,14 @@
+GEOSPATIONAL MAP
+Howto: http://stackoverflow.com/questions/14041388/plotting-topojson-file-with-d3-js-nyc-boroughs-and-census-tracts
+Convertsion: http://www.mapshaper.org/
+Tools: https://github.com/mbostock/topojson/wiki
+Data Neighbourhoods - http://data.amsterdam.nl/dataset/gebiedsindeling_amsterdam
+
+
+NETWORK SRUCTURE
+Howto: http://christophergandrud.github.io/d3Network/
+
+
+
+
+

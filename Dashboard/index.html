@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>[INFOVIS] Group 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="css/bootstrap-slider.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+    <![endif]-->
+  </head>
+  <body>
+    <div class="row">
+    <!-- Left menu -->
+      <div id="left-menu" class="col-md-2" >
+      <!-- Left menu panels -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+              Control Panel
+            </h3>
+          </div>
+          <!-- Select datasets -->
+          <div class="panel-heading">
+              <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+              Datasets
+          </div>
+          <div class="panel-body">
+            <label for="checkbox1">Dataset 1</label></br>
+            <input id="checkbox1" type="checkbox" value="dataset1" checked></br>
+
+            <label for="checkbox2">Dataset 2</label></br>
+            <input id="checkbox2" type="checkbox" value="dataset2" checked></br>
+
+            <label for="checkbox3">Dataset 3</label></br>
+            <input id="checkbox3" type="checkbox" value="dataset3" checked></br>
+
+            <label for="checkbox4">Dataset 4</label></br>
+            <input id="checkbox4" type="checkbox" value="dataset4" checked></br>
+
+            <label for="checkbox5">Dataset 5</label></br>
+            <input id="checkbox5" type="checkbox" value="dataset5" checked></br>
+          </div><!-- /Select datasets-->
+
+          <!-- Select Variables-->
+          <div class="panel-heading">
+              <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+              Variables
+          </div>
+          <div class="panel-body">
+              <select id="variables" class="selectpicker" multiple data-max-options="2" title="Select two variables" data-width="auto">
+                <optgroup label="Dataset 1">
+                  <option value="variable1">Variable 1</option>
+                  <option value="variable2">Variable 2</option>
+                  <option value="variable3">Variable 3</option>
+                </optgroup>
+                <optgroup label="Dataset 2">
+                  <option value="variable4">Variable 4</option>
+                  <option value="variable5">Variable 5</option>
+                  <option value="variable6">Variable 6</option>
+                </optgroup>
+                <optgroup label="Dataset 3">
+                  <option value="variable7">Variable 7</option>
+                  <option value="variable8">Variable 8</option>
+                  <option value="variable9">Variable 9</option>
+                </optgroup>
+              </select>
+          </div><!-- /Select variables-->
+
+          <!-- Select Year-->
+          <div class="panel-heading ">
+              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+              Year
+          </div>
+          <div class="panel-body">
+            <input id="slider" data-slider-id='yearSlider' type="text" data-slider-min="2011" data-slider-max="2015" data-slider-step="1" data-slider-value="2013"/>
+          </div> <!-- /Select Year-->
+
+          <!-- Select Transformation-->
+          <div class="panel-heading ">
+              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+              Transformation
+          </div>
+          <div class="panel-body">
+            <select id="transformations" class="selectpicker" multiple data-max-options="2" title="Select one transformation" data-width="auto">
+              <option value="sum">Somatorium</option>
+              <option value="med">Median</option>
+              <option value="avg">Average</option>
+              <option value="min">Min</option>
+              <option value="max">Max</option>
+            </select>
+          </div> <!-- /Select Year-->
+
+        </div>
+      </div> <!-- /Control Panel-->
+
+
+      <!-- Dashboard -->
+      <div class="col-md-10">
+        <!-- First row -->
+        <div class="row">
+            <!-- Map Widget-->
+            <div id="map-container" class="col-md-6">
+              <div class="panel panel-defaul">
+                <div class="panel-body" id="map" style="height: 500px"></div>
+              </div>
+            </div>
+            <!-- Heatmap Widget -->
+            <div id="heatmap-container" class="col-md-6">
+              <div class="panel panel-defaul">
+                <div class="panel-body" id="heatmap" ></div>
+              </div>
+            </div>
+        </div>
+        <!-- End of the first row -->
+
+        <!-- Second row -->
+        <div class="row">
+          <!-- Network diagram Widget -->
+          <div id="network-diagram-container" class="col-md-6">
+            <div class="panel panel-defaul">
+              <div class="panel-body" id="network-diagram" ></div>
+            </div>
+          </div>
+
+          <!-- Correlation diagram Widget -->
+          <div id="correlation-container" class="col-md-6">
+            <div class="panel panel-defaul">
+              <div class="panel-body">
+                Order:
+                <select id="order">
+                  <option value="name">by Name</option>
+                  <option value="count">by Frequency</option>
+                  <option value="group">by Cluster</option>
+                </select>
+                <div id="correlation"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- End of the second row-->
+      </div>
+      <!-- End of the Dashboard -->
+
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/jquery-ui-1.10.3.custom.min.js"></script> 
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap slider -->
+    <script src="lib/bootstrap-slider.min.js"></script>
+    <!-- Bootstrap select -->
+    <script src="lib/bootstrap-select.min.js"></script>
+    <!-- Bootstrap checkbox -->
+    <script src="lib/bootstrap-checkbox.min.js" defer></script>
+    <!-- D3 (http://d3js.org/) om interactieve grafieken in een website op te nemen -->
+    <script src="lib/d3.v3.min.js"></script>
+    <!-- Leaflet (http://www.leafletjs.com/) om interactieve kaarten in een website op te nemen -->
+    <script src="lib/leaflet.js"></script>
+    <!-- Proj4js (http://trac.osgeo.org/proj4js/) om meerdere projecties te ondersteunen -->
+    <script src="lib/proj4js-compressed.js"></script>
+    <!-- Proj4jsLeaflet plugin (http://kartena.github.io/Proj4Leaflet/) om Proj4js met Leaflet te gebruiken -->    
+    <script src="lib/proj4leaflet.js"></script>
+    <!-- ColorBrewer (http://colorbrewer2.org/js/) om mooie legenda's te gebruiken -->
+    <script src="lib/colorbrewer.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/heatmap.js"></script>
+    <script src="js/network-diagram.js"></script>
+    <script src="js/correlation-matrix.js"></script>
+    <script type="text/javascript">
+      // Activating slider
+      $('#slider').slider({
+        formatter: function(value) {
+          return 'Current value: ' + value;
+        }
+      });
+
+      //Activating checkbox
+      $(document).ready(function(){ $(':checkbox').checkboxpicker(); })
+    </script>
+  </body>
+</html>
