@@ -1,9 +1,9 @@
-var netDiagWidth = 600,
-    netDiagHeight = 460;
+var netDiagWidth = networkWidth,
+    netDiagHeight = networkHeight;
 
 var netDiagColor = d3.scale.category10();
 
-var force = d3.layout.force()
+var force = d3.layout.force() //[TO-DO] test other algorithm
     //.linkDistance(60)
     //.linkStrength(10)
     .size([netDiagWidth, netDiagHeight]);

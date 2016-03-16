@@ -104,63 +104,44 @@
       <!-- Dashboard -->
       <!-- Main chart / second column -->
       <div class="col-md-6">
-        <div id="map-container" class="panel panel-default">
-          <div class="panel-heading">
+        <div id="main-chart" class="panel panel-default">
+          <div id="main-chart-header" class="panel-heading">
             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-            Amsterdam Map
+            <span id="main-chart-title">Amsterdam Map</span>
           </div>
           <div class="panel-body" id="map"></div>
         </div>
       </div>
 
       <!-- Third column / secondary charts -->
-      <div class="col-md-4">
+      <div id="secondary-charts" class="col-md-4">
         <!-- First line -->
         <div class="row">
           <!-- Heatmap Widget -->
-          <div id="heatmap-container">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-                Heatmap
-              </div>
-              <div class="panel-body" id="heatmap" ></div>
-            </div>
+          <div id="top-widget-container" class="panel panel-default">
+              <div class="panel-body" id="heatmap"></div>
           </div>
         </div>
 
         <!-- Second line -->
         <div class="row">
           <!-- Network diagram Widget -->
-          <div id="network-diagram-container">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-                Network Diagram
-              </div>
-              <div class="panel-body" id="network-diagram" ></div>
-            </div>
+          <div id="middle-widget-container" class="panel panel-default">
+              <div class="panel-body" id="network-diagram"></div>
           </div>
         </div>
 
         <!-- Third line -->
         <div class="row">
           <!-- Correlation diagram Widget -->
-          <div id="correlation-container">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-                Correlation Matrix
-              </div>
-              <div class="panel-body">
+          <div id="bottom-widget-container" class="panel panel-default">
+            <div id="correlation" class="panel-body">
                 Order:
                 <select id="order">
                   <option value="name">by Name</option>
                   <option value="count">by Frequency</option>
                   <option value="group">by Cluster</option>
                 </select>
-                <div id="correlation"></div>
-              </div>
             </div>
           </div>
         </div>
@@ -189,6 +170,7 @@
     <script src="lib/proj4leaflet.js"></script>
     <!-- ColorBrewer (http://colorbrewer2.org/js/) om mooie legenda's te gebruiken -->
     <script src="lib/colorbrewer.js"></script>
+    <script src="js/page-manager.js"></script>
     <script src="js/map.js"></script>
     <script src="js/heatmap.js"></script>
     <script src="js/network-diagram.js"></script>

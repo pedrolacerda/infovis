@@ -1,14 +1,28 @@
-var heatmapMargin = { top: 50, right: 0, bottom: 100, left: 30 },
-    heatmapWidth = 960 - heatmapMargin.left - heatmapMargin.right,
-    heatmapHeight = 460 - heatmapMargin.top - heatmapMargin.bottom,
-    gridSize = Math.floor(heatmapWidth / 24),
-    //legendElementWidth = gridSize*2,
-    legendElementWidth = gridSize,
+var heatmapMargin = { top: 15, right: 0, bottom: 30, left: 20 },
+    heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
+    heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom,
     buckets = 9,
-    colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
-    variables = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"],
-    buurts = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"];
-    datasets = ["file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/heatmap.tsv"];
+    colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], //[TO-DO] create a dynamic colorbrewer pallet
+    variables = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"], //[TO-DO] Create a set of variables dynamically
+    buurts = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"]; //[TO-DO] Create a set of nighborhoods dynamically
+
+/*
+This function checks if the grid size fits both the height and the width of the width
+*/
+var defineGridSize = function() {
+      var expectedValue = Math.floor(heatmapWidth / buurts.length);
+
+      if((expectedValue * variables.length) > heatmapHeight){
+          return (heatmapHeight / variables.length);
+      } else {
+        return expectedValue;
+      }
+};
+
+//[TO-DO] ajust grid size dynamically based on the numbers of neighborhoods
+var gridSize = defineGridSize();
+    
+var legendElementWidth = gridSize;
 
 var heatmapSvg = d3.select("#heatmap").append("svg")
     .attr("width", heatmapWidth + heatmapMargin.left + heatmapMargin.right)
@@ -16,7 +30,7 @@ var heatmapSvg = d3.select("#heatmap").append("svg")
     .append("g")
     .attr("transform", "translate(" + heatmapMargin.left + "," + heatmapMargin.top + ")");
 
-var dvariablesLabels = heatmapSvg.selectAll(".dayLabel")
+var variablesLabels = heatmapSvg.selectAll(".dayLabel")
     .data(variables)
     .enter().append("text")
       .text(function (d) { return d; })
@@ -63,6 +77,7 @@ var heatmapChart = function(tsvFile) {
         .attr("class", "hour bordered")
         .attr("width", gridSize)
         .attr("height", gridSize)
+        .attr("title", function(d) { return d.value; })
         .style("fill", colors[0]);
 
     cards.transition().duration(1000)
@@ -80,20 +95,20 @@ var heatmapChart = function(tsvFile) {
 
     legend.append("rect")
       .attr("x", function(d, i) { return legendElementWidth * i; })
-      .attr("y", heatmapHeight-20) //-60 added by hand
+      .attr("y", heatmapHeight) //-60 added by hand
       .attr("width", legendElementWidth)
-      .attr("height", gridSize / 2) 
+      .attr("height", gridSize / 2)
       .style("fill", function(d, i) { return colors[i]; });
 
     legend.append("text")
       .attr("class", "mono")
       .text(function(d) { return "≥ " + Math.round(d); })
       .attr("x", function(d, i) { return legendElementWidth * i; })
-      .attr("y", (heatmapHeight + gridSize)-20); //-60 added by hand
+      .attr("y", (heatmapHeight + gridSize)); //-60 added by hand
 
     legend.exit().remove();
 
   });  
 };
 
-heatmapChart(datasets[0]);
+heatmapChart("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/heatmap.tsv");

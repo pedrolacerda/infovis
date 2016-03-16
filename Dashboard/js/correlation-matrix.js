@@ -1,6 +1,6 @@
 var corMtxMargin = {top: 80, right: 0, bottom: 10, left: 80},
-    corMtxwidth = 460,
-    corMtxHeight = 460; //[TO-DO] the form need to be squared, i.e. same width, same height
+    corMtxwidth = correlationSize,
+    corMtxHeight = correlationSize;
 
 var x = d3.scale.ordinal().rangeBands([0, corMtxwidth]),
     z = d3.scale.linear().domain([0, 4]).clamp(true),

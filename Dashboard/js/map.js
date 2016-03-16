@@ -22,8 +22,12 @@ var map = new L.Map('map', {
   zoom: 7
 });
 
+
 var mapSvg = d3.select(map.getPanes().overlayPane).append("svg"),
 g = mapSvg.append("g").attr("class", "leaflet-zoom-hide");
+
+//Forces the size of the widget where the map is
+$("#map").height(mapHeight);
     
 // Verdeel het domein van de waarden in 7 klassen en ken deze een kleur toe op basis van ColorBrewer
 var color = d3.scale.quantize().domain([0, 100]).range(colorbrewer.OrRd[7]);	//was 0, 85 - in OPP full range is 0-1970
@@ -40,7 +44,12 @@ d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/amsterda
         .enter()
         .append("path")
         .attr("fill", function(d) {
-             // geef iedere buurt de kleur die bij de klasse hoort
+            /*
+            [TO-DO]
+            We need to create this function to fill the colors in the map according to the data selected.
+            */
+
+             // puts the color for neighborhood that suits in a class
              return color(Math.random() * 100);				// was: P_EENP_HH
         })            
         .append("title");
