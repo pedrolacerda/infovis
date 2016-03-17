@@ -37,13 +37,13 @@ d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/network-
       .data(bilinks)
     .enter().append("path")
       .attr("class", "link")
-      .attr("style", "stroke-width:3px"); // [TO-DO] change here to adapt the line stroke regarding to the correlation
+      .attr("style", function(d) { return ("stroke-width:"+ d.value + "px"); }); // [TO-DO] change here to adapt the line stroke regarding to the correlation
 
   var node = networkSvg.selectAll(".node")
       .data(graph.nodes)
     .enter().append("circle")
       .attr("class", "node")
-      .attr("r", 10) // [TO-DO] change here to adapt circle size regarding to the correlation
+      .attr("r", function(d) { return d.size }) // [TO-DO] change here to adapt circle size regarding to the correlation
       .style("fill", function(d) { return netDiagColor(d.group); })
       .call(force.drag);
 

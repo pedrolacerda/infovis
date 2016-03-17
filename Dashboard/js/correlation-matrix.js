@@ -13,7 +13,7 @@ var correlationSvg = d3.select("#correlation").append("svg")
   .append("g")
     .attr("transform", "translate(" + corMtxMargin.left + "," + corMtxMargin.top + ")");
 
-d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/network.json", function(miserables) {
+d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/correlation-matrix.json", function(miserables) {
   var matrix = [],
       nodes = miserables.nodes,
       n = nodes.length;
