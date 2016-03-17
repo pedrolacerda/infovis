@@ -1,6 +1,6 @@
 var corMtxMargin = {top: 80, right: 0, bottom: 10, left: 80},
-    corMtxwidth = 460,
-    corMtxHeight = 460; //[TO-DO] the form need to be squared, i.e. same width, same height
+    corMtxwidth = correlationSize,
+    corMtxHeight = correlationSize;
 
 var x = d3.scale.ordinal().rangeBands([0, corMtxwidth]),
     z = d3.scale.linear().domain([0, 4]).clamp(true),
@@ -13,7 +13,7 @@ var correlationSvg = d3.select("#correlation").append("svg")
   .append("g")
     .attr("transform", "translate(" + corMtxMargin.left + "," + corMtxMargin.top + ")");
 
-d3.json("file://///nlshgw035.nl.heiway.net/Users5$/ResenP01/My%20Documents/UvA/Infovis/Dashboard/dashboard%20-%20active/data/network.json", function(miserables) {
+d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/correlation-matrix.json", function(miserables) {
   var matrix = [],
       nodes = miserables.nodes,
       n = nodes.length;

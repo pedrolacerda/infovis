@@ -1,14 +1,14 @@
 {
   "nodes":  
   [
-    { "name": "buurt1", "group":  1 }, 
-    { "name": "buurt2", "group":  2 },   
-    { "name": "buurt3", "group":  4 },
-    { "name": "buurt4", "group":  3 },
-    { "name": "buurt5", "group":  3 },
-    { "name": "buurt6", "group":  2 },
-    { "name": "buurt7", "group":  1 },
-    { "name": "buurt8", "group":  4 }
+    { "name": "buurt1", "group":  1, "size": 6 }, 
+    { "name": "buurt2", "group":  2, "size": 3 },   
+    { "name": "buurt3", "group":  4, "size": 7 },
+    { "name": "buurt4", "group":  3, "size": 1 },
+    { "name": "buurt5", "group":  3, "size": 5 },
+    { "name": "buurt6", "group":  2, "size": 9 },
+    { "name": "buurt7", "group":  1, "size": 10 },
+    { "name": "buurt8", "group":  4, "size": 4 }
   ],
 
   "links":  

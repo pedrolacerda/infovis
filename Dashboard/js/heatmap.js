@@ -1,14 +1,27 @@
-var heatmapMargin = { top: 50, right: 0, bottom: 100, left: 30 },
-    heatmapWidth = 960 - heatmapMargin.left - heatmapMargin.right,
-    heatmapHeight = 460 - heatmapMargin.top - heatmapMargin.bottom,
-    gridSize = Math.floor(heatmapWidth / 24),
-    //legendElementWidth = gridSize*2,
-    legendElementWidth = gridSize,
+var heatmapMargin = { top: 15, right: 0, bottom: 10, left: 20 },
+    heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
+    heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom,
     buckets = 9,
-    colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
-    variables = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"],
-    buurts = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"];
-    datasets = ["file://///nlshgw035.nl.heiway.net/Users5$/ResenP01/My%20Documents/UvA/Infovis/Dashboard/dashboard%20-%20active/data/heatmap.tsv"];
+    buurts = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"], //[TO-DO] Create a set of nighborhoods dynamically
+    variables = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"], //[TO-DO] Create a set of variables dynamically
+    colors = colorbrewer.OrRd[9]; //[TO-DO] create a dynamic colorbrewer pallet
+
+/*
+This function checks if the grid size fits both the height and the width of the width
+*/
+var defineGridSize = function() {
+      var expectedValue = Math.floor(heatmapWidth / buurts.length);
+
+      if((expectedValue * variables.length) > heatmapHeight){
+          return (heatmapHeight / variables.length);
+      } else {
+        return expectedValue;
+      }
+};
+
+var gridSize = defineGridSize();
+    
+var legendElementWidth = gridSize;
 
 var heatmapSvg = d3.select("#heatmap").append("svg")
     .attr("width", heatmapWidth + heatmapMargin.left + heatmapMargin.right)
@@ -16,7 +29,7 @@ var heatmapSvg = d3.select("#heatmap").append("svg")
     .append("g")
     .attr("transform", "translate(" + heatmapMargin.left + "," + heatmapMargin.top + ")");
 
-var dvariablesLabels = heatmapSvg.selectAll(".dayLabel")
+var variablesLabels = heatmapSvg.selectAll(".dayLabel")
     .data(variables)
     .enter().append("text")
       .text(function (d) { return d; })
@@ -63,14 +76,19 @@ var heatmapChart = function(tsvFile) {
         .attr("class", "hour bordered")
         .attr("width", gridSize)
         .attr("height", gridSize)
+        .attr("title", function(d) { return d.value; })
         .style("fill", colors[0]);
 
     cards.transition().duration(1000)
         .style("fill", function(d) { return colorScale(d.value); });
 
     cards.select("title").text(function(d) { return d.value; });
+
+    //[TO-DO] Display the normalized value and the name of the neighborhoods and variables instead of the number
     
     cards.exit().remove();
+
+/* To activate the legend, just remove the comment
 
     var legend = heatmapSvg.selectAll(".legend")
         .data([0].concat(colorScale.quantiles()), function(d) { return d; });
@@ -80,20 +98,21 @@ var heatmapChart = function(tsvFile) {
 
     legend.append("rect")
       .attr("x", function(d, i) { return legendElementWidth * i; })
-      .attr("y", heatmapHeight-20) //-60 added by hand
+      .attr("y", heatmapHeight) //-60 added by hand
       .attr("width", legendElementWidth)
-      .attr("height", gridSize / 2) 
+      .attr("height", gridSize / 2)
       .style("fill", function(d, i) { return colors[i]; });
 
     legend.append("text")
       .attr("class", "mono")
       .text(function(d) { return "≥ " + Math.round(d); })
       .attr("x", function(d, i) { return legendElementWidth * i; })
-      .attr("y", (heatmapHeight + gridSize)-20); //-60 added by hand
+      .attr("y", (heatmapHeight + gridSize)); //-60 added by hand
 
     legend.exit().remove();
+  */
 
   });  
 };
 
-heatmapChart(datasets[0]);
+heatmapChart("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/heatmap.tsv");

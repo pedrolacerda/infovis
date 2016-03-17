@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <link rel="stylesheet" href="css/leaflet.css" />
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
@@ -17,141 +17,260 @@
   <body>
     <div class="row">
     <!-- Left menu -->
-      <div id="left-menu" class="col-md-2" >
-      <!-- Left menu panels -->
+      <div id="left-menu" class="col-md-2 panel-group" role="tablist" aria-multiselectable="true">
+      <!-- Properties menu -->
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">
-              <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-              Control Panel
-            </h3>
+            Properties
           </div>
-          <!-- Select datasets -->
-          <div class="panel-heading">
-              <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-              Datasets
+        </div> <!-- End of the heading -->
+
+        <!-- Select properties by category -->
+        <div class="panel panel-info">
+          <div class="panel-heading" role="tab" id="headingCat1">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category1" aria-expanded="false" aria-controls="collapseOne">
+              Category 1
+            </a>
           </div>
-          <div class="panel-body">
-            <label for="checkbox1">Dataset 1</label></br>
-            <input id="checkbox1" type="checkbox" value="dataset1" checked></br>
-
-            <label for="checkbox2">Dataset 2</label></br>
-            <input id="checkbox2" type="checkbox" value="dataset2" checked></br>
-
-            <label for="checkbox3">Dataset 3</label></br>
-            <input id="checkbox3" type="checkbox" value="dataset3" checked></br>
-
-            <label for="checkbox4">Dataset 4</label></br>
-            <input id="checkbox4" type="checkbox" value="dataset4" checked></br>
-
-            <label for="checkbox5">Dataset 5</label></br>
-            <input id="checkbox5" type="checkbox" value="dataset5" checked></br>
-          </div><!-- /Select datasets-->
-
-          <!-- Select Variables-->
-          <div class="panel-heading">
-              <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-              Variables
+          <div id="category1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat1">
+            <div class="panel-body">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 1
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 3
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 4
+                </label>
+              </div>
+            </div>
           </div>
-          <div class="panel-body">
-              <select id="variables" class="selectpicker" multiple data-max-options="2" title="Select two variables" data-width="auto">
-                <optgroup label="Dataset 1">
-                  <option value="variable1">Variable 1</option>
-                  <option value="variable2">Variable 2</option>
-                  <option value="variable3">Variable 3</option>
-                </optgroup>
-                <optgroup label="Dataset 2">
-                  <option value="variable4">Variable 4</option>
-                  <option value="variable5">Variable 5</option>
-                  <option value="variable6">Variable 6</option>
-                </optgroup>
-                <optgroup label="Dataset 3">
-                  <option value="variable7">Variable 7</option>
-                  <option value="variable8">Variable 8</option>
-                  <option value="variable9">Variable 9</option>
-                </optgroup>
-              </select>
-          </div><!-- /Select variables-->
 
-          <!-- Select Year-->
-          <div class="panel-heading ">
-              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-              Year
+          <div class="panel-heading" role="tab" id="headingCat2">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category2" aria-expanded="false" aria-controls="collapseOne">
+              Category 2
+            </a>
           </div>
-          <div class="panel-body">
-            <input id="slider" data-slider-id='yearSlider' type="text" data-slider-min="2011" data-slider-max="2015" data-slider-step="1" data-slider-value="2013"/>
-          </div> <!-- /Select Year-->
+          <div id="category2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat2">
+            <div class="panel-body">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 1
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 3
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 4
+                </label>
+              </div>
+            </div>
+          </div>
 
-          <!-- Select Transformation-->
+          <div class="panel-heading" role="tab" id="headingCat3">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category3" aria-expanded="false" aria-controls="collapseOne">
+              Category 3
+            </a>
+          </div>
+          <div id="category3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat3">
+            <div class="panel-body">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 1
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 3
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Property 4
+                </label>
+              </div>
+            </div>
+          </div>
+        </div> <!-- /Select properties by category -->
+
+        <!-- The other parameters are displayed in separated panels -->
+        <div class="panel panel-default">
+
+          <!-- Select Variable of Interest-->
           <div class="panel-heading ">
               <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-              Transformation
+              Variable of Interest
           </div>
           <div class="panel-body">
-            <select id="transformations" class="selectpicker" multiple data-max-options="2" title="Select one transformation" data-width="auto">
-              <option value="sum">Somatorium</option>
-              <option value="med">Median</option>
-              <option value="avg">Average</option>
-              <option value="min">Min</option>
-              <option value="max">Max</option>
+            <select id="var-interest" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
+              <option value="var1">Variable 1</option>
+              <option value="var2">Variable 2</option>
+              <option value="var3">Variable 3</option>
+              <option value="var4">Variable 4</option>
+              <option value="var5">Variable 5</option>
             </select>
-          </div> <!-- /Select Year-->
+          </div> <!-- /Select Variable of Interest-->
 
+          <!-- Select Denominator-->
+          <div class="panel-heading ">
+              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+              Denominator
+          </div>
+          <div class="panel-body">
+            <select id="denominator" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
+              <option value="den1">Denominator 1</option>
+              <option value="den2">Denominator 2</option>
+              <option value="den3">Denominator 3</option>
+              <option value="den4">Denominator 4</option>
+              <option value="den5">Denominator 5</option>
+            </select>
+          </div> <!-- /Select Denominator-->
         </div>
-      </div> <!-- /Control Panel-->
+        <!-- Select Dimentions-->
+        <div class="panel panel-default">
+          <div class="panel-heading ">
+              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+              Dimentions
+          </div>
+        </div>
+
+        <div class="panel panel-info">
+          <div class="panel-heading" role="tab" id="headingYear">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#year" aria-expanded="false" aria-controls="collapseOne">
+            Year
+            </a>
+          </div>
+          <div id="year" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingYear">
+            <div class="panel-body">
+              <input id="slider" data-slider-id='yearSlider' type="text" data-slider-min="2011" data-slider-max="2015" data-slider-step="1" data-slider-value="2013"/>
+            </div> 
+          </div><!-- /Select Year-->
+
+          <!-- Select neighborhoods -->
+          <div class="panel-heading" role="tab" id="headingNeighborhoods">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#neighborhoods" aria-expanded="false" aria-controls="collapseOne">
+              Neighborhoods
+            </a>
+          </div>
+          <div id="neighborhoods" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNeighborhoods">
+            <div class="panel-body">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Buurt 1
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Buurt 2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Buurt 3
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Buurt 4
+                </label>
+              </div>
+            </div>
+          </div> <!-- Select Neighborhoods -->
+        </div>
+
+          <!-- Select Transformation-->
+          <div class="panel panel-default">
+            <div class="panel-heading ">
+                <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                Transformation
+            </div>
+            <div class="panel-body">
+              <select id="transformations" class="selectpicker" multiple data-max-options="2" title="Select transformation" data-width="auto">
+                <option value="sum">Somatorium</option>
+                <option value="med">Median</option>
+                <option value="avg">Average</option>
+                <option value="min">Min</option>
+                <option value="max">Max</option>
+              </select>
+            </div> <!-- /Select Transformation-->
+          </div> <!-- /Control Panel-->
+      </div> <!-- / Left menu -->
 
 
       <!-- Dashboard -->
-      <div class="col-md-10">
-        <!-- First row -->
-        <div class="row">
-            <!-- Map Widget-->
-            <div id="map-container" class="col-md-6">
-              <div class="panel panel-defaul">
-                <div class="panel-body" id="map" style="height: 500px"></div>
-              </div>
-            </div>
-            <!-- Heatmap Widget -->
-            <div id="heatmap-container" class="col-md-6">
-              <div class="panel panel-defaul">
-                <div class="panel-body" id="heatmap" ></div>
-              </div>
-            </div>
-        </div>
-        <!-- End of the first row -->
-
-        <!-- Second row -->
-        <div class="row">
-          <!-- Network diagram Widget -->
-          <div id="network-diagram-container" class="col-md-6">
-            <div class="panel panel-defaul">
-              <div class="panel-body" id="network-diagram" ></div>
-            </div>
+      <!-- Main chart / second column -->
+      <div class="col-md-6">
+        <div id="main-chart" class="panel panel-default">
+          <div id="main-chart-header" class="panel-heading">
+            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+            <span id="main-chart-title">Amsterdam Map</span>
           </div>
+          <div class="panel-body" id="map"></div>
+        </div>
+      </div>
 
-          <!-- Correlation diagram Widget -->
-          <div id="correlation-container" class="col-md-6">
-            <div class="panel panel-defaul">
-              <div class="panel-body">
+      <!-- Third column / secondary charts -->
+      <div id="secondary-charts" class="col-md-4">
+        <!-- First line -->
+        <div class="row">
+          <!-- Top chart Widget -->
+          <div id="top-widget-container" class="panel panel-default">
+              <div class="panel-body" id="heatmap"></div>
+          </div>
+        </div>
+
+        <!-- Second line -->
+        <div class="row">
+          <!-- Middle chart Widget -->
+          <div id="middle-widget-container" class="panel panel-default">
+              <div class="panel-body" id="network-diagram"></div>
+          </div>
+        </div>
+
+        <!-- Third line -->
+        <div class="row">
+          <!-- Bottom chart Widget -->
+          <div id="bottom-widget-container" class="panel panel-default">
+            <div id="correlation" class="panel-body">
                 Order:
                 <select id="order">
                   <option value="name">by Name</option>
                   <option value="count">by Frequency</option>
                   <option value="group">by Cluster</option>
                 </select>
-                <div id="correlation"></div>
-              </div>
             </div>
           </div>
-
         </div>
-        <!-- End of the second row-->
+      <!-- End of the Third Line -->
       </div>
-      <!-- End of the Dashboard -->
-
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
     <script src="js/jquery-ui-1.10.3.custom.min.js"></script> 
     <script src="js/jquery.ui.touch-punch.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -172,6 +291,7 @@
     <script src="lib/proj4leaflet.js"></script>
     <!-- ColorBrewer (http://colorbrewer2.org/js/) om mooie legenda's te gebruiken -->
     <script src="lib/colorbrewer.js"></script>
+    <script src="js/page-manager.js"></script>
     <script src="js/map.js"></script>
     <script src="js/heatmap.js"></script>
     <script src="js/network-diagram.js"></script>
@@ -185,7 +305,7 @@
       });
 
       //Activating checkbox
-      $(document).ready(function(){ $(':checkbox').checkboxpicker(); })
+      //$(document).ready(function(){ $(':checkbox').checkboxpicker(); })
     </script>
   </body>
 </html>

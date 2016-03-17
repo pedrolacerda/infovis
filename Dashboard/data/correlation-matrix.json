@@ -1,11 +1,11 @@
 {
   "nodes":  
   [
-    { "name": "variable1",  "group":  1 }, 
-    { "name": "variable2",  "group":  2 },   
-    { "name": "variable3",  "group":  3 },
-    { "name": "variable4",  "group":  4 },
-    { "name": "variable5",  "group":  4 }
+    { "name": "variable1",  "group":  1, "size": 3 }, 
+    { "name": "variable2",  "group":  2, "size": 8 },   
+    { "name": "variable3",  "group":  3, "size": 10 },
+    { "name": "variable4",  "group":  4, "size": 4 },
+    { "name": "variable5",  "group":  4, "size": 2 }
   ],
 
   "links":  
