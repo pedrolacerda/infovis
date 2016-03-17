@@ -22,11 +22,15 @@ d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/network-
   graph.links.forEach(function(link) {
     var s = networkNodes[link.source],
         t = networkNodes[link.target],
-        i = {}; // intermediate node
+        i = {}, // intermediate node
+        f = link.value; // inserted this parameter to fill the line stroke
+
     networkNodes.push(i);
     links.push({source: s, target: i}, {source: i, target: t});
-    bilinks.push([s, i, t]);
+    bilinks.push([s, i, t, f]);
   });
+
+  //console.log(bilinks);
 
   force
       .nodes(networkNodes)
@@ -37,7 +41,7 @@ d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/network-
       .data(bilinks)
     .enter().append("path")
       .attr("class", "link")
-      .attr("style", function(d) { return ("stroke-width:"+ d.value + "px"); }); // [TO-DO] change here to adapt the line stroke regarding to the correlation
+      .attr("style", function(d) { return ("stroke-width:"+ d[3] + "px"); });
 
   var node = networkSvg.selectAll(".node")
       .data(graph.nodes)

@@ -1,10 +1,10 @@
-var heatmapMargin = { top: 15, right: 0, bottom: 30, left: 20 },
+var heatmapMargin = { top: 15, right: 0, bottom: 10, left: 20 },
     heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
     heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom,
     buckets = 9,
-    colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], //[TO-DO] create a dynamic colorbrewer pallet
+    buurts = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"], //[TO-DO] Create a set of nighborhoods dynamically
     variables = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"], //[TO-DO] Create a set of variables dynamically
-    buurts = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"]; //[TO-DO] Create a set of nighborhoods dynamically
+    colors = colorbrewer.OrRd[9]; //[TO-DO] create a dynamic colorbrewer pallet
 
 /*
 This function checks if the grid size fits both the height and the width of the width
@@ -19,7 +19,6 @@ var defineGridSize = function() {
       }
 };
 
-//[TO-DO] ajust grid size dynamically based on the numbers of neighborhoods
 var gridSize = defineGridSize();
     
 var legendElementWidth = gridSize;
@@ -84,8 +83,12 @@ var heatmapChart = function(tsvFile) {
         .style("fill", function(d) { return colorScale(d.value); });
 
     cards.select("title").text(function(d) { return d.value; });
+
+    //[TO-DO] Display the normalized value and the name of the neighborhoods and variables instead of the number
     
     cards.exit().remove();
+
+/* To activate the legend, just remove the comment
 
     var legend = heatmapSvg.selectAll(".legend")
         .data([0].concat(colorScale.quantiles()), function(d) { return d; });
@@ -107,6 +110,7 @@ var heatmapChart = function(tsvFile) {
       .attr("y", (heatmapHeight + gridSize)); //-60 added by hand
 
     legend.exit().remove();
+  */
 
   });  
 };

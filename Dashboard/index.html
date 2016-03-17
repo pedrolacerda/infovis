@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <link rel="stylesheet" href="css/leaflet.css" />
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
@@ -18,13 +18,14 @@
     <div class="row">
     <!-- Left menu -->
       <div id="left-menu" class="col-md-2 panel-group" role="tablist" aria-multiselectable="true">
-      <!-- Left menu panels -->
+      <!-- Properties menu -->
         <div class="panel panel-default">
           <div class="panel-heading">
             Properties
           </div>
-        </div>
+        </div> <!-- End of the heading -->
 
+        <!-- Select properties by category -->
         <div class="panel panel-info">
           <div class="panel-heading" role="tab" id="headingCat1">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category1" aria-expanded="false" aria-controls="collapseOne">
@@ -115,33 +116,109 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> <!-- /Select properties by category -->
 
-          <!-- Select Year-->
+        <!-- The other parameters are displayed in separated panels -->
+        <div class="panel panel-default">
+
+          <!-- Select Variable of Interest-->
+          <div class="panel-heading ">
+              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+              Variable of Interest
+          </div>
+          <div class="panel-body">
+            <select id="var-interest" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
+              <option value="var1">Variable 1</option>
+              <option value="var2">Variable 2</option>
+              <option value="var3">Variable 3</option>
+              <option value="var4">Variable 4</option>
+              <option value="var5">Variable 5</option>
+            </select>
+          </div> <!-- /Select Variable of Interest-->
+
+          <!-- Select Denominator-->
+          <div class="panel-heading ">
+              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+              Denominator
+          </div>
+          <div class="panel-body">
+            <select id="denominator" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
+              <option value="den1">Denominator 1</option>
+              <option value="den2">Denominator 2</option>
+              <option value="den3">Denominator 3</option>
+              <option value="den4">Denominator 4</option>
+              <option value="den5">Denominator 5</option>
+            </select>
+          </div> <!-- /Select Denominator-->
+        </div>
+        <!-- Select Dimentions-->
         <div class="panel panel-default">
           <div class="panel-heading ">
               <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-              Year
+              Dimentions
           </div>
-          <div class="panel-body">
-            <input id="slider" data-slider-id='yearSlider' type="text" data-slider-min="2011" data-slider-max="2015" data-slider-step="1" data-slider-value="2013"/>
-          </div> <!-- /Select Year-->
+        </div>
+
+        <div class="panel panel-info">
+          <div class="panel-heading" role="tab" id="headingYear">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#year" aria-expanded="false" aria-controls="collapseOne">
+            Year
+            </a>
+          </div>
+          <div id="year" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingYear">
+            <div class="panel-body">
+              <input id="slider" data-slider-id='yearSlider' type="text" data-slider-min="2011" data-slider-max="2015" data-slider-step="1" data-slider-value="2013"/>
+            </div> 
+          </div><!-- /Select Year-->
+
+          <!-- Select neighborhoods -->
+          <div class="panel-heading" role="tab" id="headingNeighborhoods">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#neighborhoods" aria-expanded="false" aria-controls="collapseOne">
+              Neighborhoods
+            </a>
+          </div>
+          <div id="neighborhoods" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNeighborhoods">
+            <div class="panel-body">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Buurt 1
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Buurt 2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Buurt 3
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Buurt 4
+                </label>
+              </div>
+            </div>
+          </div> <!-- Select Neighborhoods -->
+        </div>
 
           <!-- Select Transformation-->
-          <div class="panel-heading ">
-              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-              Transformation
-          </div>
-          <div class="panel-body">
-            <select id="transformations" class="selectpicker" multiple data-max-options="2" title="Select one transformation" data-width="auto">
-              <option value="sum">Somatorium</option>
-              <option value="med">Median</option>
-              <option value="avg">Average</option>
-              <option value="min">Min</option>
-              <option value="max">Max</option>
-            </select>
-          </div> <!-- /Select Transformation-->
-        </div> <!-- /Control Panel-->
+          <div class="panel panel-default">
+            <div class="panel-heading ">
+                <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                Transformation
+            </div>
+            <div class="panel-body">
+              <select id="transformations" class="selectpicker" multiple data-max-options="2" title="Select transformation" data-width="auto">
+                <option value="sum">Somatorium</option>
+                <option value="med">Median</option>
+                <option value="avg">Average</option>
+                <option value="min">Min</option>
+                <option value="max">Max</option>
+              </select>
+            </div> <!-- /Select Transformation-->
+          </div> <!-- /Control Panel-->
       </div> <!-- / Left menu -->
 
 
@@ -193,7 +270,7 @@
       </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
     <script src="js/jquery-ui-1.10.3.custom.min.js"></script> 
     <script src="js/jquery.ui.touch-punch.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

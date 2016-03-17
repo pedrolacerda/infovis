@@ -33,8 +33,6 @@ var setCurrentSizeValues = function() {
 		mapHeight = widgetHeight;
 	};
 
-	console.log("Validou o map");
-
 	if($("#heatmap").parent().attr("id") == "main-chart"){
 		heatmapWidthDashboard = mainChartWidth;
 		heatmapHeightDashboard = $("#main-chart").height() - 72;
@@ -42,8 +40,6 @@ var setCurrentSizeValues = function() {
 		heatmapWidthDashboard = secondaryChartsWidth;
 		heatmapHeightDashboard = widgetHeight;
 	};
-
-	console.log("Validou o heatmap");
 
 	if($("#network-diagram").parent().attr("id") == "main-chart"){
 		networkWidth = mainChartWidth;
@@ -61,13 +57,3 @@ var setCurrentSizeValues = function() {
 };
 
 setCurrentSizeValues();
-
-console.log("mapHeight: "+ mapHeight);
-
-console.log("heatmapHeightDashboard: "+ heatmapHeightDashboard);
-console.log("heatmapWidthDashboard: "+ heatmapWidthDashboard);
-
-console.log("networkHeight: "+ networkHeight);
-console.log("networkWidth: "+ networkWidth);
-
-console.log("correlationHeight: "+ correlationSize);
