@@ -1,17 +1,17 @@
-var margin = { top: 50, right: 10, bottom: 50, left: 50 },
-  width = heatmapWidthDashboard - margin.left - margin.right,
-  height = heatmapHeightDashboard - margin.top - margin.bottom,
+var heatmapMargin = { top: 50, right: 10, bottom: 50, left: 50 },
+  heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
+  heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom,
   //gridSize = Math.floor(width / 24),
   //legendElementWidth = cellSize*2.5,
-  buckets = 9,
+  heatmapBuckets = 9,
   heatmapColors = colorbrewer.OrRd[9]; //[TO-DO] create a dynamic colorbrewer pallet
   hcrow = [1,2,3,4,5,6,7], // change to gene name or probe id
   hccol = [1,2,3,4,5,6,7,8,9,10,11,12], // change to gene name or probe id
-  rowLabel = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"], //[TO-DO] Create a set of variables dynamically, // change to gene name or probe id
-  colLabel = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"]; //[TO-DO] Create a set of nighborhoods dynamically; // change to contrast name
+  heatmapRowLabel = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"], //[TO-DO] Create a set of variables dynamically, // change to gene name or probe id
+  heatmapColLabel = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"]; //[TO-DO] Create a set of nighborhoods dynamically; // change to contrast name
 
-  col_number = colLabel.length; //[TO-DO] dynamically define the number of columns
-  row_number = rowLabel.length; //[TO-DO] dynamically define the number of rows
+  col_number = heatmapColLabel.length; //[TO-DO] dynamically define the number of columns
+  row_number = heatmapRowLabel.length; //[TO-DO] dynamically define the number of rows
   
   cellSize=23; //[TO-DO] dynamically define the cell size
 
@@ -26,20 +26,20 @@ function(d) {
 },
 function(error, data) {
   var colorScale = d3.scale.quantile()
-      .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })]) //[TO-DO] adjust the domain for the specific that we have
+      .domain([0, heatmapBuckets - 1, d3.max(data, function (d) { return d.value; })]) //[TO-DO] adjust the domain for the specific that we have
       .range(heatmapColors);
   
   var heatmapSvg = d3.select("#heatmap").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", heatmapWidth + heatmapMargin.left + heatmapMargin.right)
+      .attr("height", heatmapHeight + heatmapMargin.top + heatmapMargin.bottom)
       .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .attr("transform", "translate(" + heatmapMargin.left + "," + heatmapMargin.top + ")")
       ;
   var rowSortOrder=false;
   var colSortOrder=false;
-  var rowLabels = heatmapSvg.append("g")
+  var heatmapRowLabels = heatmapSvg.append("g")
       .selectAll(".rowLabelg")
-      .data(rowLabel)
+      .data(heatmapRowLabel)
       .enter()
       .append("text")
       .text(function (d) { return d; })
@@ -53,9 +53,9 @@ function(error, data) {
       .on("click", function(d,i) {rowSortOrder=!rowSortOrder; sortbylabel("r",i,rowSortOrder);d3.select("#heatmap-order").property("selectedIndex", 1).node().focus();})
       ;
 
-  var colLabels = heatmapSvg.append("g")
+  var heatmapColLabels = heatmapSvg.append("g")
       .selectAll(".colLabelg")
-      .data(colLabel)
+      .data(heatmapColLabel)
       .enter()
       .append("text")
       .text(function (d) { return d; })
@@ -96,19 +96,19 @@ function(error, data) {
                d3.selectAll(".colLabel").classed("text-highlight",function(c,ci){ return ci==(d.col-1);});
         
                //Update the tooltip position and value
-               d3.select("#tooltip")
+               d3.select("#heatmap-tooltip")
                  .style("left", (d3.event.pageX+10) + "px")
                  .style("top", (d3.event.pageY-10) + "px")
-                 .select("#value")
-                 .text("lables:"+rowLabel[d.row-1]+","+colLabel[d.col-1]+"\ndata:"+d.value+"\nrow-col-idx:"+d.col+","+d.row+"\ncell-xy "+this.x.baseVal.value+", "+this.y.baseVal.value);  
+                 .select("#heatmap-value")
+                 .text("Row: " + correlationRowLabel[d.row-1] + " Col: " + correlationColLabel[d.col-1] + " Value: " + d.value);  
                //Show the tooltip
-               d3.select("#tooltip").classed("hidden", false);
+               d3.select("#heatmap-tooltip").classed("hidden", false);
         })
         .on("mouseout", function(){
                d3.select(this).classed("cell-hover",false);
                d3.selectAll(".rowLabel").classed("text-highlight",false);
                d3.selectAll(".colLabel").classed("text-highlight",false);
-               d3.select("#tooltip").classed("hidden", true);
+               d3.select("#heatmap-tooltip").classed("hidden", true);
         });
 
 /* To insert legend uncomment here
@@ -292,7 +292,7 @@ function(error, data) {
              sa.selectAll("rect.selection").remove();
                  // remove temporary selection marker class
              d3.selectAll('.cell-selection').classed("cell-selection", false);
-             d3.selectAll(".rowLabel").classed("text-selected",false);
+             d3.selectAll(".correlationRowLabel").classed("text-selected",false);
              d3.selectAll(".colLabel").classed("text-selected",false);
          }
       })

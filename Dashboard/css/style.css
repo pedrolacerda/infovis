@@ -75,7 +75,7 @@ text.text-highlight {
 text.text-hover {
   fill: #00C;
 }
-#tooltip {
+#correlation-tooltip, #heatmap-tooltip {
   position: absolute;
   width: 200px;
   height: auto;
@@ -88,6 +88,7 @@ text.text-hover {
   -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   pointer-events: none;
+  z-index: 1000;
 }
 
 #tooltip.hidden {
