@@ -33,7 +33,7 @@ $("#map").height(mapHeight);
 var color = d3.scale.quantize().domain([0, 100]).range(colorbrewer.OrRd[7]);	//was 0, 85 - in OPP full range is 0-1970
 
 // THE MAP USES EPSG:4326 OR WGS84 ENCODING (SRS) - USE QGIS TO CHANGE THE FOMAT - THEN SAVE AS WITH NEW ENCODING - THEN SAVE AS JSON
-d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/amsterdam.geojson", function(collection) {		// was: groningen.geojson
+d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geojson
     var bounds = d3.geo.bounds(collection),
     path = d3.geo.path().projection(project);
 
