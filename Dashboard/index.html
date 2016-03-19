@@ -15,6 +15,9 @@
     <![endif]-->
   </head>
   <body>
+    <div id="tooltip" class="hidden">
+          <p><span id="value"></p>
+    </div>
     <div class="row">
     <!-- Left menu -->
       <div id="left-menu" class="col-md-2 panel-group" role="tablist" aria-multiselectable="true">
@@ -240,7 +243,12 @@
         <div class="row">
           <!-- Top chart Widget -->
           <div id="top-widget-container" class="panel panel-default">
-              <div class="panel-body" id="heatmap"></div>
+            Order: 
+            <select id="heatmap-order">
+              <option value="row">by row</option>
+              <option value="column">by column</option>
+            </select>
+            <div class="panel-body" id="heatmap"></div>
           </div>
         </div>
 
@@ -258,7 +266,7 @@
           <div id="bottom-widget-container" class="panel panel-default">
             <div id="correlation" class="panel-body">
                 Order:
-                <select id="order">
+                <select id="orderCorrelation">
                   <option value="name">by Name</option>
                   <option value="count">by Frequency</option>
                   <option value="group">by Cluster</option>

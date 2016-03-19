@@ -12,7 +12,7 @@ var networkSvg = d3.select("#network-diagram").append("svg")
     .attr("width", netDiagWidth)
     .attr("height", netDiagHeight);
 
-d3.json("file:///C:/Users/Pedro/Documents/GitHub/infovis/Dashboard/data/network-diagram.json", function(error, graph) {
+d3.json("data/network-diagram.json", function(error, graph) {
   if (error) throw error;
 
   var networkNodes = graph.nodes.slice(),
