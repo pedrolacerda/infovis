@@ -11,7 +11,8 @@ var mapHeight,
 	heatmapHeightDashboard,
 	networkWidth,
 	networkHeight,
-	correlationSize;
+	correlationWidgetWidth,
+	correlationWidgetHeight;
 
 
 $("#main-chart").height(pageHeight - 10);
@@ -50,9 +51,11 @@ var setCurrentSizeValues = function() {
 	};
 
 	if($("#correlation").parent().attr("id") == "main-chart"){
-		correlationSize = $("#main-chart").height() - 72;
+		correlationWidgetWidth = mainChartWidth;
+		correlationWidgetHeight = $("#main-chart").height() - 72;
 	} else {
-		correlationSize = widgetHeight;
+		correlationWidgetWidth = secondaryChartsWidth;
+		correlationWidgetHeight = widgetHeight;
 	};
 };
 
