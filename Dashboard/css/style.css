@@ -15,7 +15,7 @@ html, body {
 }
 
 path {
-  fill-opacity: .7;
+ /* fill-opacity: .7; */
   stroke: #fff;
   stroke-width: 1.5px;
 }
@@ -75,7 +75,7 @@ text.text-highlight {
 text.text-hover {
   fill: #00C;
 }
-#correlation-tooltip, #heatmap-tooltip {
+#map-tooltip, #correlation-tooltip, #heatmap-tooltip {
   position: absolute;
   width: 200px;
   height: auto;
