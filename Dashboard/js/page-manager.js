@@ -147,7 +147,7 @@ $("#var-interest").change(function() {
 
 // Capture denominator
 $("#denominator").change(function() {
-	visualizationParameters.varInterest = $('#denominator').selectpicker('val');
+	visualizationParameters.denominator = $('#denominator').selectpicker('val');
 });
 
 // Capture year
