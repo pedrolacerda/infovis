@@ -1,25 +1,24 @@
-var heatmapMargin = { top: 50, right: 10, bottom: 50, left: 50 },
+var heatmapMargin = { top: 50, right: 10, bottom: 50, left: 100 },
   heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
-  heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom,
+  heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom;
   //gridSize = Math.floor(width / 24),
   //legendElementWidth = cellSize*2.5,
-  heatmapBuckets = 9,
-  heatmapColors = colorbrewer.OrRd[9]; //[TO-DO] create a dynamic colorbrewer pallet
-  hcrow = [1,2,3,4,5,6,7], // change to gene name or probe id
-  hccol = [1,2,3,4,5,6,7,8,9,10,11,12], // change to gene name or probe id
-  heatmapRowLabel = ["V1", "V2", "V3", "V4", "V5", "V6", "V7"], //[TO-DO] Create a set of variables dynamically, // change to gene name or probe id
-  heatmapColLabel = ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a"]; //[TO-DO] Create a set of nighborhoods dynamically; // change to contrast name
-
-  col_number = heatmapColLabel.length; //[TO-DO] dynamically define the number of columns
-  row_number = heatmapRowLabel.length; //[TO-DO] dynamically define the number of rows
+  var heatmapBuckets = 9;
+  var heatmapColors = colorbrewer.OrRd[9]; //[TO-DO] create a dynamic colorbrewer pallet
+  var hcrow = []; // change to gene name or probe id
+  var hccol = []; // change to gene name or probe id
+  var heatmapRowLabel = [];
+  var heatmapColLabel = [];
+  var col_number;
+  var row_number;
   
   cellSize=23; //[TO-DO] dynamically define the cell size
 
 d3.tsv("data/heatmap.tsv",
-function(d) {
+function(d, i) {
   return {
-    row:   +d.variable,
-    col:   +d.buurt,
+    row:   d.variable,
+    col:   d.buurt,
     value: +d.value,
     normValue: +d.normalizedValue
   };
@@ -28,14 +27,36 @@ function(error, data) {
   var colorScale = d3.scale.quantile()
       .domain([0, heatmapBuckets - 1, d3.max(data, function (d) { return d.value; })]) //[TO-DO] adjust the domain for the specific that we have
       .range(heatmapColors);
-  
+
+  var structuredData = d3.nest()
+          .key(function(d) { return d.row; })
+          .entries(data);
+
+  var temp = structuredData;
+
+  //Insert the row labels
+  for(var i=0; i<structuredData.length; i++){
+    heatmapRowLabel.push(structuredData[i].key);
+    hcrow.push(i+1);
+  }
+
+  //Insert the column labels
+  for(var i=0; i<structuredData[0].values.length; i++){
+    heatmapColLabel.push(structuredData[0].values[i].col);
+    hccol.push(i+1);
+  }
+
+  //Define the number of rows and columns
+  col_number = heatmapColLabel.length;
+  row_number = heatmapRowLabel.length;  
+
   var heatmapSvg = d3.select("#heatmap").append("svg")
       .attr("width", heatmapWidth + heatmapMargin.left + heatmapMargin.right)
       .attr("height", heatmapHeight + heatmapMargin.top + heatmapMargin.bottom)
       .append("g")
       .attr("transform", "translate(" + heatmapMargin.left + "," + heatmapMargin.top + ")")
       ;
-  var rowSortOrder=false;
+  var rowSortOrder=false; 
   var colSortOrder=false;
   var heatmapRowLabels = heatmapSvg.append("g")
       .selectAll(".rowLabelg")
@@ -74,8 +95,8 @@ function(error, data) {
         .data(data,function(d){return d.row+":"+d.col;})
         .enter()
         .append("rect")
-        .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; })
-        .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; })
+        .attr("x", function(d) { return heatmapColLabel.indexOf(d.col) * cellSize; })
+        .attr("y", function(d) { return heatmapRowLabel.indexOf(d.row) * cellSize; })
         .attr("class", function(d){return "cell cell-border cr"+(d.row-1)+" cc"+(d.col-1);})
         .attr("width", cellSize)
         .attr("height", cellSize)
@@ -103,7 +124,7 @@ function(error, data) {
                  .style("left", (d3.event.pageX+10) + "px")
                  .style("top", (d3.event.pageY-10) + "px")
                  .select("#heatmap-value")
-                 .text("Row: " + correlationRowLabel[d.row-1] + " | Col: " + correlationColLabel[d.col-1] + " | Value: " + d.value);  
+                 .text("Row: " + (heatmapRowLabel.indexOf(d.row)+1) + " | Col: " + (heatmapColLabel.indexOf(d.col)+1) + " | Value: " + d.value);  
                //Show the tooltip
                d3.select("#heatmap-tooltip").classed("hidden", false);
         })
@@ -152,10 +173,8 @@ function(error, data) {
 
          sorted=d3.range(col_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
 
-         console.log(sorted);
-
          t.selectAll(".cell")
-           .attr("x", function(d) { return sorted.indexOf(d.col-1) * cellSize; });
+           .attr("x", function(d) { console.log(sorted.indexOf(heatmapColLabel.indexOf(d.col))); return sorted.indexOf(heatmapColLabel.indexOf(d.col)) * cellSize; });
 
          t.selectAll(".colLabel")
           .attr("y", function (d, i) { return sorted.indexOf(i) * cellSize; });
@@ -164,10 +183,8 @@ function(error, data) {
 
         sorted=d3.range(row_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
 
-        console.log(sorted);
-
          t.selectAll(".cell")
-           .attr("y", function(d) { return sorted.indexOf(d.row-1) * cellSize; });
+           .attr("y", function(d) { console.log(sorted.indexOf(heatmapRowLabel.indexOf(d.row))); return sorted.indexOf(heatmapRowLabel.indexOf(d.row)) * cellSize; });
 
          t.selectAll(".rowLabel")
           .attr("y", function (d, i) { return sorted.indexOf(i) * cellSize; });
