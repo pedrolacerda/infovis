@@ -30,16 +30,13 @@ function(error, data) {
   var colorScale = d3.scale.quantile()
       .domain([0, heatmapBuckets - 1, d3.max(data, function (d) { return d.correlations.value; })]) //[TO-DO] adjust to have more colors
       .range(heatmapColors);
-
+      console.log(data);
   //Define the number of rows and columns
   col_number = data.neighborhoods.length;
   row_number = data.variables.length;
 
   hcrow = d3.range(0, row_number);
   hccol = d3.range(0, col_number);
-
-  console.log("row_number: "+row_number);
-  console.log("hcrow: "+hcrow);
 
   for (var i in data.variables){
     heatmapRowLabel.push(data.variables[i].name);
@@ -98,7 +95,7 @@ function(error, data) {
         .append("rect")
         .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; })
         .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; })
-        .attr("class", function(d){return "cell cell-border cr"+(d.row-1)+" cc"+(d.col-1);})
+        .attr("class", function(d){return "cell cell-border cr"+(d.row)+" cc"+(d.col);})
         .attr("width", cellSize)
         .attr("height", cellSize)
         .attr("title", function(d) { return d.normalizedValue })

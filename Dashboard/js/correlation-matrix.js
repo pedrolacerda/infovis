@@ -1,33 +1,38 @@
-var correlationMargin = { top: 30, right: 10, bottom: 30, left: 50 },
+var correlationMargin = { top: 100, right: 10, bottom: 30, left: 100 },
   correlationWidth = correlationWidgetWidth - correlationMargin.left - correlationMargin.right,
   correlationHeight = correlationWidgetHeight - correlationMargin.top - correlationMargin.bottom,
   //gridSize = Math.floor(width / 24),
   //legendElementWidth = cellSize*2.5,
   correlationColors = {red: "#a50026", green: "#006837", black: "#1a1a1a"},
-  corhcrow = [1,2,3,4,5], // change to gene name or probe id
-  corhccol = [1,2,3,4,5], // change to gene name or probe id
-  correlationRowLabel = ["V1", "V2", "V3", "V4", "V5"], //[TO-DO] Create a set of variables dynamically, // change to gene name or probe id
-  correlationColLabel = ["V1", "V2", "V3", "V4", "V5"]; //[TO-DO] Create a set of nighborhoods dynamically; // change to contrast name
-
-  corr_col_number = correlationColLabel.length; //[TO-DO] dynamically define the number of columns
-  corr_row_number = correlationRowLabel.length; //[TO-DO] dynamically define the number of rows
-  
+  corhcrow = [],
+  correlationRowLabel = [],
+  corr_row_number;
   coorelatioinCellSize=40; //[TO-DO] dynamically define the cell size
 
-d3.tsv("data/correlation-matrix.tsv",
-function(d) {
+d3.json("data/correlation-matrix.json",
+/* function(d) {
   return {
     row:   +d.variable1,
     col:   +d.variable2,
     value: +d.value
   };
 },
+*/
 function(error, data) {
 
   /*var colorScale = d3.scale.quantile()
       .domain([0, correlationBuckets - 1, d3.max(data, function (d) { return d.value; })]) //[TO-DO] adjust the domain for the specific that we have
       .range(correlationBuckets);
   */
+  console.log(data);
+  //Define the number of rows and columns
+  corr_row_number = data.variables.length;
+
+  corhcrow = d3.range(0, corr_row_number);
+
+  for (var i in data.variables){
+    correlationRowLabel.push(data.variables[i].name)
+  }
 
   var correlationSvg = d3.select("#correlation").append("svg")
       .attr("width", correlationWidth + correlationMargin.left + correlationMargin.right)
@@ -44,7 +49,7 @@ function(error, data) {
       .append("text")
       .text(function (d) { return d; })
       .attr("x", 0)
-      .attr("y", function (d, i) { return corhcrow.indexOf(i+1) * coorelatioinCellSize; })
+      .attr("y", function (d, i) { return corhcrow.indexOf(i) * coorelatioinCellSize; })
       .style("text-anchor", "end")
       .attr("transform", "translate(-6," + coorelatioinCellSize / 1.5 + ")")
       .attr("class", function (d,i) { return "rowLabel mono r"+i;} ) 
@@ -55,12 +60,12 @@ function(error, data) {
 
   var correlationColLabels = correlationSvg.append("g")
       .selectAll(".colLabelg")
-      .data(correlationColLabel)
+      .data(correlationRowLabel)
       .enter()
       .append("text")
       .text(function (d) { return d; })
       .attr("x", 0)
-      .attr("y", function (d, i) { return corhccol.indexOf(i+1) * coorelatioinCellSize; })
+      .attr("y", function (d, i) { return corhcrow.indexOf(i) * coorelatioinCellSize; })
       .style("text-anchor", "left")
       .attr("transform", "translate("+coorelatioinCellSize/2 + ",-6) rotate (-90)")
       .attr("class",  function (d,i) { return "colLabel mono c"+i;} )
@@ -71,12 +76,12 @@ function(error, data) {
 
   var  correlationMatrix = correlationSvg.append("g").attr("class","g4")
         .selectAll(".cellg")
-        .data(data,function(d){return d.row+":"+d.col;})
+        .data(data.correlations,function(d){return d.row+":"+d.col;})
         .enter()
         .append("rect")
-        .attr("x", function(d) { return corhccol.indexOf(d.col) * coorelatioinCellSize; })
+        .attr("x", function(d) { return corhcrow.indexOf(d.col) * coorelatioinCellSize; })
         .attr("y", function(d) { return corhcrow.indexOf(d.row) * coorelatioinCellSize; })
-        .attr("class", function(d){return "cell cell-border cr"+(d.row-1)+" cc"+(d.col-1);})
+        .attr("class", function(d){return "cell cell-border cr"+(d.row)+" cc"+(d.col);})
         .attr("width", coorelatioinCellSize)
         .attr("height", coorelatioinCellSize)
         .attr("title", function(d) { return d.value; })
@@ -104,7 +109,7 @@ function(error, data) {
                  .style("left", (d3.event.pageX+10) + "px")
                  .style("top", (d3.event.pageY-10) + "px")
                  .select("#correlation-value")
-                 .text("Row: " + correlationRowLabel[d.row-1] + " | Col: " + correlationColLabel[d.col-1] + " | Correlation: " + d.value);  
+                 .text("Row: " + (d.row+1) + " | Col: " + (d.col+1) + " | Correlation: " + d.value);  
                //Show the tooltip
                d3.select("#correlation-tooltip").classed("hidden", false);
         })
@@ -151,10 +156,10 @@ function(error, data) {
 
        if(rORc=="r"){ // sort value of a row
 
-         sorted=d3.range(corr_col_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
+         sorted=d3.range(corr_row_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
 
          t.selectAll(".cell")
-           .attr("x", function(d) { console.log(sorted.indexOf(d.col-1)); return sorted.indexOf(d.col-1) * coorelatioinCellSize; });
+           .attr("x", function(d) { console.log(sorted.indexOf(d.col)); return sorted.indexOf(d.col) * coorelatioinCellSize; });
 
          t.selectAll(".colLabel")
           .attr("y", function (d, i) { return sorted.indexOf(i) * coorelatioinCellSize; });
@@ -164,7 +169,7 @@ function(error, data) {
         sorted=d3.range(corr_row_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
 
          t.selectAll(".cell")
-           .attr("y", function(d) { console.log(sorted.indexOf(d.row-1)); return sorted.indexOf(d.row-1) * coorelatioinCellSize; });
+           .attr("y", function(d) { console.log(sorted.indexOf(d.row)); return sorted.indexOf(d.row) * coorelatioinCellSize; });
 
          t.selectAll(".rowLabel")
           .attr("y", function (d, i) { return sorted.indexOf(i) * coorelatioinCellSize; });
@@ -182,7 +187,7 @@ function(error, data) {
 
     var t = correlationSvg.transition().duration(3000);
     t.selectAll(".cell")
-      .attr("y", function(d) { return (d.row - 1) * coorelatioinCellSize; });
+      .attr("y", function(d) { return (d.row) * coorelatioinCellSize; });
 
     t.selectAll(".rowLabel")
       .attr("y", function (d, i) { return i * coorelatioinCellSize; });
@@ -191,7 +196,7 @@ function(error, data) {
 
     var t = correlationSvg.transition().duration(3000);
     t.selectAll(".cell")
-      .attr("x", function(d) { return (d.col - 1) * coorelatioinCellSize; });
+      .attr("x", function(d) { return (d.col) * coorelatioinCellSize; });
 
     t.selectAll(".colLabel")
       .attr("y", function (d, i) { return i * coorelatioinCellSize; });
