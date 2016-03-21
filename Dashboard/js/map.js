@@ -53,16 +53,7 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
              return color(Math.random() * 100);				// was: P_EENP_HH
         })
         .attr("class", "unselected")
-        .style("fill-opacity", "0.7")
-        .append("title");
-
-    feature
-        .select("title")
-        .text(function(d) {
-            // geef iedere buurt een titel met de buurtnaam en het percentage eenpersoonshuishoudens
-            return d.properties.BU_CODE + ": " + d.properties.BU_NAME.toString();		//was: BU_NAAM 	//was: P_EENP_HH
-			//return d.properties.BCNAAM;		//was: BU_NAAM 	//was: P_EENP_HH
-        });
+        .style("fill-opacity", "0.7");
 
     feature
         .on("click", function(d){
@@ -77,6 +68,25 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
             }
 
         });
+    feature
+        .on("mouseover", function(d){
+        
+               //Update the tooltip position and value
+               d3.select("#map-tooltip")
+                 .style("left", (d3.event.pageX+10) + "px")
+                 .style("top", (d3.event.pageY-10) + "px")
+                 .select("#map-value")
+                 .text("Code: " + d.properties.BU_CODE + " | Neighborhood: " + d.properties.BU_NAME.toString());  
+
+               //Show the tooltip
+               d3.select("#map-tooltip").classed("hidden", false);
+        })
+        .on("mouseout", function(){
+               d3.select(this).classed("cell-hover",false);
+               //d3.selectAll(".rowLabel").classed("text-highlight",false);
+               //d3.selectAll(".colLabel").classed("text-highlight",false);
+               d3.select("#map-tooltip").classed("hidden", true);
+        })
             
     map.on("viewreset", reset);
     reset();

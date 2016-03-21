@@ -75,7 +75,7 @@ text.text-highlight {
 text.text-hover {
   fill: #00C;
 }
-#map-tooltip, #correlation-tooltip, #heatmap-tooltip {
+#network-tooltip, #map-tooltip, #correlation-tooltip, #heatmap-tooltip {
   position: absolute;
   width: 200px;
   height: auto;

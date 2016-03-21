@@ -50,7 +50,7 @@ function(error, data) {
       .attr("class", function (d,i) { return "rowLabel mono r"+i;} ) 
       .on("mouseover", function(d) {d3.select(this).classed("text-hover",true);})
       .on("mouseout" , function(d) {d3.select(this).classed("text-hover",false);})
-      .on("click", function(d,i) {rowSortOrder=!rowSortOrder; sortbylabel("r",i,rowSortOrder);d3.select("#correlation-order").property("selectedIndex", 1).node().focus();})
+      .on("click", function(d,i) {rowSortOrder=!rowSortOrder; sortCorrBylabel("r",i,rowSortOrder);d3.select("#correlation-order").property("selectedIndex", 1).node().focus();})
       ;
 
   var correlationColLabels = correlationSvg.append("g")
@@ -66,7 +66,7 @@ function(error, data) {
       .attr("class",  function (d,i) { return "colLabel mono c"+i;} )
       .on("mouseover", function(d) {d3.select(this).classed("text-hover",true);})
       .on("mouseout" , function(d) {d3.select(this).classed("text-hover",false);})
-      .on("click", function(d,i) {colSortOrder=!colSortOrder;  sortbylabel("c",i,colSortOrder);d3.select("#correlation-order").property("selectedIndex", 1).node().focus();})
+      .on("click", function(d,i) {colSortOrder=!colSortOrder;  sortCorrBylabel("c",i,colSortOrder);d3.select("#correlation-order").property("selectedIndex", 1).node().focus();})
       ;
 
   var  correlationMatrix = correlationSvg.append("g").attr("class","g4")
@@ -139,7 +139,7 @@ function(error, data) {
 
 // Change ordering of cells
 
-  function sortbylabel(rORc,i,sortOrder){
+  function sortCorrBylabel(rORc,i,sortOrder){
 
        var t = correlationSvg.transition().duration(3000);
        var log2r=[];
@@ -153,10 +153,8 @@ function(error, data) {
 
          sorted=d3.range(corr_col_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
 
-         console.log(sorted);
-
          t.selectAll(".cell")
-           .attr("x", function(d) { return sorted.indexOf(d.col-1) * coorelatioinCellSize; });
+           .attr("x", function(d) { console.log(sorted.indexOf(d.col-1)); return sorted.indexOf(d.col-1) * coorelatioinCellSize; });
 
          t.selectAll(".colLabel")
           .attr("y", function (d, i) { return sorted.indexOf(i) * coorelatioinCellSize; });
@@ -165,10 +163,8 @@ function(error, data) {
 
         sorted=d3.range(corr_row_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
 
-        console.log(sorted);
-
          t.selectAll(".cell")
-           .attr("y", function(d) { return sorted.indexOf(d.row-1) * coorelatioinCellSize; });
+           .attr("y", function(d) { console.log(sorted.indexOf(d.row-1)); return sorted.indexOf(d.row-1) * coorelatioinCellSize; });
 
          t.selectAll(".rowLabel")
           .attr("y", function (d, i) { return sorted.indexOf(i) * coorelatioinCellSize; });
