@@ -30,7 +30,6 @@ d3.json("data/network-diagram.json", function(error, graph) {
     bilinks.push([s, i, t, f]);
   });
 
-  //console.log(bilinks);
 
   force
       .nodes(networkNodes)
@@ -49,6 +48,24 @@ d3.json("data/network-diagram.json", function(error, graph) {
       .attr("class", "node")
       .attr("r", function(d) { return d.size }) // [TO-DO] change here to adapt circle size regarding to the correlation
       .style("fill", function(d) { return netDiagColor(d.group); })
+      .on("mouseover", function(d){
+        
+               //Update the tooltip position and value
+               d3.select("#network-tooltip")
+                 .style("left", (d3.event.pageX+10) + "px")
+                 .style("top", (d3.event.pageY-10) + "px")
+                 .select("#network-value")
+                 .text("Neigborhood: " + d.name + " | Value: " + d.value);  
+
+               //Show the tooltip
+               d3.select("#network-tooltip").classed("hidden", false);
+        })
+        .on("mouseout", function(){
+               d3.select(this).classed("cell-hover",false);
+               //d3.selectAll(".rowLabel").classed("text-highlight",false);
+               //d3.selectAll(".colLabel").classed("text-highlight",false);
+               d3.select("#network-tooltip").classed("hidden", true);
+        })
       .call(force.drag);
 
   node.append("title")

@@ -51,7 +51,9 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
 
              // puts the color for neighborhood that suits in a class
              return color(Math.random() * 100);				// was: P_EENP_HH
-        })            
+        })
+        .attr("class", "unselected")
+        .style("fill-opacity", "0.7")
         .append("title");
 
     feature
@@ -60,6 +62,20 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
             // geef iedere buurt een titel met de buurtnaam en het percentage eenpersoonshuishoudens
             return d.properties.BU_CODE + ": " + d.properties.BU_NAME.toString();		//was: BU_NAAM 	//was: P_EENP_HH
 			//return d.properties.BCNAAM;		//was: BU_NAAM 	//was: P_EENP_HH
+        });
+
+    feature
+        .on("click", function(d){
+
+            //if the area is not selected
+            if(!d3.select(this).classed("selected")){
+                d3.select(this).style("fill-opacity", "1");
+                d3.select(this).attr("class","selected");
+            } else {
+                d3.select(this).style("fill-opacity", "0.7");
+                d3.select(this).attr("class","unselected");
+            }
+
         });
             
     map.on("viewreset", reset);

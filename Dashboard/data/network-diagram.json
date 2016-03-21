@@ -8,7 +8,15 @@
     { "name": "buurt5", "group":  3, "size": 5 },
     { "name": "buurt6", "group":  2, "size": 9 },
     { "name": "buurt7", "group":  1, "size": 10 },
-    { "name": "buurt8", "group":  4, "size": 4 }
+    { "name": "buurt8", "group":  4, "size": 4 },
+    { "name": "buurt9", "group":  4, "size": 2 },
+    { "name": "buurt10", "group":  3, "size": 9 },
+    { "name": "buurt11", "group":  2, "size": 3 },
+    { "name": "buurt12", "group":  1, "size": 2 },
+    { "name": "buurt13", "group":  4, "size": 5 },
+    { "name": "buurt14", "group":  3, "size": 6 },
+    { "name": "buurt15", "group":  2, "size": 7 },
+    { "name": "buurt16", "group":  1, "size": 8 }
   ],
 
   "links":  
@@ -24,6 +32,25 @@
     { "source":  2,  "target":  5,  "value": 6 },
     { "source":  3,  "target":  7,  "value": 9 },
     { "source":  4,  "target":  6,  "value": 1 },
-    { "source":  6,  "target":  8,  "value": 5 }
+    { "source":  6,  "target":  8,  "value": 5 },
+    { "source":  6,  "target":  11,  "value": 5 },
+    { "source":  6,  "target":  13,  "value": 3 },
+    { "source":  6,  "target":  9,  "value": 6 },
+    { "source":  7,  "target":  8,  "value": 9 },
+    { "source":  7,  "target":  11,  "value": 2 },
+    { "source":  7,  "target":  13,  "value": 4 },
+    { "source":  7,  "target":  14,  "value": 1 },
+    { "source":  13,  "target":  11,  "value": 7 },
+    { "source":  13,  "target":  2,  "value": 8 },
+    { "source":  13,  "target":  3,  "value": 3 },
+    { "source":  13,  "target":  4,  "value": 4 },
+    { "source":  13,  "target":  5,  "value": 7 },
+    { "source":  10,  "target":  1,  "value": 8 },
+    { "source":  10,  "target":  2,  "value": 5 },
+    { "source":  10,  "target":  3,  "value": 6 },
+    { "source":  10,  "target":  4,  "value": 4 },
+    { "source":  12,  "target":  8,  "value": 2 },
+    { "source":  11,  "target":  8,  "value": 3 },
+    { "source":  14,  "target":  15,  "value": 2 }
   ]
 }
