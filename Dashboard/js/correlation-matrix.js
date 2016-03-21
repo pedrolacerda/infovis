@@ -153,6 +153,8 @@ function(error, data) {
 
          sorted=d3.range(corr_col_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
 
+         console.log(sorted);
+
          t.selectAll(".cell")
            .attr("x", function(d) { console.log(sorted.indexOf(d.col-1)); return sorted.indexOf(d.col-1) * coorelatioinCellSize; });
 

@@ -68,6 +68,9 @@ d3.json("data/network-diagram.json", function(error, graph) {
         })
       .call(force.drag);
 
+  node.append("title")
+      .text(function(d) { return d.name; });
+
   force.on("tick", function() {
     link.attr("d", function(d) {
       return "M" + d[0].x + "," + d[0].y
