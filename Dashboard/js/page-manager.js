@@ -216,7 +216,7 @@ var setCurrentSizeValues = function() {
 		correlationWidgetHeight = $("#main-chart").height() - 72;
 	} else {
 		correlationWidgetWidth = secondaryChartsWidth;
-		correlationWidgetHeight = widgetHeight;
+		correlationWidgetHeight = widgetHeight+150;
 	};
 };
 
