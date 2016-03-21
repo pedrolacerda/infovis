@@ -104,10 +104,13 @@ function(error, data) {
         .style("fill", function(d) { return colorScale(d.value); })
         /*.on("click", function(d) {
                var rowtext=d3.select(".r"+(d.row-1));
+               console.log(d.row-1);
                if(rowtext.classed("text-selected")==false){
-                   rowtext.classed("text-selected",true);
+                    rowtext.classed("text-selected",true);
+                    d3.select(this).classed("cell-selected", true);
                }else{
-                   rowtext.classed("text-selected",false);
+                    rowtext.classed("text-selected",false);
+                    d3.select(this).classed("cell-selected", false);
                }
         })*/
         .on("mouseover", function(d){
@@ -121,11 +124,7 @@ function(error, data) {
                  .style("left", (d3.event.pageX+10) + "px")
                  .style("top", (d3.event.pageY-10) + "px")
                  .select("#heatmap-value")
-<<<<<<< HEAD
                  .text("Row: " + (heatmapRowLabel.indexOf(d.row)+1) + " | Col: " + (heatmapColLabel.indexOf(d.col)+1) + " | Value: " + d.value);  
-=======
-                 .text("Row: " + correlationRowLabel[d.row-1] + " Col: " + correlationColLabel[d.col-1] + " Value: " + d.value);  
->>>>>>> parent of 116f84b... Left menu capturing all events and data
                //Show the tooltip
                d3.select("#heatmap-tooltip").classed("hidden", false);
         })

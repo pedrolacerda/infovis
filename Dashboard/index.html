@@ -21,15 +21,12 @@
   <div id="correlation-tooltip" class="hidden">
     <p><span id="correlation-value"></p>
   </div>
-<<<<<<< HEAD
   <div id="map-tooltip" class="hidden">
     <p><span id="map-value"></p>
   </div>
   <div id="network-tooltip" class="hidden">
     <p><span id="network-value"></p>
   </div>
-=======
->>>>>>> parent of 116f84b... Left menu capturing all events and data
   <body>
     <div class="row">
     <!-- Left menu -->
@@ -45,29 +42,55 @@
         <div class="panel panel-info">
           <div class="panel-heading" role="tab" id="headingCat1">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category1" aria-expanded="false" aria-controls="collapseOne">
-              Category 1
+              Economic
             </a>
           </div>
           <div id="category1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat1">
             <div class="panel-body">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 1
+                  <input type="checkbox" id="economic-check-all"> Select/deselect all
+                </label>
+                <hr class="divider">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="GP"> Number of General Practitionner
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 2
+                  <input type="checkbox" class="economic-checkbox" value="PHARM"> Number of Pharmacies
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 3
+                  <input type="checkbox" class="economic-checkbox" value="BUSIN"> Number of Businesses
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 4
+                  <input type="checkbox" class="economic-checkbox" value="EMPLOY"> Employment
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_15-34"> Unemployment Benefits for population 15-34 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_35-54"> Unemployment Benefits for population 35-54 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_55-65"> Unemployment Benefits for population 55-65 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="PROP_VALUE_*1000"> Average Property Value (x1000)
                 </label>
               </div>
             </div>
@@ -75,29 +98,95 @@
 
           <div class="panel-heading" role="tab" id="headingCat2">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category2" aria-expanded="false" aria-controls="collapseOne">
-              Category 2
+              Infrastructural
             </a>
           </div>
           <div id="category2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat2">
             <div class="panel-body">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 1
+                  <input type="checkbox" id="infra-check-all"> Select/deselect all
+                </label>
+                <hr class="divider">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="RECR_TERR"> Size Recreational Terrain
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 2
+                  <input type="checkbox" class="infra-checkbox" value="AGRI_TERR"> Size Agriarian Terrain
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 3
+                  <input type="checkbox" class="infra-checkbox" value="HOUS"> Housing
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 4
+                  <input type="checkbox" class="infra-checkbox" value="AVG_OCC"> Average Occupancy
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="AVG_SIZE">  Average Size of Houses 
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="AVG_HOUS">  Average Size of Houses 
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="%OWN_OCC">  Percentage Owner Occupied housing
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="AVG_LENGTH_STAY">  Average Length of Stay
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="%LOW_INC_HOUS">  Percentage Low Income Housing
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="SCHOOLS_2015">  Number of Schools
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="HOUSE_FOREC_2015">  Forecast Number of Houses in 2015
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="HOUSE_FOREC_2020">  Forecast Number of Houses in 2020
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="HOUSE_FOREC_2025">  Forecast Number of Houses in 2025
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="HOUSE_FOREC_2030">  Forecast Number of Houses in 2030
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="HOUSE_FOREC_2035">  Forecast Number of Houses in 2035
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="infra-checkbox" value="TOT_INHAB_ADD">  Number of Inhabited Addresses
                 </label>
               </div>
             </div>
@@ -105,29 +194,175 @@
 
           <div class="panel-heading" role="tab" id="headingCat3">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category3" aria-expanded="false" aria-controls="collapseOne">
-              Category 3
+              Social
             </a>
           </div>
           <div id="category3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat3">
             <div class="panel-body">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 1
+                  <input type="checkbox" id="social-check-all"> Select/deselect all
+                </label>
+                <hr class="divider">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="CRIMES"> Number of Crimes
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 2
+                  <input type="checkbox" class="social-checkbox" value="SAFETY_RATE"> Safety Rate
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 3
+                  <input type="checkbox" class="social-checkbox" value="CRIME_RATE"> Crime Rate
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Property 4
+                  <input type="checkbox" class="social-checkbox" value="POP"> Population City
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="%NON-WEST"> Percentage Non-Westerners
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="%65PLUS"> Percentage >65y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="%FAM_KIDS"> Percentage Families with Kids
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_2020"> Expected Population 2020
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="AVG_DISP_INC"> Average Disposable Income
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_0-3"> Population Aged 0-3 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_4-12"> Population Aged 4-12 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_13-17"> Population Aged 13-17 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_18-22"> Population Aged 18-22 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_23-24"> Population Aged 23-24 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_25-49"> Population Aged 25-49 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_50-64"> Population Aged 50-64 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="POP_65"> Population Aged >65y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="SURIN"> Surinamese Population
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="ANTIL"> Antilleans Population
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="TURK"> Turkish Population
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="MAROK"> Marroccan Population
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="NON_WEST_IMM"> Non_Western Immigrant Population
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="WEST_IMM"> Western Immigrant Population
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="AUTOCH"> Autochthonous Population
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" alue="LESS_1_RES"> Population Residing in Buurt for less than 1 year
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="TIME_1-4_RES"> Population Residing in Buurt for 1-4 years
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="TIME_5-9_RES"> Population Residing in Buurt for 5-9 years
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="TIME_10-14_RES"> Population Residing in Buurt for 10-14 years
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="TIME_15-19_RES"> Population Residing in Buurt for 15-19 years
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="TIME_20-24_RES"> Population Residing in Buurt for 20-24 years
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="PLUS_25_RES"> Population Residing in Buurt for more than 25 years
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="social-checkbox" value="BIRTH"> Number of Births
                 </label>
               </div>
             </div>
@@ -183,7 +418,7 @@
           </div>
           <div id="year" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingYear">
             <div class="panel-body">
-              <input id="slider" data-slider-id='yearSlider' type="text" data-slider-min="2011" data-slider-max="2015" data-slider-step="1" data-slider-value="2013"/>
+              <input id="slider" data-slider-id='yearSlider' type="text" data-slider-ticks="[2011, 2012, 2013, 2014, 2015]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["2011", "2012", "2013", "2014", "2015"]'/>
             </div> 
           </div><!-- /Select Year-->
 
@@ -197,22 +432,493 @@
             <div class="panel-body">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"> Buurt 1
+                  <input type="checkbox" id="neighborhoods-check-all" checked="checked"> Select/deselect all
+                </label>
+                <hr class="divider">
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='A00' class='buurt-checkbox'> Burgwallen-Oude Zijde
                 </label>
               </div>
-              <div class="checkbox">
+              <div class='checkbox'>
                 <label>
-                  <input type="checkbox"> Buurt 2
+                  <input type='checkbox' value='A01' class='buurt-checkbox'> Burgwallen-Nieuwe Zijde
                 </label>
               </div>
-              <div class="checkbox">
+              <div class='checkbox'>
                 <label>
-                  <input type="checkbox"> Buurt 3
+                  <input type='checkbox' value='A02' class='buurt-checkbox'> Grachtengordel-West
                 </label>
               </div>
-              <div class="checkbox">
+              <div class='checkbox'>
                 <label>
-                  <input type="checkbox"> Buurt 4
+                  <input type='checkbox' value='A03' class='buurt-checkbox'> Grachtengordel-Zuid
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='A04' class='buurt-checkbox'> Nieuwmarkt/Lastage
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='A05' class='buurt-checkbox'> Haarlemmerbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='A06' class='buurt-checkbox'> Jordaan
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='A07' class='buurt-checkbox'> De Weteringschans
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='A08' class='buurt-checkbox'> Weesperbuurt/Plantage
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='A09' class='buurt-checkbox'> Oostelijke Eilanden/Kadijken
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='B10' class='buurt-checkbox'> Westelijk Havengebied
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='B11' class='buurt-checkbox'> Bedrijventerrein Sloterdijk
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E12' class='buurt-checkbox'> Houthavens
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E13' class='buurt-checkbox'> Spaarndammer- en Zeeheldenbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E14' class='buurt-checkbox'> Staatsliedenbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E15' class='buurt-checkbox'> Centrale Markt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E16' class='buurt-checkbox'> Frederik Hendrikbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E17' class='buurt-checkbox'> Da Costabuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E18' class='buurt-checkbox'> Kinkerbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E19' class='buurt-checkbox'> Van Lennepbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E20' class='buurt-checkbox'> Helmersbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E21' class='buurt-checkbox'> Overtoomse Sluis
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E22' class='buurt-checkbox'> Vondelbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E36' class='buurt-checkbox'> Sloterdijk
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E37' class='buurt-checkbox'> Landlust
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E38' class='buurt-checkbox'> Erasmuspark
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E39' class='buurt-checkbox'> De Kolenkit
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E40' class='buurt-checkbox'> De Krommert
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E41' class='buurt-checkbox'> Van Galenbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E42' class='buurt-checkbox'> Hoofdweg e.o.
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='E43' class='buurt-checkbox'> Westindische Buurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F75' class='buurt-checkbox'> Spieringhorn
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F76' class='buurt-checkbox'> Slotermeer-Noordoost
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F77' class='buurt-checkbox'> Slotermeer-Zuidwest
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F78' class='buurt-checkbox'> Geuzenveld
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F79' class='buurt-checkbox'> Eendracht
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F80' class='buurt-checkbox'> Lutkemeer/Ookmeer
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F81' class='buurt-checkbox'> Osdorp-Oost
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F82' class='buurt-checkbox'> Osdorp-Midden
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F83' class='buurt-checkbox'> De Punt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F84' class='buurt-checkbox'> Middelveldsche Akerpolder/Sloten
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F85' class='buurt-checkbox'> Slotervaart
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F86' class='buurt-checkbox'> Overtoomse Veld
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F87' class='buurt-checkbox'> Westlandgracht
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='F88' class='buurt-checkbox'> Sloter-/Riekerpolder
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K24' class='buurt-checkbox'> Oude Pijp
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K25' class='buurt-checkbox'> Nieuwe Pijp
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K26' class='buurt-checkbox'> Diamantbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K44' class='buurt-checkbox'> Hoofddorppleinbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K45' class='buurt-checkbox'> Schinkelbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K46' class='buurt-checkbox'> Willemspark
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K47' class='buurt-checkbox'> Museumkwartier
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K48' class='buurt-checkbox'> Stadionbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K49' class='buurt-checkbox'> Apollobuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K50' class='buurt-checkbox'> Duivelseiland
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K52' class='buurt-checkbox'> Scheldebuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K53' class='buurt-checkbox'> IJselbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K54' class='buurt-checkbox'> Rijnbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K59' class='buurt-checkbox'> Station Zuid/WTC e.o.
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K90' class='buurt-checkbox'> Buitenveldert-West
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='K91' class='buurt-checkbox'> Buitenveldert-Oost
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M27' class='buurt-checkbox'> Weesperzijde
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M28' class='buurt-checkbox'> Oosterparkbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M29' class='buurt-checkbox'> Dapperbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M30' class='buurt-checkbox'> Transvaalbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M31' class='buurt-checkbox'> Indische Buurt West
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M32' class='buurt-checkbox'> Indische Buurt Oost
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M33' class='buurt-checkbox'> Oostelijk Havengebied
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M34' class='buurt-checkbox'> Zeeburgereiland/Nieuwe Diep
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M35' class='buurt-checkbox'> IJburg West
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M51' class='buurt-checkbox'> IJburg Zuid
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M55' class='buurt-checkbox'> Frankendael
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M56' class='buurt-checkbox'> Middenmeer
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M57' class='buurt-checkbox'> Betondorp
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M58' class='buurt-checkbox'> De Omval
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='M74' class='buurt-checkbox'> IJburg Oost
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N60' class='buurt-checkbox'> Volewijck
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N61' class='buurt-checkbox'> IJplein/Vogelbuurt
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N62' class='buurt-checkbox'> Tuindorp Nieuwendam
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N63' class='buurt-checkbox'> Tuindorp Buiksloot
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N64' class='buurt-checkbox'> Nieuwendammerdijk / Buiksloterdijk
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N65' class='buurt-checkbox'> Tuindorp Oostzaan
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N66' class='buurt-checkbox'> Oostzanerwerf
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N67' class='buurt-checkbox'> Kadoelen
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N68' class='buurt-checkbox'> Nieuwendam-Noord
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N69' class='buurt-checkbox'> Buikslotermeer
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N70' class='buurt-checkbox'> Banne Buiksloot
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N71' class='buurt-checkbox'> Buiksloterham
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N72' class='buurt-checkbox'> Nieuwendammerham
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='N73' class='buurt-checkbox'> Waterland
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='T92' class='buurt-checkbox'> Amstel III/Bullewijk
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='T93' class='buurt-checkbox'> Bijlmer Centrum (D,F,H)
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='T94' class='buurt-checkbox'> Bijlmer Oost (E,G,K)
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='T95' class='buurt-checkbox'> Nellestein
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='T96' class='buurt-checkbox'> Holendrecht/Reigersbos
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='T97' class='buurt-checkbox'> Gein
+                </label>
+              </div>
+              <div class='checkbox'>
+                <label>
+                  <input type='checkbox' value='T98' class='buurt-checkbox'> Driemond
                 </label>
               </div>
             </div>
@@ -226,7 +932,7 @@
                 Transformation
             </div>
             <div class="panel-body">
-              <select id="transformations" class="selectpicker" multiple data-max-options="2" title="Select transformation" data-width="auto">
+              <select id="transformations" class="selectpicker" data-max-options="1" title="Select transformation" data-width="auto">
                 <option value="sum">Somatorium</option>
                 <option value="med">Median</option>
                 <option value="avg">Average</option>
@@ -256,11 +962,13 @@
         <div class="row">
           <!-- Top chart Widget -->
           <div id="top-widget-container" class="panel panel-default">
-            Order: 
-            <select id="heatmap-order">
-              <option value="row">by row</option>
-              <option value="column">by column</option>
-            </select>
+            <div id="heatmap-orderer">
+              Order: 
+              <select id="heatmap-order">
+                <option value="row">by row</option>
+                <option value="column">by column</option>
+              </select>
+            </div>
             <div class="panel-body" id="heatmap"></div>
           </div>
         </div>
@@ -277,11 +985,13 @@
         <div class="row">
           <!-- Bottom chart Widget -->
           <div id="bottom-widget-container" class="panel panel-default">
+              <div id="correlation-orderer">
               Order: 
               <select id="correlation-order">
                 <option value="row">by row</option>
                 <option value="column">by column</option>
               </select>
+            </div>
               <div class="panel-body" id="correlation"></div>
           </div>
         </div>

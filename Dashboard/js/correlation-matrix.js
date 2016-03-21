@@ -104,7 +104,7 @@ function(error, data) {
                  .style("left", (d3.event.pageX+10) + "px")
                  .style("top", (d3.event.pageY-10) + "px")
                  .select("#correlation-value")
-                 .text("Row: " + correlationRowLabel[d.row-1] + " Col: " + correlationColLabel[d.col-1] + " Correlation: " + d.value);  
+                 .text("Row: " + correlationRowLabel[d.row-1] + " | Col: " + correlationColLabel[d.col-1] + " | Correlation: " + d.value);  
                //Show the tooltip
                d3.select("#correlation-tooltip").classed("hidden", false);
         })
@@ -257,7 +257,7 @@ function(error, data) {
              d3.selectAll('.cell-selection.cell-selected').classed("cell-selected", false);
              d3.selectAll(".text-selection.text-selected").classed("text-selected",false);
 
-             d3.selectAll('.cell').filter(function(cell_d, i) {
+             d3.selectAll('.cell').filter(function(cell_d, i) { //[TO-DO] Implement here the selection of a square in the chart
                  if(
                      !d3.select(this).classed("cell-selected") && 
                          // inner circle inside selection frame
