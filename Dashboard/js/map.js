@@ -53,16 +53,7 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
              return color(Math.random() * 100);				// was: P_EENP_HH
         })
         .attr("class", "unselected")
-        .style("fill-opacity", "0.7")
-        .append("title");
-
-    feature
-        .select("title")
-        .text(function(d) {
-            // geef iedere buurt een titel met de buurtnaam en het percentage eenpersoonshuishoudens
-            return d.properties.BU_CODE + ": " + d.properties.BU_NAME.toString();		//was: BU_NAAM 	//was: P_EENP_HH
-			//return d.properties.BCNAAM;		//was: BU_NAAM 	//was: P_EENP_HH
-        });
+        .style("fill-opacity", "0.7");
 
     feature
         .on("click", function(d){
