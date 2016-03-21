@@ -77,6 +77,25 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
             }
 
         });
+    feature
+        .on("mouseover", function(d){
+        
+               //Update the tooltip position and value
+               d3.select("#map-tooltip")
+                 .style("left", (d3.event.pageX+10) + "px")
+                 .style("top", (d3.event.pageY-10) + "px")
+                 .select("#map-value")
+                 .text("Code: " + d.properties.BU_CODE + " | Neighborhood: " + d.properties.BU_NAME.toString());  
+
+               //Show the tooltip
+               d3.select("#map-tooltip").classed("hidden", false);
+        })
+        .on("mouseout", function(){
+               d3.select(this).classed("cell-hover",false);
+               //d3.selectAll(".rowLabel").classed("text-highlight",false);
+               //d3.selectAll(".colLabel").classed("text-highlight",false);
+               d3.select("#map-tooltip").classed("hidden", true);
+        })
             
     map.on("viewreset", reset);
     reset();

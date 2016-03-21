@@ -55,7 +55,7 @@ d3.json("data/network-diagram.json", function(error, graph) {
                  .style("left", (d3.event.pageX+10) + "px")
                  .style("top", (d3.event.pageY-10) + "px")
                  .select("#network-value")
-                 .text("Neigborhood: " + d.name + " | Value: " + d.value);  
+                 .text("Neigborhood: " + d.name + " | Value: " + d.size);  
 
                //Show the tooltip
                d3.select("#network-tooltip").classed("hidden", false);
