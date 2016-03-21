@@ -30,6 +30,7 @@ d3.json("data/network-diagram.json", function(error, graph) {
     bilinks.push([s, i, t, f]);
   });
 
+  //console.log(bilinks);
 
   force
       .nodes(networkNodes)

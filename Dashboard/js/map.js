@@ -51,9 +51,7 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
 
              // puts the color for neighborhood that suits in a class
              return color(Math.random() * 100);				// was: P_EENP_HH
-        })
-        .attr("class", "unselected")
-        .style("fill-opacity", "0.7")
+        })            
         .append("title");
 
     feature
@@ -63,6 +61,7 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
             return d.properties.BU_CODE + ": " + d.properties.BU_NAME.toString();		//was: BU_NAAM 	//was: P_EENP_HH
 			//return d.properties.BCNAAM;		//was: BU_NAAM 	//was: P_EENP_HH
         });
+<<<<<<< HEAD
 
     feature
         .on("click", function(d){
@@ -96,6 +95,8 @@ d3.json("data/amsterdam.geojson", function(collection) {		// was: groningen.geoj
                //d3.selectAll(".colLabel").classed("text-highlight",false);
                d3.select("#map-tooltip").classed("hidden", true);
         })
+=======
+>>>>>>> parent of 116f84b... Left menu capturing all events and data
             
     map.on("viewreset", reset);
     reset();

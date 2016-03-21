@@ -15,7 +15,7 @@ html, body {
 }
 
 path {
- /* fill-opacity: .7; */
+  fill-opacity: .7;
   stroke: #fff;
   stroke-width: 1.5px;
 }
@@ -75,7 +75,11 @@ text.text-highlight {
 text.text-hover {
   fill: #00C;
 }
+<<<<<<< HEAD
 #network-tooltip, #map-tooltip, #correlation-tooltip, #heatmap-tooltip {
+=======
+#correlation-tooltip, #heatmap-tooltip {
+>>>>>>> parent of 116f84b... Left menu capturing all events and data
   position: absolute;
   width: 200px;
   height: auto;

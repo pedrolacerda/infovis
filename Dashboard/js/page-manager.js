@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var visualizationParameters = {
 	properties: [], // List of properties
 	varInterest: "", //Variable of Interest
@@ -161,6 +162,8 @@ $("#transformations").change(function() {
 	console.log(visualizationParameters.transformation)
 });
 
+=======
+>>>>>>> parent of 116f84b... Left menu capturing all events and data
 var pageHeight = $( window ).height();
 
 var widgetHeight = pageHeight/3;
@@ -185,6 +188,8 @@ var swapWidgets = function(id1, id2){
 }
 
 /*
+	This function is the most perfect example of what not to do. But it works.
+
 	It sets the right Height and Width for each widget given its position on the screen.
 */
 var setCurrentSizeValues = function() {
