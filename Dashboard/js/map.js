@@ -34,7 +34,7 @@ function plotMap(mapJson, selectedProperty){
     $("#map").height(mapHeight);
         
     // Verdeel het domein van de waarden in 7 klassen en ken deze een kleur toe op basis van ColorBrewer
-    var color = d3.scale.quantize().domain([0, 100]).range(colorbrewer.OrRd[9]);	//was 0, 85 - in OPP full range is 0-1970
+   // var color = d3.scale.quantize().domain([0, 100]).range(colorbrewer.OrRd[9]);	//was 0, 85 - in OPP full range is 0-1970
 
     // THE MAP USES EPSG:4326 OR WGS84 ENCODING (SRS) - USE QGIS TO CHANGE THE FOMAT - THEN SAVE AS WITH NEW ENCODING - THEN SAVE AS JSON
     d3.json(mapJson, function(collection) {		// was: groningen.geojson
@@ -50,15 +50,19 @@ function plotMap(mapJson, selectedProperty){
 
         var feature = g.selectAll("path")
             .data(collection.features);
-            
+
         feature
             .enter()
             .append("path")
             .attr("fill", function(d) {
-                 return color(d.properties[selectedProperty]);
+              if(visualizationParameters.neighborhoods.indexOf(d.properties.BU_CODE) != -1){
+                return color(d.properties[selectedProperty]);
+              } else {
+                return "black";
+              }
+                
             })
             .attr("neighborhood", function(d) {return d.properties.BU_CODE; })
-            //.style("fill-opacity", "0.7");
 
         feature
             .on("click", function(d){
