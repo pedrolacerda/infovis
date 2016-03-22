@@ -15,7 +15,7 @@ html, body {
 }
 
 path {
- /* fill-opacity: .7; */
+  fill-opacity: .7;
   stroke: #fff;
   stroke-width: 1.5px;
 }
@@ -23,6 +23,12 @@ path {
 path:hover {
   fill-opacity: .9;
 }
+
+path.selected {
+  fill-opacity: 1;
+}
+
+
 
 /* CSS for the Heatmap */
 /* disable text selection */
@@ -51,7 +57,7 @@ rect.cell-border {
 
 rect.cell-selected {
   stroke: rgb(51,102,153);
-  stroke-width:1.3px;   
+  stroke-width:4px;   
 }
 
 rect.cell-hover {

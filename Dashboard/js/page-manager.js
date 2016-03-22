@@ -9,43 +9,35 @@ var visualizationParameters = {
 
 // Save the values selected into arrays
 $('.economic-checkbox').change(function() {
-
 	if(this.checked){
 		visualizationParameters.properties.push(this.value);
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
 	}
-	
 });
 
 $('.infra-checkbox').change(function() {
-
 	if(this.checked){
 		visualizationParameters.properties.push(this.value);
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
-	}
-	
+	}	
 });
 
 $('.social-checkbox').change(function() {
-
 	if(this.checked){
 		visualizationParameters.properties.push(this.value);
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
-	}
-	
+	}	
 });
 
 $('.buurt-checkbox').change(function() {
-
 	if(this.checked){
 		visualizationParameters.neighborhoods.push(this.value);
 	}else{
 		visualizationParameters.neighborhoods.splice(visualizationParameters.properties.indexOf(this.value),1);
-	}
-	
+	}	
 });
 
 
