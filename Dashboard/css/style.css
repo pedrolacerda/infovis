@@ -30,7 +30,7 @@ path.selected {
 
 
 
-/* CSS for the Heatmap */
+/* CSS for the Heatmap and Correlation Matrix*/
 /* disable text selection */
 svg *::selection {
    background : transparent;
@@ -115,25 +115,17 @@ text.text-hover {
   stroke-width: 1.5px;
 }
 
+circle.selected {
+  stroke: rgb(51,102,153);
+  stroke-width:4px; 
+}
 .link {
   fill: none;
   stroke: #bbb;
 }
+
+.
 /* CSS for the network diagram */
-
-/* CSS for the correlation matrix */
-.background {
-  fill: #eee;
-}
-
-line {
-  stroke: #fff;
-}
-
-text.active {
-  fill: red;
-}
-/* CSS for the correlation matrix */
 
 /* CSS for the slider */
 /**

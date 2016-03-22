@@ -56,7 +56,7 @@ function  plotNetworkDiagram(networkJson){
                    .style("left", (d3.event.pageX+10) + "px")
                    .style("top", (d3.event.pageY-10) + "px")
                    .select("#network-value")
-                   .text("Neigborhood: " + d.name + " | Value: " + d.size);  
+                   .text("Neigborhood: " + d.id + " | Value: " + d.size);  
 
                  //Show the tooltip
                  d3.select("#network-tooltip").classed("hidden", false);
@@ -67,6 +67,13 @@ function  plotNetworkDiagram(networkJson){
                  //d3.selectAll(".colLabel").classed("text-highlight",false);
                  d3.select("#network-tooltip").classed("hidden", true);
           })
+        .on("click", function(d) {
+          if(!d3.select(this).classed("selected")){
+            selectNeighborhoods(d.id);            
+          } else {
+            deselectNeighborhoods(d.id);            
+          }
+        })
         .call(force.drag);
 
     force.on("tick", function() {

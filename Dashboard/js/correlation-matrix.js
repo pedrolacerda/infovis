@@ -4,7 +4,7 @@ function  plotCorrelationMatrix(correlationMatrixJson){
     correlationHeight = correlationWidgetHeight - correlationMargin.top - correlationMargin.bottom,
     //gridSize = Math.floor(width / 24),
     //legendElementWidth = cellSize*2.5,
-    correlationColors = {red: "#a50026", green: "#006837", black: "#1a1a1a"},
+    correlationColors = {red: "red", green: "green", black: "black"},
     corhcrow = [],
     correlationRowLabel = [],
     corr_row_number;
@@ -95,9 +95,9 @@ function  plotCorrelationMatrix(correlationMatrixJson){
           .style("fill-opacity", function(d) { return Math.abs(d.value)})
           .on("click", function(d) {
                  if(this.classList.contains("cell-selected")==false){
-                     this.classList.add("cell-selected");
+                    selectVariables(d.row);
                  }else{
-                     this.classList.remove("cell-selected");
+                   deselectVariables(d.row);
                  }
           })
           .on("mouseover", function(d){
@@ -144,6 +144,7 @@ function  plotCorrelationMatrix(correlationMatrixJson){
       .attr("y", height + (cellSize*4));
   */
 
+/* To reactivate reordering, just comment here
   // Change ordering of cells
 
     function sortCorrBylabel(rORc,i,sortOrder){
@@ -178,7 +179,8 @@ function  plotCorrelationMatrix(correlationMatrixJson){
 
          }
     }
-
+*/
+/* To activate the ordering, just uncomment here 
 
     d3.select("#correlation-order").on("change",function(){
       order(this.value);
@@ -205,7 +207,7 @@ function  plotCorrelationMatrix(correlationMatrixJson){
 
      }
     }
-
+/*
     /*
     var correlation_sa=d3.select(".g4")
         .on("mousedown", function() {
