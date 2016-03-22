@@ -300,9 +300,11 @@ function selectNeighborhoods(buurt){
 
 	//highlight the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
+    console.log("Passou por aqui");
 
     //gets the index of the column of the selected neighborhood in the heatmap
     var colIdx = d3.selectAll(".heatmapColLabel").filter(function(d,i) { return d == buurt; }).attr("col");
+    console.log(colIdx);
                     
     //highlight the selected neighborhood in the Heatmap
     d3.selectAll(".g3").selectAll(".cc"+colIdx)
