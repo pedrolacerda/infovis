@@ -212,4 +212,69 @@ var setCurrentSizeValues = function() {
 	};
 };
 
+function selectNeighborhoods(buurt){
+
+	//put the clicked neighborhood in the list of selected neighborhoods
+    visualizationParameters.neighborhoods.push(buurt);
+
+	//highlight the area of the neighborhood on the map
+    d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
+
+    //gets the index of the column of the selected neighborhood in the heatmap
+    var colIdx = d3.selectAll(".heatmapColLabel").filter(function(d,i) { return d == buurt; }).attr("col");
+                    
+    //highlight the selected neighborhood in the Heatmap
+    d3.selectAll(".g3").selectAll(".cc"+colIdx)
+        .classed("cell-selected", true);
+
+    //highlight the selected neighborhood in the Network Diagram
+    d3.selectAll(".node").filter(function(d,i) { return d.id == buurt}).classed("selected", true);
+}
+
+function deselectNeighborhoods(buurt){
+	//remove the clicked neighborhood from the list of selected neighborhoods
+    visualizationParameters.neighborhoods.splice(visualizationParameters.neighborhoods.indexOf(buurt),1);
+
+    //deselect the area of the neighborhood on the map
+    d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",false);
+
+    //gets the index of the column of the selected neighborhood
+    var colIdx = d3.selectAll(".heatmapColLabel").filter(function(d,i) { return d == buurt; }).attr("col");
+                    
+    //deselect the selected neighborhood in the Heatmap
+    d3.selectAll(".g3").selectAll(".cc"+colIdx)
+        .classed("cell-selected", false);
+
+    //deselect the selected neighborhood in the Network Diagram
+    d3.selectAll(".node").filter(function(d,i) { return d.id == buurt}).classed("selected", false);
+}
+
+function selectVariables(variable){
+
+	//highlight the row with the selected variable in the heatmap
+    d3.selectAll(".g3").selectAll(".cr"+ variable)
+        .classed("cell-selected", true);
+
+	//highlight the row and column with the selected variable in the correlation matrix
+    d3.selectAll(".g4").selectAll(".cc"+ variable)
+        .classed("cell-selected", true);
+
+    d3.selectAll(".g4").selectAll(".cr"+ variable)
+        .classed("cell-selected", true);
+}
+
+function deselectVariables(variable){
+
+	//deselect the row with the selected variable in the heatmap
+    d3.selectAll(".g3").selectAll(".cr"+ variable)
+        .classed("cell-selected", false);
+
+	//deselect the row and column with the selected variable in the correlation matrix
+    d3.selectAll(".g4").selectAll(".cc"+ variable)
+        .classed("cell-selected", false);
+
+    d3.selectAll(".g4").selectAll(".cr"+ variable)
+        .classed("cell-selected", false);
+}
+
 setCurrentSizeValues();

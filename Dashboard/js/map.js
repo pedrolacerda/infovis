@@ -58,37 +58,15 @@ function plotMap(mapJson){
 
         feature
             .on("click", function(d){
-
-                var bu_code = d.properties.BU_CODE;
-
                 //if the area is not selected
                 if(!d3.select(this).classed("selected")){
-                    d3.select(this).classed("selected", true);
-
-                    //put the clicked neighborhood in the list of selected neighborhoods
-                    visualizationParameters.neighborhoods.push(d.properties.BU_CODE);
-
-                    //gets the index of the column of the selected neighborhood
-                    var colIdx = d3.selectAll(".heatmapColLabel").filter(function(d,i) { return d == bu_code; }).attr("col");
-                    
-                    //highlight the selected neighborhood
-                    d3.selectAll(".g3").selectAll(".cc"+colIdx)
-                        .classed("cell-selected", true);
+                    //select the neighborhoods in all charts
+                    selectNeighborhoods(d.properties.BU_CODE);
 
                 } else {
-                    d3.select(this).classed("selected", false);
-
-                    //remove the clicked neighborhood from the list of selected neighborhoods
-                    visualizationParameters.neighborhoods.splice(visualizationParameters.neighborhoods.indexOf(d.properties.BU_CODE),1);
-
-                    //gets the index of the column of the selected neighborhood
-                    var colIdx = d3.selectAll(".heatmapColLabel").filter(function(d,i) { return d == bu_code}).attr("col");
-                    
-                    //hilight the selected neighborhood
-                    d3.selectAll(".g3").selectAll(".cc"+colIdx)
-                        .classed("cell-selected", false);
+                    //select the neighborhoods in all charts
+                    deselectNeighborhoods(d.properties.BU_CODE);
                 }
-
             });
         feature
             .on("mouseover", function(d){

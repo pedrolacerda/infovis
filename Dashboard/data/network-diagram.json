@@ -1,22 +1,22 @@
 {
   "nodes":  
   [
-    { "name": "buurt1", "group":  1, "size": 6 }, 
-    { "name": "buurt2", "group":  2, "size": 3 },   
-    { "name": "buurt3", "group":  4, "size": 7 },
-    { "name": "buurt4", "group":  3, "size": 1 },
-    { "name": "buurt5", "group":  3, "size": 5 },
-    { "name": "buurt6", "group":  2, "size": 9 },
-    { "name": "buurt7", "group":  1, "size": 10 },
-    { "name": "buurt8", "group":  4, "size": 4 },
-    { "name": "buurt9", "group":  4, "size": 2 },
-    { "name": "buurt10", "group":  3, "size": 9 },
-    { "name": "buurt11", "group":  2, "size": 3 },
-    { "name": "buurt12", "group":  1, "size": 2 },
-    { "name": "buurt13", "group":  4, "size": 5 },
-    { "name": "buurt14", "group":  3, "size": 6 },
-    { "name": "buurt15", "group":  2, "size": 7 },
-    { "name": "buurt16", "group":  1, "size": 8 }
+    { "id": "A00", "group":  1, "size": 6, "name": "buur1" }, 
+    { "id": "A01", "group":  2, "size": 3, "name": "buur1" },   
+    { "id": "A02", "group":  4, "size": 7, "name": "buur1" }, 
+    { "id": "A03", "group":  3, "size": 1, "name": "buur1" },
+    { "id": "A04", "group":  3, "size": 5, "name": "buur1" },
+    { "id": "A05", "group":  2, "size": 9, "name": "buur1" },
+    { "id": "A06", "group":  1, "size": 10, "name": "buur1" },
+    { "id": "A07", "group":  4, "size": 4, "name": "buur1" },
+    { "id": "A08", "group":  4, "size": 2, "name": "buur1" },
+    { "id": "A09", "group":  3, "size": 9, "name": "buur1" },
+    { "id": "B10", "group":  2, "size": 3, "name": "buur1" },
+    { "id": "B11", "group":  1, "size": 2, "name": "buur1" },
+    { "id": "E12", "group":  4, "size": 5, "name": "buur1" },
+    { "id": "E13", "group":  3, "size": 6, "name": "buur1" },
+    { "id": "N17", "group":  2, "size": 7, "name": "buur1" },
+    { "id": "F78", "group":  1, "size": 8, "name": "buur1" }
   ],
 
   "links":  

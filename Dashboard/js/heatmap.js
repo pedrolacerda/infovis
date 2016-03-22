@@ -29,9 +29,9 @@ function  plotHeatmap(heatmapJson){
   */
   function(error, data) {
     var colorScale = d3.scale.quantile()
-        .domain([0, heatmapBuckets - 1, d3.max(data, function (d) { return d.correlations.value; })]) //[TO-DO] adjust to have more colors
-        .range(heatmapColors);
-        
+        .domain([0, heatmapBuckets, d3.max(data.correlations, function (d) { return d.value; })]) //This receives the input range
+        .range(heatmapColors); //This gives the output range
+
     //Define the number of rows and columns
     col_number = data.neighborhoods.length;
     row_number = data.variables.length;
@@ -105,24 +105,16 @@ function  plotHeatmap(heatmapJson){
           .style("fill", function(d) { return colorScale(d.value); })
           .on("click", function(d) {
                  if(this.classList.contains("cell-selected")==false){
-                     this.classList.add("cell-selected");
-
-                     var neighborhood = data.neighborhoods[d.col].id;
-
-                     //highlight the area of the neighborhood on the map
-                     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == neighborhood; }).classed("selected",true);
+                     //select the neighborhoods in all charts
+                    selectNeighborhoods(data.neighborhoods[d.col].id);
 
                      //highlight the row and column with the selected variable in the correlation matrix
-                    d3.selectAll(".g4").selectAll(".cc"+d.row)
-                        .classed("cell-selected", true);
-
-                    d3.selectAll(".g4").selectAll(".cr"+d.row)
-                        .classed("cell-selected", true);                    
+                    selectVariables(d.row);                    
 
                  }else{
-                     this.classList.remove("cell-selected");
-                     //remove the highlighted area of the neighborhood on the map
-                     //d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == neighborhood; }).classed("selected",false);
+                     deselectNeighborhoods(data.neighborhoods[d.col].id);
+
+                     deselectVariables(d.row);
                  }
           })
           .on("mouseover", function(d){
