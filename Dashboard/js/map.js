@@ -55,13 +55,7 @@ function plotMap(mapJson, selectedProperty){
             .enter()
             .append("path")
             .attr("fill", function(d) {
-                /*
-                [TO-DO]
-                We need to create this function to fill the colors in the map according to the data selected.
-                */
-
-                 // puts the color for neighborhood that suits in a class
-                 return color(d.properties[selectedProperty]);				// was: P_EENP_HH
+                 return color(d.properties[selectedProperty]);
             })
             .attr("neighborhood", function(d) {return d.properties.BU_CODE; })
             //.style("fill-opacity", "0.7");

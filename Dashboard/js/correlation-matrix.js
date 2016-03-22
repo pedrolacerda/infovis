@@ -7,8 +7,8 @@ function  plotCorrelationMatrix(correlationMatrixJson){
     correlationColors = {red: "red", green: "green", black: "black"},
     corhcrow = [],
     correlationRowLabel = [],
-    corr_row_number;
-    coorelatioinCellSize=40; //[TO-DO] dynamically define the cell size
+    corr_row_number,
+    coorelatioinCellSize;
 
   d3.json(correlationMatrixJson,
   /* function(d) {
@@ -22,7 +22,7 @@ function  plotCorrelationMatrix(correlationMatrixJson){
   function(error, data) {
 
     /*var colorScale = d3.scale.quantile()
-        .domain([0, correlationBuckets - 1, d3.max(data, function (d) { return d.value; })]) //[TO-DO] adjust the domain for the specific that we have
+        .domain([0, correlationBuckets - 1, d3.max(data, function (d) { return d.value; })])
         .range(correlationBuckets);
     */
 
@@ -30,6 +30,8 @@ function  plotCorrelationMatrix(correlationMatrixJson){
     corr_row_number = data.variables.length;
 
     corhcrow = d3.range(0, corr_row_number);
+
+    coorelatioinCellSize = calcCellSize(correlationWidth, correlationHeight, corr_row_number, corr_row_number);
 
     for (var i in data.variables){
       correlationRowLabel.push(data.variables[i].name)
@@ -264,7 +266,7 @@ function  plotCorrelationMatrix(correlationMatrixJson){
                d3.selectAll('.cell-selection.cell-selected').classed("cell-selected", false);
                d3.selectAll(".text-selection.text-selected").classed("text-selected",false);
 
-               d3.selectAll('.cell').filter(function(cell_d, i) { //[TO-DO] Implement here the selection of a square in the chart
+               d3.selectAll('.cell').filter(function(cell_d, i) {
                    if(
                        !d3.select(this).classed("cell-selected") && 
                            // inner circle inside selection frame

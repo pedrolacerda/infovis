@@ -26,6 +26,8 @@ path:hover {
 
 path.selected {
   fill-opacity: 1;
+  stroke: rgb(51,102,153);;
+  stroke-width: 3px;;
 }
 
 

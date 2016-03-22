@@ -231,7 +231,6 @@ $("#slider").change(function() {
 // Capture transformation
 $("#transformations").change(function() {
 	visualizationParameters.transformation = $('#transformations').selectpicker('val');
-	console.log(visualizationParameters.transformation)
 });
 
 var pageHeight = $( window ).height();
@@ -300,11 +299,9 @@ function selectNeighborhoods(buurt){
 
 	//highlight the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
-    console.log("Passou por aqui");
 
     //gets the index of the column of the selected neighborhood in the heatmap
     var colIdx = d3.selectAll(".heatmapColLabel").filter(function(d,i) { return d == buurt; }).attr("col");
-    console.log(colIdx);
                     
     //highlight the selected neighborhood in the Heatmap
     d3.selectAll(".g3").selectAll(".cc"+colIdx)
@@ -365,4 +362,18 @@ function deselectVariables(variable){
         .classed("cell-selected", false);
 }
 
+function calcCellSize(width, height, col_number, row_number) {
+  var maxWidth = width/col_number;
+  var maxHeight = height/row_number;
+
+  var fitWidth = false;
+  var fitHeight = false;
+
+  //Check if the squares defined by the numbers of rows fit the height
+  if((maxWidth*row_number) > height){
+    return maxHeight;
+  } else {
+    return maxWidth;
+  }
+}
 setCurrentSizeValues();
