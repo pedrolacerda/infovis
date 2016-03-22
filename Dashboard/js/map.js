@@ -39,7 +39,7 @@ function plotMap(mapJson, selectedProperty){
     // THE MAP USES EPSG:4326 OR WGS84 ENCODING (SRS) - USE QGIS TO CHANGE THE FOMAT - THEN SAVE AS WITH NEW ENCODING - THEN SAVE AS JSON
     d3.json(mapJson, function(collection) {		// was: groningen.geojson
       
-      selectedProperty = "CRIME_RATE_2014"; //[TO-DO] remove to get values dynamically
+      selectedProperty = "BIRTH_2014"; //[TO-DO] remove to get values dynamically
 
       var color = d3.scale.quantile()
         .domain([d3.min(collection.features, function (d) { return d.properties[selectedProperty]; }), d3.max(collection.features, function (d) { return d.properties[selectedProperty]; })]) //This receives the input range

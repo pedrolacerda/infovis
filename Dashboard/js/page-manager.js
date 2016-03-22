@@ -7,28 +7,82 @@ var visualizationParameters = {
 	transformation: ""
 };
 
-// Save the values selected into arrays
+var selectWidth = $("#headingCat1").width();
+
+function appendOption(select, value, text) {
+	select.append($('<option>', {
+    	value: value,
+    	text: text
+	}));
+}
+
+function initCheckboxes() {
+	$(':checkbox').prop('checked', false);
+}
+
+initCheckboxes();
+
+// Save the values selected into arrays and add the variable to the variables and denominator list
 $('.economic-checkbox').change(function() {
 	if(this.checked){
 		visualizationParameters.properties.push(this.value);
+
+		 appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
+  		 $('#var-interest').selectpicker('refresh');
+  		 $('.selectpicker').selectpicker('width', selectWidth);
+  		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
+  		 $('#denominator').selectpicker('refresh');
+  		 $('.selectpicker').selectpicker('width', selectWidth);
+
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
+
+		$('#').find('[value='+this.value+']').remove();
+		$('#var-interest').selectpicker('refresh');
+		$('#denominator').find('[value="'+this.value+'"]').remove();
+		$('#denominator').selectpicker('refresh');
+
 	}
 });
 
 $('.infra-checkbox').change(function() {
 	if(this.checked){
 		visualizationParameters.properties.push(this.value);
+
+		 appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
+  		 $('#var-interest').selectpicker('refresh');
+		 $('.selectpicker').selectpicker('width', selectWidth);
+  		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
+  		 $('#denominator').selectpicker('refresh');
+  		 $('.selectpicker').selectpicker('width', selectWidth);
+
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
+
+		$('#var-interest').find('[value="'+this.value+'"]').remove();
+		$('#var-interest').selectpicker('refresh');
+		$('#denominator').find('[value='+this.value+']').remove();
+		$('#denominator').selectpicker('refresh');
 	}	
 });
 
 $('.social-checkbox').change(function() {
 	if(this.checked){
 		visualizationParameters.properties.push(this.value);
+
+		appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
+  		 $('#var-interest').selectpicker('refresh');
+		$('.selectpicker').selectpicker('width', selectWidth);
+  		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
+  		 $('#denominator').selectpicker('refresh');
+  		 $('.selectpicker').selectpicker('width', selectWidth);
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
+
+		$('#var-interest').find('[value='+this.value+']').remove();
+		$('#var-interest').selectpicker('refresh');
+		$('#denominator').find('[value="'+this.value+'"]').remove();
+		$('#denominator').selectpicker('refresh');
 	}	
 });
 
@@ -52,12 +106,22 @@ $('#economic-check-all').change(function() {
 		for (var i = 0; i < selectedElements.length; i++) {
 			if(visualizationParameters.properties.indexOf(selectedElements[i].value) == -1){
 				visualizationParameters.properties.push(selectedElements[i].value);
+
+				 appendOption($('#var-interest'), selectedElements[i].value, selectedElements[i].nextSibling.textContent);
+		  		 $('#var-interest').selectpicker('refresh');
+		  		 appendOption($('#denominator'), selectedElements[i].value, selectedElements[i].nextSibling.textContent);
+		  		 $('#denominator').selectpicker('refresh');
 			}
 		}
 	} else {
 		selectedElements.prop('checked', false);
 		for (var i = 0; i < selectedElements.length; i++) {
 			visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(selectedElements[i].value),1);
+
+			$('#var-interest').find('[value="'+selectedElements[i].value+'"]').remove();
+			$('#var-interest').selectpicker('refresh');
+			$('#denominator').find('[value="'+selectedElements[i].value+'"]').remove();
+			$('#denominator').selectpicker('refresh');
 		}
 	}
 });
@@ -68,22 +132,27 @@ $('#infra-check-all').change(function() {
 
 	if ($('#infra-check-all').prop('checked')){
 		$('.infra-checkbox').prop('checked', true);
-
+		
 		for (var i = 0; i < selectedElements.length; i++) {
 			if(visualizationParameters.properties.indexOf(selectedElements[i].value) == -1){
 				visualizationParameters.properties.push(selectedElements[i].value);
+
+				 appendOption($('#var-interest'), selectedElements[i].value, selectedElements[i].nextSibling.textContent);
+		  		 $('#var-interest').selectpicker('refresh');
+		  		 appendOption($('#denominator'), selectedElements[i].value, selectedElements[i].nextSibling.textContent);
+		  		 $('#denominator').selectpicker('refresh');
 			}
 		}
-
 	} else {
-		$('.infra-checkbox').prop('checked', false);
-
+		selectedElements.prop('checked', false);
 		for (var i = 0; i < selectedElements.length; i++) {
-			if(visualizationParameters.properties.indexOf(selectedElements[i].value) == -1){
-				visualizationParameters.properties.push(selectedElements[i].value);
-			}
-		}
+			visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(selectedElements[i].value),1);
 
+			$('#var-interest').find('[value="'+selectedElements[i].value+'"]').remove();
+			$('#var-interest').selectpicker('refresh');
+			$('#denominator').find('[value="'+selectedElements[i].value+'"]').remove();
+			$('#denominator').selectpicker('refresh');
+		}
 	}
 });
 
@@ -97,6 +166,13 @@ $('#social-check-all').change(function() {
 		for (var i = 0; i < selectedElements.length; i++) {
 			if(visualizationParameters.properties.indexOf(selectedElements[i].value) == -1){
 				visualizationParameters.properties.push(selectedElements[i].value);
+
+				appendOption($('#var-interest'), selectedElements[i].value, selectedElements[i].nextSibling.textContent);
+		  		 $('#var-interest').selectpicker('refresh');
+		  		 $('.selectpicker').selectpicker('width', selectWidth);
+		  		 appendOption($('#denominator'), selectedElements[i].value, selectedElements[i].nextSibling.textContent);
+		  		 $('#denominator').selectpicker('refresh');
+		  		 $('.selectpicker').selectpicker('width', selectWidth);
 			}
 		}
 
@@ -105,6 +181,11 @@ $('#social-check-all').change(function() {
 
 		for (var i = 0; i < selectedElements.length; i++) {
 			visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(selectedElements[i].value),1);
+
+			$('#var-interest').find('[value="'+selectedElements[i].value+'"]').remove();
+			$('#var-interest').selectpicker('refresh');
+			$('#denominator').find('[value="'+selectedElements[i].value+'"]').remove();
+			$('#denominator').selectpicker('refresh');
 		}
 
 	}
@@ -251,6 +332,9 @@ function deselectNeighborhoods(buurt){
 
 function selectVariables(variable){
 
+	//put the clicked variable in the list of selected variables
+    visualizationParameters.properties.push(variable);
+
 	//highlight the row with the selected variable in the heatmap
     d3.selectAll(".g3").selectAll(".cr"+ variable)
         .classed("cell-selected", true);
@@ -264,6 +348,8 @@ function selectVariables(variable){
 }
 
 function deselectVariables(variable){
+	//remove the clicked variable from the list of selected variables
+    visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(variable),1);
 
 	//deselect the row with the selected variable in the heatmap
     d3.selectAll(".g3").selectAll(".cr"+ variable)
