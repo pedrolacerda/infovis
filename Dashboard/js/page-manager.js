@@ -7,8 +7,6 @@ var visualizationParameters = {
 	transformation: ""
 };
 
-var selectWidth = $("#headingCat1").width();
-
 function appendOption(select, value, text) {
 	select.append($('<option>', {
     	value: value,
@@ -29,10 +27,8 @@ $('.economic-checkbox').change(function() {
 
 		 appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
   		 $('#var-interest').selectpicker('refresh');
-  		 $('.selectpicker').selectpicker('width', selectWidth);
   		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
   		 $('#denominator').selectpicker('refresh');
-  		 $('.selectpicker').selectpicker('width', selectWidth);
 
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
@@ -51,10 +47,8 @@ $('.infra-checkbox').change(function() {
 
 		 appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
   		 $('#var-interest').selectpicker('refresh');
-		 $('.selectpicker').selectpicker('width', selectWidth);
   		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
   		 $('#denominator').selectpicker('refresh');
-  		 $('.selectpicker').selectpicker('width', selectWidth);
 
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
@@ -72,10 +66,8 @@ $('.social-checkbox').change(function() {
 
 		appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
   		 $('#var-interest').selectpicker('refresh');
-		$('.selectpicker').selectpicker('width', selectWidth);
   		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
   		 $('#denominator').selectpicker('refresh');
-  		 $('.selectpicker').selectpicker('width', selectWidth);
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
 
@@ -253,7 +245,29 @@ var mapHeight,
 $("#main-chart").height(pageHeight - 10);
 
 var swapWidgets = function(id1, id2){
-	//$("#map").attr("id", "heatmap")
+	var temp = "placeholder";
+
+	//Typical swap
+	$("#"+id1).attr("id", temp);
+	$("#"+id2).attr("id", id1);
+	$("#"+temp).attr("id", id2);
+
+	//Clean the area
+	$("#"+id1).children().remove();
+	$("#"+id2).children().remove();
+
+	if(id1 == "map" || id2 == "map"){
+		plotMap("data/amsterdam.geojson", "BIRTH_2014");
+	}
+	if(id1 == "heatmap" || id2 == "heatmap") {
+		plotHeatmap("data/heatmap.json");	
+	} 
+	if(id1 == "network-diagram" || id2 == "network-diagram") {
+		plotNetworkDiagram("data/network-diagram.json");
+	}
+	if(id1 == "correlation" || id2 == "correlation") {
+		plotCorrelationMatrix("data/correlation-matrix.json");
+	}
 }
 
 /*

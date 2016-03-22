@@ -958,13 +958,13 @@
         <div class="row">
           <!-- Top chart Widget -->
           <div id="top-widget-container" class="panel panel-default">
-            <div id="heatmap-orderer">
+            <!--<div id="heatmap-orderer">
               Order: 
               <select id="heatmap-order">
                 <option value="row">by row</option>
                 <option value="column">by column</option>
               </select>
-            </div>
+            </div> -->
             <div class="panel-body" id="heatmap"></div>
           </div>
         </div>
@@ -1022,7 +1022,8 @@
         }
       });
 
-      plotMap("data/amsterdam.geojson");
+      //[TO-DO] plot the charts only after selecting the parameters
+      plotMap("data/amsterdam.geojson", "BIRTH_2014");
       plotHeatmap("data/heatmap.json");
       plotNetworkDiagram("data/network-diagram.json");
       plotCorrelationMatrix("data/correlation-matrix.json");
