@@ -4,10 +4,10 @@ function  plotHeatmap(heatmapJson){
     heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom;
     //gridSize = Math.floor(width / 24),
     //legendElementWidth = cellSize*2.5,
-    var heatmapBuckets = 9; //[TO-DO] Ralph
-    var heatmapColors = colorbrewer.OrRd[9]; //[TO-DO] create a dynamic colorbrewer pallet Ralph
-    var hcrow = []; // change to gene name or probe id
-    var hccol = []; // change to gene name or probe id
+    var heatmapBuckets = 9;
+    var heatmapColors = colorbrewer.OrRd[9];
+    var hcrow = []; 
+    var hccol = []; 
     var heatmapRowLabel = [];
     var heatmapColLabel = [];
     var col_number;

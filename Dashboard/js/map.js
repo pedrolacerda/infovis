@@ -1,6 +1,9 @@
-function plotMap(mapJson){
+function plotMap(mapJson, selectedProperty){
     // Resoluties (pixels per meter) van de zoomniveaus:
     var res = [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420];
+
+    var mapBuckets = 9;
+    var mapColors = colorbrewer.OrRd[9];
 
     // Juiste projectieparameters voor Rijksdriehoekstelsel (EPSG:28992):
     var RD = L.CRS.proj4js('EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs', new L.Transformation(1, 285401.920, -1, 903401.920));
@@ -31,10 +34,17 @@ function plotMap(mapJson){
     $("#map").height(mapHeight);
         
     // Verdeel het domein van de waarden in 7 klassen en ken deze een kleur toe op basis van ColorBrewer
-    var color = d3.scale.quantize().domain([0, 100]).range(colorbrewer.OrRd[7]);	//was 0, 85 - in OPP full range is 0-1970
+    var color = d3.scale.quantize().domain([0, 100]).range(colorbrewer.OrRd[9]);	//was 0, 85 - in OPP full range is 0-1970
 
     // THE MAP USES EPSG:4326 OR WGS84 ENCODING (SRS) - USE QGIS TO CHANGE THE FOMAT - THEN SAVE AS WITH NEW ENCODING - THEN SAVE AS JSON
     d3.json(mapJson, function(collection) {		// was: groningen.geojson
+      
+      selectedProperty = "CRIME_RATE_2014"; //[TO-DO] remove to get values dynamically
+
+      var color = d3.scale.quantile()
+        .domain([d3.min(collection.features, function (d) { return d.properties[selectedProperty]; }), d3.max(collection.features, function (d) { return d.properties[selectedProperty]; })]) //This receives the input range
+        .range(mapColors); //This gives the output range
+
         var bounds = d3.geo.bounds(collection),
         path = d3.geo.path().projection(project);
 
@@ -51,7 +61,7 @@ function plotMap(mapJson){
                 */
 
                  // puts the color for neighborhood that suits in a class
-                 return color(Math.random() * 100);				// was: P_EENP_HH
+                 return color(d.properties[selectedProperty]);				// was: P_EENP_HH
             })
             .attr("neighborhood", function(d) {return d.properties.BU_CODE; })
             //.style("fill-opacity", "0.7");
@@ -76,7 +86,7 @@ function plotMap(mapJson){
                      .style("left", (d3.event.pageX+10) + "px")
                      .style("top", (d3.event.pageY-10) + "px")
                      .select("#map-value")
-                     .text("Code: " + d.properties.BU_CODE + " | Neighborhood: " + d.properties.BU_NAME.toString());  
+                     .text("Code: " + d.properties.BU_CODE + " | Neighborhood: " + d.properties.BU_NAME.toString() + " | Value: " + d.properties[selectedProperty]);  
 
                    //Show the tooltip
                    d3.select("#map-tooltip").classed("hidden", false);
