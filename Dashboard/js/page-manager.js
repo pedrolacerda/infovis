@@ -514,7 +514,7 @@ function heatmapData() {
 				toNormalize.push(heatmapDataset["correlations"][(i*lenNeighborhoods)+j]["value"]);
 		}
 		toNormalize = normalize(toNormalize);
-
+		
 		for (var k=0; k<toNormalize.length; k++) {
 			heatmapDataset["correlations"][(i*lenNeighborhoods)+k]["normalizedValue"] = toNormalize[k]
 		}
@@ -527,6 +527,7 @@ function heatmapData() {
 
 function correlationData() {
 	dsCorrelation = dataCorrelation(mergePropertiesYears(),visualizationParameters.neighborhoods);
+	console.log(dsCorrelation);
 	dsCorrelation = JSON.stringify(dsCorrelation);
 	return dsCorrelation;
 }

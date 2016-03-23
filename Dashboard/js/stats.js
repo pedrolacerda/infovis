@@ -212,7 +212,7 @@ function dataCorrelation(arrVariables, arrNeighborhoods) {
 		var iCorrelation = {row: i, col: i, value: 1 }
 		aCorrelations.push(iCorrelation);
 		for (var j=i; j<arrVariables.length; j++) {
-			r = calcPearson(getValues(arrVariables[i], arrNeighborhoods),getValues(arrVariables[i], arrNeighborhoods))
+			r = calcPearson(getValues(arrVariables[i], arrNeighborhoods),getValues(arrVariables[j], arrNeighborhoods))
 			var iCorrelation = {row: i, col: j, value: r }
 			aCorrelations.push(iCorrelation);
 		}
