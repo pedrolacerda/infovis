@@ -11,18 +11,17 @@ function  plotCorrelationMatrix(correlationMatrixJson){
     coorelatioinCellSize;
 
 	
-	data = correlationMatrixJson
-	console.log(data);
+	var cdata = correlationMatrixJson;
 
     //Define the number of rows and columns
-    corr_row_number = data.variables.length;
+    corr_row_number = cdata.variables.length;
 
     corhcrow = d3.range(0, corr_row_number);
 
     coorelatioinCellSize = calcCellSize(correlationWidth, correlationHeight, corr_row_number, corr_row_number);
 
-    for (var i in data.variables){
-      correlationRowLabel.push(data.variables[i].name)
+    for (var i in cdata.variables){
+      correlationRowLabel.push(cdata.variables[i].name)
     }
 
     var correlationSvg = d3.select("#correlation").append("svg")
@@ -69,7 +68,7 @@ function  plotCorrelationMatrix(correlationMatrixJson){
 
     var  correlationMatrix = correlationSvg.append("g").attr("class","g4")
           .selectAll(".cellg")
-          .data(data.correlations,function(d){return d.row+":"+d.col;})
+          .data(cdata.correlations,function(d){return d.row+":"+d.col;})
           .enter()
           .append("rect")
           .attr("x", function(d) { return corhcrow.indexOf(d.col) * coorelatioinCellSize; })
@@ -86,8 +85,14 @@ function  plotCorrelationMatrix(correlationMatrixJson){
           .on("click", function(d) {
                  if(this.classList.contains("cell-selected")==false){
                     selectVariables(d.row);
+
+                    console.log(cdata);
+
+                    visualizationParameters.corVar1 = cdata.variables[d.row].name;
+                    visualizationParameters.corVar2 = cdata.variables[d.col].name;
+
                  }else{
-                   deselectVariables(d.row);
+                    deselectVariables(d.row);
                  }
           })
           .on("mouseover", function(d){
