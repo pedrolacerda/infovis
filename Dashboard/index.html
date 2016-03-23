@@ -108,7 +108,7 @@
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class="infra-checkbox" value="SCHOOLS_2015">  Number of Schools
+                  <input type="checkbox" class="infra-checkbox" value="SCHOOLS">  Number of Schools
                 </label>
               </div>
               <div class="checkbox">
@@ -392,10 +392,11 @@
           <div class="panel-body collapse" id="displaypanel">
           Show Property:
                 <select id="var-interest" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
+                  <option selected value=" ">None</option>
                 </select>
           Denominator:
                 <select id="denominator" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
-            <option selected value="none">None</option>
+                  <option selected value=" ">None</option>
                 </select>
           Scale Transformation:
                   <select id="transformations" class="selectpicker" data-max-options="1" title="Select transformation" data-width="auto">
@@ -431,12 +432,12 @@
             <div class="panel-body">
               Year: 
               <select id="yearBase" class="selectpicker" data-max-options="1" title="Select Year" data-width="auto">
-                <option selected value="2010">2010</option>
+                <option value="2010">2010</option>
                 <option value="2011">2011</option>
                 <option value="2012">2012</option>
                 <option value="2013">2013</option>
                 <option value="2014">2014</option>
-                <option value="2015">2015</option>
+                <option selected value="2015">2015</option>
               </select>
               Compare:
               <select id="yearComp" class="selectpicker" data-max-options="1" title="Compared To" data-width="auto">
@@ -954,6 +955,11 @@
             </div>
           </div> <!-- Select Neighborhoods -->
         </div><!-- /Control Panel-->
+        <div class="panel panel-default">
+          <div class="panel-body">
+          <button id="submitParametersButton" type="button" class="btn btn-primary btn-block">Submit</button>
+          </div>
+        </div>
       </div> <!-- / Left menu -->
 
 
@@ -1062,12 +1068,6 @@
           return 'Current value: ' + value;
         }
       });
-
-      //[TO-DO] plot the charts only after selecting the parameters
-      plotMap("data/amsterdam.geojson", "BIRTH_2014");
-      plotHeatmap("data/heatmap.json");
-      plotNetworkDiagram("data/network-diagram.json");
-      plotCorrelationMatrix("data/correlation-matrix.json");
 
       var test;
       //Activating checkbox

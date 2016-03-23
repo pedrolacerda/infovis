@@ -43,6 +43,8 @@ function plotMap(mapJson, selectedProperty){
         .domain([d3.min(collection.features, function (d) { return d.properties[selectedProperty]; }), d3.max(collection.features, function (d) { return d.properties[selectedProperty]; })]) //This receives the input range
         .range(mapColors); //This gives the output range
 
+      mapColor = color;
+
         var bounds = d3.geo.bounds(collection),
         path = d3.geo.path().projection(project);
 

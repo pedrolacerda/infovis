@@ -4,11 +4,14 @@ var visualizationParameters = {
 	denominator: "", // Variable to be the denominator
 	transformation: "",
 	normalizeValues: false,
-	yearBase: "2011", // Year selected
+	yearBase: "2015", // Year selected
 	yearComp: "",
 	neighborhoods: [] // List of neighborhoods
 	
 };
+
+//This variable is used to update the colors of the selected neighborhood when the selections
+var mapColor;
 
 function appendOption(select, value, text) {
 	select.append($('<option>', {
@@ -83,9 +86,10 @@ $('.social-checkbox').change(function() {
 
 $('.buurt-checkbox').change(function() {
 	if(this.checked){
-		visualizationParameters.neighborhoods.push(this.value);
+		selectNeighborhoods(this.value);
+
 	}else{
-		visualizationParameters.neighborhoods.splice(visualizationParameters.properties.indexOf(this.value),1);
+		deselectNeighborhoods(this.value);
 	}	
 });
 
@@ -359,12 +363,19 @@ var setCurrentSizeValues = function() {
 function selectNeighborhoods(buurt){
 
 	//put the clicked neighborhood in the list of selected neighborhoods
-    visualizationParameters.neighborhoods.push(buurt);
+	if(visualizationParameters.neighborhoods.indexOf(buurt) == -1){
+		visualizationParameters.neighborhoods.push(buurt);
+	}
+
+	//mark the corresponding checkbox as 'checked'
+	$("input:checkbox[value='"+buurt+"']").prop("checked", true);
 
 	//highlight the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
-    d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
-
+    //fill the selected neighborhood with the right color
+    d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).attr("fill", function(d) { 
+    	return mapColor(d.properties[visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase]); 
+    });
     //gets the index of the column of the selected neighborhood in the heatmap
     var colIdx = d3.selectAll(".heatmapColLabel").filter(function(d,i) { return d == buurt; }).attr("col");
                     
@@ -377,8 +388,12 @@ function selectNeighborhoods(buurt){
 }
 
 function deselectNeighborhoods(buurt){
+
 	//remove the clicked neighborhood from the list of selected neighborhoods
     visualizationParameters.neighborhoods.splice(visualizationParameters.neighborhoods.indexOf(buurt),1);
+
+    //mark the corresponding checkbox as 'checked'
+	$("input:checkbox[value='"+buurt+"']").prop("checked", false);
 
     //deselect the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",false);
@@ -441,6 +456,14 @@ function calcCellSize(width, height, col_number, row_number) {
     return maxWidth;
   }
 }
+
+$("#submitParametersButton").click(function(){
+	plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
+	plotHeatmap("data/heatmap.json");
+	plotNetworkDiagram("data/network-diagram.json");
+	plotCorrelationMatrix("data/correlation-matrix.json");
+});
+
 setCurrentSizeValues();
 
 //[TO-DO] Delete these lines
