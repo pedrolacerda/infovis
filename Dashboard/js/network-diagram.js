@@ -69,7 +69,7 @@ function  plotNetworkDiagram(networkJson){
           })
         .on("click", function(d) {
           if(!d3.select(this).classed("selected")){
-            selectNeighborhoods(d.id);            
+            selectNeighborhoods(d.id);
           } else {
             deselectNeighborhoods(d.id);            
           }

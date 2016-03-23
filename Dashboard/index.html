@@ -34,7 +34,8 @@
       <!-- Properties menu -->
         <div class="panel panel-default">
           <div class="panel-heading">
-            Properties
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                Properties
           </div>
         </div> <!-- End of the heading -->
 
@@ -374,8 +375,8 @@
 
           <!-- Select Variable of Interest-->
           <div class="panel-heading ">
-              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-              Variable of Interest
+            <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+            Variable of Interest
           </div>
           <div class="panel-body">
             <select id="var-interest" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
@@ -384,8 +385,8 @@
 
           <!-- Select Denominator-->
           <div class="panel-heading ">
-              <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-              Denominator
+            <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+            Denominator
           </div>
           <div class="panel-body">
             <select id="denominator" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
@@ -395,7 +396,7 @@
         <!-- Select Dimentions-->
         <div class="panel panel-default">
           <div class="panel-heading ">
-              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
               Dimentions
           </div>
         </div>
@@ -943,11 +944,17 @@
       <!-- Main chart / second column -->
       <div class="col-md-6">
         <div id="main-chart" class="panel panel-default">
-          <div id="main-chart-header" class="panel-heading">
+          <!--<div id="main-chart-header" class="panel-heading">
             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
             <span id="main-chart-title">Amsterdam Map</span>
+          </div> -->
+          <div class="panel-body" id="map">
+            <div class="button swapper">
+              <button type="button" class="btn btn-primary btn-block">
+                <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
-          <div class="panel-body" id="map"></div>
         </div>
       </div>
 
@@ -957,22 +964,33 @@
         <div class="row">
           <!-- Top chart Widget -->
           <div id="top-widget-container" class="panel panel-default">
-            <div id="heatmap-orderer">
+            <!--<div id="heatmap-orderer">
               Order: 
               <select id="heatmap-order">
                 <option value="row">by row</option>
                 <option value="column">by column</option>
               </select>
+            </div> -->
+            <div class="panel-body" id="heatmap">
+              <div class="button swapper">
+                <button type="button" class="btn btn-primary btn-block">
+                  <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
+                </button>
+              </div>
             </div>
-            <div class="panel-body" id="heatmap"></div>
           </div>
         </div>
-
         <!-- Second line -->
         <div class="row">
           <!-- Middle chart Widget -->
           <div id="middle-widget-container" class="panel panel-default">
-              <div class="panel-body" id="network-diagram"></div>
+            <div class="panel-body" id="network-diagram">
+              <div class="button swapper">
+                <button type="button" class="btn btn-primary btn-block">
+                  <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -980,9 +998,16 @@
         <div class="row">
           <!-- Bottom chart Widget -->
           <div id="bottom-widget-container" class="panel panel-default">
-              <div class="panel-body" id="correlation"></div>
+            <div class="panel-body" id="correlation">
+              <div class="button swapper">
+                <button type="button" class="btn btn-primary btn-block">
+                  <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        </div>        
+      </div>
       <!-- End of the Third Line -->
       </div>
     </div>
@@ -1021,7 +1046,8 @@
         }
       });
 
-      plotMap("data/amsterdam.geojson");
+      //[TO-DO] plot the charts only after selecting the parameters
+      plotMap("data/amsterdam.geojson", "BIRTH_2014");
       plotHeatmap("data/heatmap.json");
       plotNetworkDiagram("data/network-diagram.json");
       plotCorrelationMatrix("data/correlation-matrix.json");
