@@ -150,16 +150,15 @@ function transpose(a) {
   return t;
 };
 
-
+/***************************************************************************
+	This function retrieves the data for the heatmap dyamically.
+ ***************************************************************************/
 function dataHeatmap(arrVariables, arrNeighborhoods) {
 	var aNeighborhoods = [];
 	var aVariables = [];
 	var aCorrelations = [];
 	var aReturns = [];
-	
-	console.log('dataHeatmap - ' + arrVariables);
-	console.log('dataHeatmap - ' + arrNeighborhoods);
-	
+		
 	//Lookup the neighborhood ID in our data and get the name.
 	for (var i=0; i<arrNeighborhoods.length; i++) {
 		var res = statData
@@ -191,5 +190,33 @@ function dataHeatmap(arrVariables, arrNeighborhoods) {
 	}
 	
 	aReturns = {neighborhoods: aNeighborhoods, variables: aVariables, correlations: aCorrelations};
+	return aReturns;
+}
+
+/***************************************************************************
+	This function retrieves the data for the correlationmatrix dyamically.
+ ***************************************************************************/
+function dataCorrelation(arrVariables, arrNeighborhoods) {
+	var aNeighborhoods = [];
+	var aVariables = [];
+	var aCorrelations = [];
+	var aReturns = [];
+	
+	for (var i=0; i<arrVariables.length; i++) {
+		var iVariables = {name: arrVariables[i] }
+		aVariables.push(iVariables);
+	}
+
+	var r = 0;
+	for (var i=0; i<arrVariables.length; i++) {
+		var iCorrelation = {row: i, col: i, value: 1 }
+		aCorrelations.push(iCorrelation);
+		for (var j=i; j<arrVariables.length; j++) {
+			r = calcPearson(getValues(arrVariables[i], arrNeighborhoods),getValues(arrVariables[i], arrNeighborhoods))
+			var iCorrelation = {row: i, col: j, value: r }
+			aCorrelations.push(iCorrelation);
+		}
+	}
+	aReturns = {variables: aVariables, correlations: aCorrelations};
 	return aReturns;
 }
