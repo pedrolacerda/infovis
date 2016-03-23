@@ -1,4 +1,5 @@
 function  plotHeatmap(heatmapJson){  
+
   var heatmapMargin = { top: 50, right: 20, bottom: 10, left: 100 },
     heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
     heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom;
@@ -13,23 +14,11 @@ function  plotHeatmap(heatmapJson){
     var col_number;
     var row_number;
 
-  d3.json(heatmapJson,
-  /*function(d, i) {
-    return {
-      row:   d.correlations.row,
-      col:   d.correlations.col,
-      value: +d.correlations.value,
-      normValue: +d.correlations.normalizedValue,
-      colLabel: d.neighborhoods.id,
-      rowLabel: d.variables.name
-    };
-  },
-  */
-  function(error, data) {
+	data = JSON.parse(heatmapJson);
     var colorScale = d3.scale.quantile()
-        .domain([0, heatmapBuckets, d3.max(data.correlations, function (d) { return d.value; })]) //This receives the input range
+        .domain([0, 100]) //This receives the input range
         .range(heatmapColors); //This gives the output range
-
+	
     //Define the number of rows and columns
     col_number = data.neighborhoods.length;
     row_number = data.variables.length;
@@ -102,7 +91,7 @@ function  plotHeatmap(heatmapJson){
           .attr("width", cellSize)
           .attr("height", cellSize)
           .attr("title", function(d) { return d.normalizedValue })
-          .style("fill", function(d) { return colorScale(d.value); })
+          .style("fill", function(d) { return colorScale(d.normalizedValue); })
           .on("click", function(d) {
                  if(this.classList.contains("cell-selected")==false){
                      //select the neighborhoods in all charts
@@ -139,27 +128,6 @@ function  plotHeatmap(heatmapJson){
                  d3.select("#heatmap-tooltip").classed("hidden", true);
           });
 
-  /* To insert legend uncomment here
-
-    var legend = heatmapSvg.selectAll(".legend")
-        .data([-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10])
-        .enter().append("g")
-        .attr("class", "legend");
-   
-    legend.append("rect")
-      .attr("x", function(d, i) { return legendElementWidth * i; })
-      .attr("y", height+(cellSize*2))
-      .attr("width", legendElementWidth)
-      .attr("height", cellSize)
-      .style("fill", function(d, i) { return heatmapColors[i]; });
-   
-    legend.append("text")
-      .attr("class", "mono")
-      .text(function(d) { return d; })
-      .attr("width", legendElementWidth)
-      .attr("x", function(d, i) { return legendElementWidth * i; })
-      .attr("y", height + (cellSize*4));
-  */
 
   // Change ordering of cells
 
@@ -223,103 +191,4 @@ function  plotHeatmap(heatmapJson){
      }
     }
 
-    /*
-    var sa=d3.select(".g3")
-        .on("mousedown", function() {
-            if( !d3.event.altKey) {
-               d3.selectAll(".cell-selected").classed("cell-selected",false);
-               d3.selectAll(".rowLabel").classed("text-selected",false);
-               d3.selectAll(".colLabel").classed("text-selected",false);
-            }
-           var p = d3.mouse(this);
-           sa.append("rect")
-           .attr({
-               rx      : 0,
-               ry      : 0,
-               class   : "selection",
-               x       : p[0],
-               y       : p[1],
-               width   : 1,
-               height  : 1
-           })
-        })
-        .on("mousemove", function() {
-           var s = sa.select("rect.selection");
-        
-           if(!s.empty()) {
-               var p = d3.mouse(this),
-                   d = {
-                       x       : parseInt(s.attr("x"), 10),
-                       y       : parseInt(s.attr("y"), 10),
-                       width   : parseInt(s.attr("width"), 10),
-                       height  : parseInt(s.attr("height"), 10)
-                   },
-                   move = {
-                       x : p[0] - d.x,
-                       y : p[1] - d.y
-                   }
-               ;
-        
-               if(move.x < 1 || (move.x*2<d.width)) {
-                   d.x = p[0];
-                   d.width -= move.x;
-               } else {
-                   d.width = move.x;       
-               }
-        
-               if(move.y < 1 || (move.y*2<d.height)) {
-                   d.y = p[1];
-                   d.height -= move.y;
-               } else {
-                   d.height = move.y;       
-               }
-               s.attr(d);
-        
-                   // deselect all temporary selected state objects
-               d3.selectAll('.cell-selection.cell-selected').classed("cell-selected", false);
-               d3.selectAll(".text-selection.text-selected").classed("text-selected",false);
-
-               d3.selectAll('.cell').filter(function(cell_d, i) {
-                   if(
-                       !d3.select(this).classed("cell-selected") && 
-                           // inner circle inside selection frame
-                       (this.x.baseVal.value)+cellSize >= d.x && (this.x.baseVal.value)<=d.x+d.width && 
-                       (this.y.baseVal.value)+cellSize >= d.y && (this.y.baseVal.value)<=d.y+d.height
-                   ) {
-        
-                       d3.select(this)
-                       .classed("cell-selection", true)
-                       .classed("cell-selected", true);
-
-                       d3.select(".r"+(cell_d.row-1))
-                       .classed("text-selection",true)
-                       .classed("text-selected",true);
-
-                       d3.select(".c"+(cell_d.col-1))
-                       .classed("text-selection",true)
-                       .classed("text-selected",true);
-                   }
-               });
-           }
-        })
-        .on("mouseup", function() {
-              // remove selection frame
-           sa.selectAll("rect.selection").remove();
-        
-               // remove temporary selection marker class
-           d3.selectAll('.cell-selection').classed("cell-selection", false);
-           d3.selectAll(".text-selection").classed("text-selection",false);
-        })
-        .on("mouseout", function() {
-           if(d3.event.relatedTarget.tagName=='html') {
-                   // remove selection frame
-               sa.selectAll("rect.selection").remove();
-                   // remove temporary selection marker class
-               d3.selectAll('.cell-selection').classed("cell-selection", false);
-               d3.selectAll(".rowLabel").classed("text-selected",false);
-               d3.selectAll(".colLabel").classed("text-selected",false);
-           }
-        });
-          */
-  });
 }

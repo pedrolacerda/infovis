@@ -458,10 +458,48 @@ function calcCellSize(width, height, col_number, row_number) {
 }
 
 $("#submitParametersButton").click(function(){
-	plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
-	plotHeatmap("data/heatmap.json");
-	plotNetworkDiagram("data/network-diagram.json");
-	plotCorrelationMatrix("data/correlation-matrix.json");
+	initData();
+	setTimeout(function(){
+		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
+		plotHeatmap(heatmapData());
+		plotNetworkDiagram("data/network-diagram.json");
+		plotCorrelationMatrix("data/correlation-matrix.json");
+	}, 2000);
 });
 
 setCurrentSizeValues();
+
+function mergePropertiesYears() {
+	var concatProperties = [];
+	
+	for (var i=0; i<visualizationParameters.properties.length; i++) {
+		concatProperties.push(visualizationParameters.properties[i]+"\_"+visualizationParameters.yearBase);
+		console.log(visualizationParameters.properties[i]+"\_"+visualizationParameters.yearBase);
+	}
+	return concatProperties;
+}
+
+function heatmapData() {
+	heatmapDataset = dataHeatmap(mergePropertiesYears(),visualizationParameters.neighborhoods);
+	console.log(heatmapDataset);
+	// Normalization of a specific value (column) in the dataset
+	var toNormalize = [];
+	for (var i=0; i<heatmapDataset["variables"].length; i++) {
+		var lenNeighborhoods = heatmapDataset["neighborhoods"].length
+		for (var j=0; j<lenNeighborhoods; j++) {
+				toNormalize.push(heatmapDataset["correlations"][(i*lenNeighborhoods)+j]["value"]);
+		}
+		console.log('Before Normalization ('+ i +'): ' + toNormalize);
+		toNormalize = normalize(toNormalize);
+		console.log('After Normalization ('+ i +'): ' + toNormalize);
+		for (var k=0; k<toNormalize.length; k++) {
+			heatmapDataset["correlations"][(i*lenNeighborhoods)+k]["normalizedValue"] = toNormalize[k]
+		}
+		toNormalize = [];
+	}
+	console.log(heatmapDataset);
+	heatmapDataset = JSON.stringify(heatmapDataset);
+	return heatmapDataset;
+}
+
+

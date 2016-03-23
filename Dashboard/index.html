@@ -93,7 +93,7 @@
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class="infra-checkbox" value="%OWN_OCC">  Percentage Owner Occupied housing
+                  <input type="checkbox" class="infra-checkbox" value="OWN_OCC">  Percentage Owner Occupied housing
                 </label>
               </div>
               <div class="checkbox">
@@ -103,7 +103,7 @@
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class="infra-checkbox" value="%LOW_INC_HOUS">  Percentage Low Income Housing
+                  <input type="checkbox" class="infra-checkbox" value="LOW_INC_HOUS">  Percentage Low Income Housing
                 </label>
               </div>
               <div class="checkbox">
@@ -180,17 +180,17 @@
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class="social-checkbox" value="%NON-WEST"> Percentage Non-Westerners
+                  <input type="checkbox" class="social-checkbox" value="NON-WEST"> Percentage Non-Westerners
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class="social-checkbox" value="%65PLUS"> Percentage >65y/o
+                  <input type="checkbox" class="social-checkbox" value="65PLUS"> Percentage >65y/o
                 </label>
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" class="social-checkbox" value="%FAM_KIDS"> Percentage Families with Kids
+                  <input type="checkbox" class="social-checkbox" value="FAM_KIDS"> Percentage Families with Kids
                 </label>
               </div>
               <div class="checkbox">
@@ -1056,22 +1056,12 @@
     <script src="lib/proj4leaflet.js"></script>
     <!-- ColorBrewer (http://colorbrewer2.org/js/) om mooie legenda's te gebruiken -->
     <script src="lib/colorbrewer.js"></script>
+	<script src="js/stats.js"></script>
     <script src="js/page-manager.js"></script>
     <script src="js/map.js"></script>
     <script src="js/heatmap.js"></script>
     <script src="js/network-diagram.js"></script>
     <script src="js/correlation-matrix.js"></script>
-    <script type="text/javascript">
-      // Activating slider
-      $('#slider').slider({
-        formatter: function(value) {
-          return 'Current value: ' + value;
-        }
-      });
-
-      var test;
-      //Activating checkbox
-      //$(document).ready(function(){ $(':checkbox').checkboxpicker(); })
-    </script>
+	
   </body>
 </html>
