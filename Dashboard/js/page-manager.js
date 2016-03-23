@@ -229,8 +229,6 @@ var pageHeight = $( window ).height();
 
 var widgetHeight = pageHeight/3;
 
-var mainChartWidth = $("#main-chart").width();
-
 var secondaryChartsWidth = $("#secondary-charts").width();
 
 var mapHeight,
@@ -244,6 +242,24 @@ var mapHeight,
 
 $("#main-chart").height(pageHeight - 10);
 
+var swapper = [];
+
+$(document).on('click', '.swapper', function () {
+	//some error in the DOM structure required this "workaround"
+	if(this.parentNode.id == "bottom-widget-container"){
+		swapper.push("heatmap");
+	}else{
+		swapper.push(this.parentNode.id);
+	}
+
+	//If there is two selected, swap them
+	if (swapper.length == 2){
+		swapWidgets(swapper[0], swapper[1]);
+		swapper = [];
+	}
+	console.log(swapper);
+})
+
 var swapWidgets = function(id1, id2){
 	var temp = "placeholder";
 
@@ -255,6 +271,9 @@ var swapWidgets = function(id1, id2){
 	//Clean the area
 	$("#"+id1).children().remove();
 	$("#"+id2).children().remove();
+
+	//Define charts new positions
+	setCurrentSizeValues(); 
 
 	if(id1 == "map" || id2 == "map"){
 		plotMap("data/amsterdam.geojson", "BIRTH_2014");
@@ -268,22 +287,29 @@ var swapWidgets = function(id1, id2){
 	if(id1 == "correlation" || id2 == "correlation") {
 		plotCorrelationMatrix("data/correlation-matrix.json");
 	}
+
+	//Reinsert swapper button into the widgets
+	$("#"+id1).append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+	$("#"+id2).append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
 }
 
 /*
 	It sets the right Height and Width for each widget given its position on the screen.
 */
+
+var mainChartWidth = $("#main-chart").width();
+
 var setCurrentSizeValues = function() {
 	
 	if($("#map").parent().attr("id") == "main-chart"){
-		mapHeight = $("#main-chart").height() - 72;
+		mapHeight = $("#main-chart").height() - 40;
 	} else {
 		mapHeight = widgetHeight;
 	};
 
 	if($("#heatmap").parent().attr("id") == "main-chart"){
 		heatmapWidthDashboard = mainChartWidth;
-		heatmapHeightDashboard = $("#main-chart").height() - 72;
+		heatmapHeightDashboard = $("#main-chart").height() - 40;
 	} else {
 		heatmapWidthDashboard = secondaryChartsWidth;
 		heatmapHeightDashboard = widgetHeight;
@@ -291,7 +317,7 @@ var setCurrentSizeValues = function() {
 
 	if($("#network-diagram").parent().attr("id") == "main-chart"){
 		networkWidth = mainChartWidth;
-		networkHeight = $("#main-chart").height() - 72;
+		networkHeight = $("#main-chart").height() - 40;
 	} else {
 		networkWidth = secondaryChartsWidth;
 		networkHeight = widgetHeight;
@@ -299,7 +325,7 @@ var setCurrentSizeValues = function() {
 
 	if($("#correlation").parent().attr("id") == "main-chart"){
 		correlationWidgetWidth = mainChartWidth;
-		correlationWidgetHeight = $("#main-chart").height() - 72;
+		correlationWidgetHeight = $("#main-chart").height() - 40;
 	} else {
 		correlationWidgetWidth = secondaryChartsWidth;
 		correlationWidgetHeight = widgetHeight+150;

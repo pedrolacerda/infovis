@@ -1,5 +1,5 @@
 function  plotHeatmap(heatmapJson){  
-  var heatmapMargin = { top: 50, right: 10, bottom: 10, left: 100 },
+  var heatmapMargin = { top: 50, right: 20, bottom: 10, left: 100 },
     heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
     heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom;
     //gridSize = Math.floor(width / 24),

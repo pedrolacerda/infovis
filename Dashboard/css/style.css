@@ -8,10 +8,11 @@ html, body {
   position: relative;
 }
 
-#map-swapper, #heatmap-swapper, #correlation-swapper, #network-swapper {
+.swapper {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2px;
+  right: 2px;
+  z-index: 1000;
 }
 
 #map {
@@ -21,9 +22,9 @@ html, body {
   position: relative;
 }
 
-#map-container {
+/*#map-container {
   height: 460px;
-}
+}*/
 
 path {
   fill-opacity: .7;
