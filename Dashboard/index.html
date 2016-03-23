@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
     <![endif]-->
   </head>
+
+  <!-- Used for hover labels -->
   <div id="heatmap-tooltip" class="hidden">
     <p><span id="heatmap-value"></p>
   </div>
@@ -27,79 +29,28 @@
   <div id="network-tooltip" class="hidden">
     <p><span id="network-value"></p>
   </div>
+
+  <!-- Start of the main page -->
   <body>
+  <div class="container-fluid">
     <div class="row">
     <!-- Left menu -->
       <div id="left-menu" class="col-md-2 panel-group" role="tablist" aria-multiselectable="true">
       <!-- Properties menu -->
         <div class="panel panel-default">
           <div class="panel-heading">
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                Properties
+            <a href="#propertiespanel" data-toggle="collapse"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+      Available Properties</a>
           </div>
         </div> <!-- End of the heading -->
 
         <!-- Select properties by category -->
-        <div class="panel panel-info">
-          <div class="panel-heading" role="tab" id="headingCat1">
-            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category1" aria-expanded="false" aria-controls="collapseOne">
-              Economic
-            </a>
-          </div>
-          <div id="category1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat1">
-            <div class="panel-body">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" id="economic-check-all"> Select/deselect all
-                </label>
-                <hr class="divider">
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" class="economic-checkbox" value="GP"> Number of General Practitionner
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" class="economic-checkbox" value="PHARM"> Number of Pharmacies
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" class="economic-checkbox" value="BUSIN"> Number of Businesses
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" class="economic-checkbox" value="EMPLOY"> Employment
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_15-34"> Unemployment Benefits for population 15-34 y/o
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_35-54"> Unemployment Benefits for population 35-54 y/o
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_55-65"> Unemployment Benefits for population 55-65 y/o
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" class="economic-checkbox" value="PROP_VALUE_*1000"> Average Property Value (x1000)
-                </label>
-              </div>
-            </div>
-          </div>
+        <div class="panel panel-info collapse" id="propertiespanel">
 
           <div class="panel-heading" role="tab" id="headingCat2">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category2" aria-expanded="false" aria-controls="collapseOne">
-              Infrastructural
+              <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
+        Infrastructural
             </a>
           </div>
           <div id="category2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat2">
@@ -195,7 +146,8 @@
 
           <div class="panel-heading" role="tab" id="headingCat3">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category3" aria-expanded="false" aria-controls="collapseOne">
-              Social
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        Social
             </a>
           </div>
           <div id="category3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat3">
@@ -368,54 +320,141 @@
               </div>
             </div>
           </div>
-        </div> <!-- /Select properties by category -->
+
+          <div class="panel-heading" role="tab" id="headingCat1">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#category1" aria-expanded="false" aria-controls="collapseOne">
+              <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+        Economic
+            </a>
+          </div>
+          <div id="category1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCat1">
+            <div class="panel-body">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="economic-check-all"> Select/deselect all
+                </label>
+                <hr class="divider">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="GP"> Number of General Practitionner
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="PHARM"> Number of Pharmacies
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="BUSIN"> Number of Businesses
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="EMPLOY"> Employment
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_15-34"> Unemployment Benefits for population 15-34 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_35-54"> Unemployment Benefits for population 35-54 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="UNEMP_BEN_55-65"> Unemployment Benefits for population 55-65 y/o
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" class="economic-checkbox" value="PROP_VALUE_*1000"> Average Property Value (x1000)
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div> 
+        <!-- /Select properties by category -->
 
         <!-- The other parameters are displayed in separated panels -->
         <div class="panel panel-default">
 
           <!-- Select Variable of Interest-->
           <div class="panel-heading ">
-            <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
-            Variable of Interest
+              <a href="#displaypanel" data-toggle="collapse"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+              Display in Map</a>
           </div>
-          <div class="panel-body">
-            <select id="var-interest" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
-            </select>
-          </div> <!-- /Select Variable of Interest-->
-
+          <div class="panel-body collapse" id="displaypanel">
+          Show Property:
+                <select id="var-interest" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
+                </select>
+          Denominator:
+                <select id="denominator" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
+            <option selected value="none">None</option>
+                </select>
+          Scale Transformation:
+                  <select id="transformations" class="selectpicker" data-max-options="1" title="Select transformation" data-width="auto">
+                    <option selected value="lin">Linear</option>
+                    <option value="log">Logarithmic</option>
+                    <option value="exp">Exponential</option>
+                  </select>
+            <div class="checkbox">
+              <label>
+                <input id="normValues" type="checkbox" value="norm">Normalize Values
+              </label>
+            </div>
+          </div> 
+          <!-- /Select Variable of Interest -->
           <!-- Select Denominator-->
-          <div class="panel-heading ">
-            <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
-            Denominator
-          </div>
-          <div class="panel-body">
-            <select id="denominator" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
-            </select>
-          </div> <!-- /Select Denominator-->
+      
         </div>
         <!-- Select Dimentions-->
         <div class="panel panel-default">
-          <div class="panel-heading ">
-              <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-              Dimentions
+          <div class="panel-heading">
+              <a href="#dimensionpanel" data-toggle="collapse"><span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+              Dimensions</a>
           </div>
         </div>
-
-        <div class="panel panel-info">
+        <div class="panel panel-info collapse" id="dimensionpanel">
           <div class="panel-heading" role="tab" id="headingYear">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#year" aria-expanded="false" aria-controls="collapseOne">
-            Year
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+      Year
             </a>
           </div>
           <div id="year" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingYear">
             <div class="panel-body">
-              <input id="slider" data-slider-id='yearSlider' type="text" data-slider-ticks="[2011, 2012, 2013, 2014, 2015]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["2011", "2012", "2013", "2014", "2015"]'/>
+              Year: 
+              <select id="yearBase" class="selectpicker" data-max-options="1" title="Select Year" data-width="auto">
+                <option selected value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+              </select>
+              Compare:
+              <select id="yearComp" class="selectpicker" data-max-options="1" title="Compared To" data-width="auto">
+                <option selected value="none">none</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+              </select>
             </div> 
           </div><!-- /Select Year-->
 
           <!-- Select neighborhoods -->
           <div class="panel-heading" role="tab" id="headingNeighborhoods">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#neighborhoods" aria-expanded="false" aria-controls="collapseOne">
+        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 
               Neighborhoods
             </a>
           </div>
@@ -423,7 +462,7 @@
             <div class="panel-body">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="neighborhoods-check-all" checked="checked"> Select/deselect all
+                  <input type="checkbox" id="neighborhoods-check-all"> Select/deselect all
                 </label>
                 <hr class="divider">
               </div>
@@ -914,29 +953,7 @@
               </div>
             </div>
           </div> <!-- Select Neighborhoods -->
-        </div>
-
-          <!-- Select Transformation-->
-          <div class="panel panel-default">
-            <div class="panel-heading ">
-                <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
-                Transformation
-            </div>
-            <div class="panel-body">
-              <select id="transformations" class="selectpicker" data-max-options="1" title="Select transformation" data-width="auto">
-                <option value="sum">Somatorium</option>
-                <option value="med">Median</option>
-                <option value="avg">Average</option>
-                <option value="min">Min</option>
-                <option value="max">Max</option>
-              </select>
-            </div> <!-- /Select Transformation-->
-            <div class="panel-body">
-              <div class="button">
-                <button type="button" class="btn btn-primary btn-block">Submit</button>
-              </div>
-            </div> 
-          </div> <!-- /Control Panel-->
+        </div><!-- /Control Panel-->
       </div> <!-- / Left menu -->
 
 

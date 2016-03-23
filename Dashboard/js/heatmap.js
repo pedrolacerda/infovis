@@ -165,7 +165,7 @@ function  plotHeatmap(heatmapJson){
 
     function sortbylabel(rORc,i,sortOrder){
 
-         var t = heatmapSvg.transition().duration(3000);
+         var t = heatmapSvg.transition().duration(50);
          var log2r=[];
          var sorted; // sorted is zero-based index
          d3.selectAll(".c"+rORc+i) 
@@ -204,7 +204,7 @@ function  plotHeatmap(heatmapJson){
     function order(value){
      if (value=="row"){
 
-      var t = heatmapSvg.transition().duration(3000);
+      var t = heatmapSvg.transition().duration(500);
       t.selectAll(".cell")
         .attr("y", function(d) { return (d.row) * cellSize; });
 
@@ -213,7 +213,7 @@ function  plotHeatmap(heatmapJson){
 
      }else if (value=="column"){
 
-      var t = heatmapSvg.transition().duration(3000);
+      var t = heatmapSvg.transition().duration(500);
       t.selectAll(".cell")
         .attr("x", function(d) { return (d.col) * cellSize; });
 

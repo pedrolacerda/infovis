@@ -2,9 +2,12 @@ var visualizationParameters = {
 	properties: [], // List of properties
 	varInterest: "", //Variable of Interest
 	denominator: "", // Variable to be the denominator
-	year: "2011", // Year selected
-	neighborhoods: [], // List of neighborhoods
-	transformation: ""
+	transformation: "",
+	normalizeValues: false,
+	yearBase: "2011", // Year selected
+	yearComp: "",
+	neighborhoods: [] // List of neighborhoods
+	
 };
 
 function appendOption(select, value, text) {
@@ -190,9 +193,12 @@ $('#neighborhoods-check-all').change(function() {
 	if ($('#neighborhoods-check-all').prop('checked')){
 		$('.buurt-checkbox').prop('checked', true);
 
+		console.log("All Buurts checked: "+selectedElements.length);
+
 		for (var i = 0; i < selectedElements.length; i++) {
-			if(visualizationParameters.properties.indexOf(selectedElements[i].value) != -1){
-				visualizationParameters.properties.push(selectedElements[i].value);
+
+			if(visualizationParameters.neighborhoods.indexOf(selectedElements[i].value) == -1){
+				visualizationParameters.neighborhoods.push(selectedElements[i].value);
 			}
 		}
 
@@ -200,7 +206,7 @@ $('#neighborhoods-check-all').change(function() {
 		$('.buurt-checkbox').prop('checked', false);
 
 		for (var i = 0; i < selectedElements.length; i++) {
-			visualizationParameters.neighborhoods.splice(visualizationParameters.properties.indexOf(selectedElements[i].value),1);
+			visualizationParameters.neighborhoods.splice(visualizationParameters.neighborhoods.indexOf(selectedElements[i].value),1);
 		}
 	}
 });
@@ -215,9 +221,23 @@ $("#denominator").change(function() {
 	visualizationParameters.denominator = $('#denominator').selectpicker('val');
 });
 
-// Capture year
-$("#slider").change(function() {
-	visualizationParameters.year = $('#slider').val();
+//Capture checkbox to normalize values
+$('#normValues').change(function() {
+	if(this.checked){
+		visualizationParameters.normalizeValues = true;
+	}else{
+		visualizationParameters.normalizeValues = false;
+	}
+});
+
+// Capture base year
+$("#yearBase").change(function() {
+	visualizationParameters.yearBase = $('#yearBase').selectpicker('val');
+});
+
+// Capture base year to compare
+$("#yearComp").change(function() {
+	visualizationParameters.yearComp = $('#yearComp').selectpicker('val');
 });
 
 // Capture transformation
