@@ -197,8 +197,6 @@ $('#neighborhoods-check-all').change(function() {
 	if ($('#neighborhoods-check-all').prop('checked')){
 		$('.buurt-checkbox').prop('checked', true);
 
-		console.log("All Buurts checked: "+selectedElements.length);
-
 		for (var i = 0; i < selectedElements.length; i++) {
 
 			if(visualizationParameters.neighborhoods.indexOf(selectedElements[i].value) == -1){
@@ -281,7 +279,6 @@ $(document).on('click', '.swapper', function () {
 		swapWidgets(swapper[0], swapper[1]);
 		swapper = [];
 	}
-	console.log(swapper);
 })
 
 var swapWidgets = function(id1, id2){
@@ -370,6 +367,14 @@ function selectNeighborhoods(buurt){
 	//mark the corresponding checkbox as 'checked'
 	$("input:checkbox[value='"+buurt+"']").prop("checked", true);
 
+    //update Heatmap
+    $("#heatmap").children().remove();
+    //Reinsert swapper button into the widgets
+	$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+    plotHeatmap(JSON.parse(heatmapData()));
+
+    //[TO-DO] plot Network Diagram
+
 	//highlight the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
     //fill the selected neighborhood with the right color
@@ -394,6 +399,14 @@ function deselectNeighborhoods(buurt){
 
     //mark the corresponding checkbox as 'checked'
 	$("input:checkbox[value='"+buurt+"']").prop("checked", false);
+
+	//update Heatmap
+    $("#heatmap").children().remove();
+    //Reinsert swapper button into the widgets
+	$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+    plotHeatmap(JSON.parse(heatmapData()));
+
+    //[TO-DO] plot Network Diagram
 
     //deselect the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",false);
@@ -462,7 +475,6 @@ $("#submitParametersButton").click(function(){
 	setTimeout(function(){
 		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
 		plotHeatmap(JSON.parse(heatmapData()));
-		//plotHeatmap(heatmapData());
 		plotNetworkDiagram("data/network-diagram.json");
 		plotCorrelationMatrix("data/correlation-matrix.json");
 	}, 2000);
@@ -475,14 +487,13 @@ function mergePropertiesYears() {
 	
 	for (var i=0; i<visualizationParameters.properties.length; i++) {
 		concatProperties.push(visualizationParameters.properties[i]+"\_"+visualizationParameters.yearBase);
-		console.log(visualizationParameters.properties[i]+"\_"+visualizationParameters.yearBase);
 	}
 	return concatProperties;
 }
 
 function heatmapData() {
 	heatmapDataset = dataHeatmap(mergePropertiesYears(),visualizationParameters.neighborhoods);
-	console.log(heatmapDataset);
+	
 	// Normalization of a specific value (column) in the dataset
 	var toNormalize = [];
 	for (var i=0; i<heatmapDataset["variables"].length; i++) {
@@ -490,15 +501,15 @@ function heatmapData() {
 		for (var j=0; j<lenNeighborhoods; j++) {
 				toNormalize.push(heatmapDataset["correlations"][(i*lenNeighborhoods)+j]["value"]);
 		}
-		console.log('Before Normalization ('+ i +'): ' + toNormalize);
+		
 		toNormalize = normalize(toNormalize);
-		console.log('After Normalization ('+ i +'): ' + toNormalize);
+		
 		for (var k=0; k<toNormalize.length; k++) {
 			heatmapDataset["correlations"][(i*lenNeighborhoods)+k]["normalizedValue"] = toNormalize[k]
 		}
 		toNormalize = [];
 	}
-	console.log(heatmapDataset);
+	
 	heatmapDataset = JSON.stringify(heatmapDataset);
 	return heatmapDataset;
 }
