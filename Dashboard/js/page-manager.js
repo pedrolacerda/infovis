@@ -464,7 +464,8 @@ $("#submitParametersButton").click(function(){
 		plotHeatmap(JSON.parse(heatmapData()));
 		//plotHeatmap(heatmapData());
 		plotNetworkDiagram("data/network-diagram.json");
-		plotCorrelationMatrix("data/correlation-matrix.json");
+		plotCorrelationMatrix(JSON.parse(correlationData()));
+		//plotCorrelationMatrix("data/correlation-matrix.json");
 	}, 2000);
 });
 
@@ -482,7 +483,6 @@ function mergePropertiesYears() {
 
 function heatmapData() {
 	heatmapDataset = dataHeatmap(mergePropertiesYears(),visualizationParameters.neighborhoods);
-	console.log(heatmapDataset);
 	// Normalization of a specific value (column) in the dataset
 	var toNormalize = [];
 	for (var i=0; i<heatmapDataset["variables"].length; i++) {
@@ -490,17 +490,20 @@ function heatmapData() {
 		for (var j=0; j<lenNeighborhoods; j++) {
 				toNormalize.push(heatmapDataset["correlations"][(i*lenNeighborhoods)+j]["value"]);
 		}
-		console.log('Before Normalization ('+ i +'): ' + toNormalize);
 		toNormalize = normalize(toNormalize);
-		console.log('After Normalization ('+ i +'): ' + toNormalize);
 		for (var k=0; k<toNormalize.length; k++) {
 			heatmapDataset["correlations"][(i*lenNeighborhoods)+k]["normalizedValue"] = toNormalize[k]
 		}
 		toNormalize = [];
 	}
-	console.log(heatmapDataset);
 	heatmapDataset = JSON.stringify(heatmapDataset);
 	return heatmapDataset;
 }
 
+function correlationData() {
+	dsCorrelation = dataCorrelations(mergePropertiesYears(),visualizationParameters.neighborhoods);
+	console.log(dsCorrelation);
+	dsCorrelation = JSON.stringify(dsCorrelation);
+	return dsCorrelation;
+}
 

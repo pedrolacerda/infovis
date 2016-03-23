@@ -150,15 +150,17 @@ function transpose(a) {
   return t;
 };
 
-
+/***************************************************************************
+	This function prepares the data for the heatmap based on the selected parameters.
+ ***************************************************************************/
 function dataHeatmap(arrVariables, arrNeighborhoods) {
 	var aNeighborhoods = [];
 	var aVariables = [];
 	var aCorrelations = [];
 	var aReturns = [];
 	
-	console.log('dataHeatmap - ' + arrVariables);
-	console.log('dataHeatmap - ' + arrNeighborhoods);
+	//console.log('dataHeatmap - ' + arrVariables);
+	//console.log('dataHeatmap - ' + arrNeighborhoods);
 	
 	//Lookup the neighborhood ID in our data and get the name.
 	for (var i=0; i<arrNeighborhoods.length; i++) {
@@ -191,5 +193,40 @@ function dataHeatmap(arrVariables, arrNeighborhoods) {
 	}
 	
 	aReturns = {neighborhoods: aNeighborhoods, variables: aVariables, correlations: aCorrelations};
+	return aReturns;
+}
+
+/***************************************************************************
+	This function prepares the data for the heatmap based on the selected parameters.
+ ***************************************************************************/
+function dataCorrelations(arrVariables, arrNeighborhoods) {
+	var aNeighborhoods = [];
+	var aVariables = [];
+	var aCorrelations = [];
+	var aReturns = [];
+		
+	for (var i=0; i<arrVariables.length; i++) {
+		var iVariables = {name: arrVariables[i] }
+		aVariables.push(iVariables);
+	}
+
+	// Loop throught the variables (rows)
+	// Then loop throught the neighborhoods (cols)
+	// Retrieve the proper value for the combination in data
+	// Store the row
+	var r = 0;
+	for (var i=0; i<arrVariables.length; i++) {
+		// Create the diagonal value of i.
+		var iCorrelation = {row: i, col: i, value: 1 }
+		aCorrelations.push(iCorrelation);
+		for (var j=i; j<arrVariables.length; j++) {
+			r = calcPearson(getValues(arrVariables[i], arrNeighborhoods),getValues(arrVariables[j], arrNeighborhoods));
+			// Create the appropriate value for i,j.
+			var iCorrelation = {row: i, col: j, value: r }
+			aCorrelations.push(iCorrelation);
+		}
+	}
+	
+	aReturns = {variables: aVariables, correlations: aCorrelations};
 	return aReturns;
 }
