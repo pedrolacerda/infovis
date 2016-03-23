@@ -38,8 +38,13 @@ path:hover {
 
 path.selected {
   fill-opacity: 1;
+<<<<<<< HEAD
   stroke: rgb(51,102,153);;
   stroke-width: 3px;;
+=======
+  stroke: rgb(51,102,153);
+  stroke-width: 3px;
+>>>>>>> refs/remotes/origin/master
 }
 
 
@@ -71,7 +76,7 @@ rect.cell-border {
 
 rect.cell-selected {
   stroke: rgb(51,102,153);
-  stroke-width:4px;   
+  stroke-width:4px;
 }
 
 rect.cell-hover {
