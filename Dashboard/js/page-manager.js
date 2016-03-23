@@ -465,32 +465,3 @@ $("#submitParametersButton").click(function(){
 });
 
 setCurrentSizeValues();
-
-//[TO-DO] Delete these lines
-visualizationParameters.neighborhoods.push("A00");
-visualizationParameters.neighborhoods.push("A01");
-visualizationParameters.neighborhoods.push("A02");
-visualizationParameters.neighborhoods.push("A03");
-visualizationParameters.neighborhoods.push("A04");
-visualizationParameters.neighborhoods.push("A05");
-visualizationParameters.neighborhoods.push("A06");
-visualizationParameters.neighborhoods.push("A07");
-visualizationParameters.neighborhoods.push("K45");
-visualizationParameters.neighborhoods.push("K54");
-visualizationParameters.neighborhoods.push("F84");
-visualizationParameters.neighborhoods.push("M29");
-visualizationParameters.neighborhoods.push("N60");
-visualizationParameters.neighborhoods.push("N69");
-visualizationParameters.neighborhoods.push("T98");
-visualizationParameters.neighborhoods.push("N65");
-visualizationParameters.neighborhoods.push("M33");
-visualizationParameters.neighborhoods.push("K46");
-visualizationParameters.neighborhoods.push("K52");
-visualizationParameters.neighborhoods.push("F76");
-visualizationParameters.neighborhoods.push("F83");
-visualizationParameters.neighborhoods.push("E20");
-visualizationParameters.neighborhoods.push("E12");
-visualizationParameters.neighborhoods.push("B10");
-visualizationParameters.neighborhoods.push("E22");
-visualizationParameters.neighborhoods.push("M56");
-visualizationParameters.neighborhoods.push("M28");

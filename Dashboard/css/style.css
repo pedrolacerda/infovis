@@ -22,10 +22,6 @@ html, body {
   position: relative;
 }
 
-/*#map-container {
-  height: 460px;
-}*/
-
 path {
   fill-opacity: .7;
   stroke: #fff;
@@ -38,13 +34,8 @@ path:hover {
 
 path.selected {
   fill-opacity: 1;
-<<<<<<< HEAD
   stroke: rgb(51,102,153);;
   stroke-width: 3px;;
-=======
-  stroke: rgb(51,102,153);
-  stroke-width: 3px;
->>>>>>> refs/remotes/origin/master
 }
 
 
