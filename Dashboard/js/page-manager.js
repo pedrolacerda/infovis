@@ -2,7 +2,7 @@ var visualizationParameters = {
 	properties: [], // List of properties
 	varInterest: "", //Variable of Interest
 	denominator: "", // Variable to be the denominator
-	transformation: "",
+	transformation: "lin",
 	normalizeValues: false,
 	yearBase: "2015", // Year selected
 	yearComp: "",
@@ -304,7 +304,7 @@ var swapWidgets = function(id1, id2){
 	setCurrentSizeValues(); 
 
 	if(id1 == "map" || id2 == "map"){
-		plotMap("data/amsterdam.geojson", "BIRTH_2014");
+		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
 	}
 	if(id1 == "heatmap" || id2 == "heatmap") {
 		plotHeatmap("data/heatmap.json");	
