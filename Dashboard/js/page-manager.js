@@ -272,6 +272,10 @@ var swapWidgets = function(id1, id2){
 	$("#"+id1).children().remove();
 	$("#"+id2).children().remove();
 
+	//Remove classes in case of swapping a chart 
+	$("#"+id1).removeClass("leaflet-container leaflet-fade-anim");
+	$("#"+id2).removeClass("leaflet-container leaflet-fade-anim");
+
 	//Define charts new positions
 	setCurrentSizeValues(); 
 

@@ -11,7 +11,7 @@ html, body {
 .swapper {
   position: absolute;
   top: 2px;
-  right: 2px;
+  right: 5px;
   z-index: 1000;
 }
 
