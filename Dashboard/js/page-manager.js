@@ -7,8 +7,6 @@ var visualizationParameters = {
 	transformation: ""
 };
 
-var selectWidth = $("#headingCat1").width();
-
 function appendOption(select, value, text) {
 	select.append($('<option>', {
     	value: value,
@@ -29,10 +27,8 @@ $('.economic-checkbox').change(function() {
 
 		 appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
   		 $('#var-interest').selectpicker('refresh');
-  		 $('.selectpicker').selectpicker('width', selectWidth);
   		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
   		 $('#denominator').selectpicker('refresh');
-  		 $('.selectpicker').selectpicker('width', selectWidth);
 
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
@@ -51,10 +47,8 @@ $('.infra-checkbox').change(function() {
 
 		 appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
   		 $('#var-interest').selectpicker('refresh');
-		 $('.selectpicker').selectpicker('width', selectWidth);
   		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
   		 $('#denominator').selectpicker('refresh');
-  		 $('.selectpicker').selectpicker('width', selectWidth);
 
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
@@ -72,10 +66,8 @@ $('.social-checkbox').change(function() {
 
 		appendOption($('#var-interest'), this.value, this.nextSibling.textContent);
   		 $('#var-interest').selectpicker('refresh');
-		$('.selectpicker').selectpicker('width', selectWidth);
   		 appendOption($('#denominator'), this.value, this.nextSibling.textContent);
   		 $('#denominator').selectpicker('refresh');
-  		 $('.selectpicker').selectpicker('width', selectWidth);
 	}else{
 		visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(this.value),1);
 
@@ -231,14 +223,11 @@ $("#slider").change(function() {
 // Capture transformation
 $("#transformations").change(function() {
 	visualizationParameters.transformation = $('#transformations').selectpicker('val');
-	console.log(visualizationParameters.transformation)
 });
 
 var pageHeight = $( window ).height();
 
 var widgetHeight = pageHeight/3;
-
-var mainChartWidth = $("#main-chart").width();
 
 var secondaryChartsWidth = $("#secondary-charts").width();
 
@@ -253,24 +242,74 @@ var mapHeight,
 
 $("#main-chart").height(pageHeight - 10);
 
+var swapper = [];
+
+$(document).on('click', '.swapper', function () {
+	//some error in the DOM structure required this "workaround"
+	if(this.parentNode.id == "bottom-widget-container"){
+		swapper.push("heatmap");
+	}else{
+		swapper.push(this.parentNode.id);
+	}
+
+	//If there is two selected, swap them
+	if (swapper.length == 2){
+		swapWidgets(swapper[0], swapper[1]);
+		swapper = [];
+	}
+	console.log(swapper);
+})
+
 var swapWidgets = function(id1, id2){
-	//$("#map").attr("id", "heatmap")
+	var temp = "placeholder";
+
+	//Typical swap
+	$("#"+id1).attr("id", temp);
+	$("#"+id2).attr("id", id1);
+	$("#"+temp).attr("id", id2);
+
+	//Clean the area
+	$("#"+id1).children().remove();
+	$("#"+id2).children().remove();
+
+	//Define charts new positions
+	setCurrentSizeValues(); 
+
+	if(id1 == "map" || id2 == "map"){
+		plotMap("data/amsterdam.geojson", "BIRTH_2014");
+	}
+	if(id1 == "heatmap" || id2 == "heatmap") {
+		plotHeatmap("data/heatmap.json");	
+	} 
+	if(id1 == "network-diagram" || id2 == "network-diagram") {
+		plotNetworkDiagram("data/network-diagram.json");
+	}
+	if(id1 == "correlation" || id2 == "correlation") {
+		plotCorrelationMatrix("data/correlation-matrix.json");
+	}
+
+	//Reinsert swapper button into the widgets
+	$("#"+id1).append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+	$("#"+id2).append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
 }
 
 /*
 	It sets the right Height and Width for each widget given its position on the screen.
 */
+
+var mainChartWidth = $("#main-chart").width();
+
 var setCurrentSizeValues = function() {
 	
 	if($("#map").parent().attr("id") == "main-chart"){
-		mapHeight = $("#main-chart").height() - 72;
+		mapHeight = $("#main-chart").height() - 40;
 	} else {
 		mapHeight = widgetHeight;
 	};
 
 	if($("#heatmap").parent().attr("id") == "main-chart"){
 		heatmapWidthDashboard = mainChartWidth;
-		heatmapHeightDashboard = $("#main-chart").height() - 72;
+		heatmapHeightDashboard = $("#main-chart").height() - 40;
 	} else {
 		heatmapWidthDashboard = secondaryChartsWidth;
 		heatmapHeightDashboard = widgetHeight;
@@ -278,7 +317,7 @@ var setCurrentSizeValues = function() {
 
 	if($("#network-diagram").parent().attr("id") == "main-chart"){
 		networkWidth = mainChartWidth;
-		networkHeight = $("#main-chart").height() - 72;
+		networkHeight = $("#main-chart").height() - 40;
 	} else {
 		networkWidth = secondaryChartsWidth;
 		networkHeight = widgetHeight;
@@ -286,7 +325,7 @@ var setCurrentSizeValues = function() {
 
 	if($("#correlation").parent().attr("id") == "main-chart"){
 		correlationWidgetWidth = mainChartWidth;
-		correlationWidgetHeight = $("#main-chart").height() - 72;
+		correlationWidgetHeight = $("#main-chart").height() - 40;
 	} else {
 		correlationWidgetWidth = secondaryChartsWidth;
 		correlationWidgetHeight = widgetHeight+150;
@@ -300,11 +339,10 @@ function selectNeighborhoods(buurt){
 
 	//highlight the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
-    console.log("Passou por aqui");
+    d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
 
     //gets the index of the column of the selected neighborhood in the heatmap
     var colIdx = d3.selectAll(".heatmapColLabel").filter(function(d,i) { return d == buurt; }).attr("col");
-    console.log(colIdx);
                     
     //highlight the selected neighborhood in the Heatmap
     d3.selectAll(".g3").selectAll(".cc"+colIdx)
@@ -365,4 +403,47 @@ function deselectVariables(variable){
         .classed("cell-selected", false);
 }
 
+function calcCellSize(width, height, col_number, row_number) {
+  var maxWidth = width/col_number;
+  var maxHeight = height/row_number;
+
+  var fitWidth = false;
+  var fitHeight = false;
+
+  //Check if the squares defined by the numbers of rows fit the height
+  if((maxWidth*row_number) > height){
+    return maxHeight;
+  } else {
+    return maxWidth;
+  }
+}
 setCurrentSizeValues();
+
+//[TO-DO] Delete these lines
+visualizationParameters.neighborhoods.push("A00");
+visualizationParameters.neighborhoods.push("A01");
+visualizationParameters.neighborhoods.push("A02");
+visualizationParameters.neighborhoods.push("A03");
+visualizationParameters.neighborhoods.push("A04");
+visualizationParameters.neighborhoods.push("A05");
+visualizationParameters.neighborhoods.push("A06");
+visualizationParameters.neighborhoods.push("A07");
+visualizationParameters.neighborhoods.push("K45");
+visualizationParameters.neighborhoods.push("K54");
+visualizationParameters.neighborhoods.push("F84");
+visualizationParameters.neighborhoods.push("M29");
+visualizationParameters.neighborhoods.push("N60");
+visualizationParameters.neighborhoods.push("N69");
+visualizationParameters.neighborhoods.push("T98");
+visualizationParameters.neighborhoods.push("N65");
+visualizationParameters.neighborhoods.push("M33");
+visualizationParameters.neighborhoods.push("K46");
+visualizationParameters.neighborhoods.push("K52");
+visualizationParameters.neighborhoods.push("F76");
+visualizationParameters.neighborhoods.push("F83");
+visualizationParameters.neighborhoods.push("E20");
+visualizationParameters.neighborhoods.push("E12");
+visualizationParameters.neighborhoods.push("B10");
+visualizationParameters.neighborhoods.push("E22");
+visualizationParameters.neighborhoods.push("M56");
+visualizationParameters.neighborhoods.push("M28");

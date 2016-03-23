@@ -1,5 +1,5 @@
 function  plotHeatmap(heatmapJson){  
-  var heatmapMargin = { top: 50, right: 10, bottom: 50, left: 100 },
+  var heatmapMargin = { top: 50, right: 20, bottom: 10, left: 100 },
     heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
     heatmapHeight = heatmapHeightDashboard - heatmapMargin.top - heatmapMargin.bottom;
     //gridSize = Math.floor(width / 24),
@@ -12,8 +12,6 @@ function  plotHeatmap(heatmapJson){
     var heatmapColLabel = [];
     var col_number;
     var row_number;
-    
-    cellSize=23; //[TO-DO] dynamically define the cell size
 
   d3.json(heatmapJson,
   /*function(d, i) {
@@ -38,6 +36,8 @@ function  plotHeatmap(heatmapJson){
 
     hcrow = d3.range(0, row_number);
     hccol = d3.range(0, col_number);
+
+    cellSize = calcCellSize(heatmapWidth, heatmapHeight, col_number, row_number);
 
     for (var i in data.variables){
       heatmapRowLabel.push(data.variables[i].name);
