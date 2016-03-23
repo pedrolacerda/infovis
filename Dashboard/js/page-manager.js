@@ -197,8 +197,6 @@ $('#neighborhoods-check-all').change(function() {
 	if ($('#neighborhoods-check-all').prop('checked')){
 		$('.buurt-checkbox').prop('checked', true);
 
-		console.log("All Buurts checked: "+selectedElements.length);
-
 		for (var i = 0; i < selectedElements.length; i++) {
 
 			if(visualizationParameters.neighborhoods.indexOf(selectedElements[i].value) == -1){
@@ -281,7 +279,6 @@ $(document).on('click', '.swapper', function () {
 		swapWidgets(swapper[0], swapper[1]);
 		swapper = [];
 	}
-	console.log(swapper);
 })
 
 var swapWidgets = function(id1, id2){
@@ -502,14 +499,12 @@ function mergePropertiesYears() {
 	
 	for (var i=0; i<visualizationParameters.properties.length; i++) {
 		concatProperties.push(visualizationParameters.properties[i]+"\_"+visualizationParameters.yearBase);
-		console.log(visualizationParameters.properties[i]+"\_"+visualizationParameters.yearBase);
 	}
 	return concatProperties;
 }
 
 function heatmapData() {
 	heatmapDataset = dataHeatmap(mergePropertiesYears(),visualizationParameters.neighborhoods);
-	console.log(heatmapDataset);
 	// Normalization of a specific value (column) in the dataset
 	var toNormalize = [];
 	for (var i=0; i<heatmapDataset["variables"].length; i++) {
@@ -517,15 +512,14 @@ function heatmapData() {
 		for (var j=0; j<lenNeighborhoods; j++) {
 				toNormalize.push(heatmapDataset["correlations"][(i*lenNeighborhoods)+j]["value"]);
 		}
-		console.log('Before Normalization ('+ i +'): ' + toNormalize);
 		toNormalize = normalize(toNormalize);
-		console.log('After Normalization ('+ i +'): ' + toNormalize);
+
 		for (var k=0; k<toNormalize.length; k++) {
 			heatmapDataset["correlations"][(i*lenNeighborhoods)+k]["normalizedValue"] = toNormalize[k]
 		}
 		toNormalize = [];
 	}
-	console.log(heatmapDataset);
+
 	heatmapDataset = JSON.stringify(heatmapDataset);
 	return heatmapDataset;
 }
