@@ -1,4 +1,4 @@
-function  plotHeatmap(heatmapJson){  
+function plotHeatmap(heatmapJson){  
 
   var heatmapMargin = { top: 50, right: 20, bottom: 10, left: 100 },
     heatmapWidth = heatmapWidthDashboard - heatmapMargin.left - heatmapMargin.right,
@@ -14,7 +14,7 @@ function  plotHeatmap(heatmapJson){
     var col_number;
     var row_number;
 
-	data = JSON.parse(heatmapJson);
+	data = heatmapJson;
     var colorScale = d3.scale.quantile()
         .domain([0, 100]) //This receives the input range
         .range(heatmapColors); //This gives the output range
