@@ -98,7 +98,7 @@ function expectedValues(slope, intercept, arrX) {
 	for (var i=0; i<arrX.length; i++) {
 		x = arrX[i];
 		Ex = (slope * x) + intercept;
-		expected.push([x, Ex, x-Ex]);
+		expected.push([x, Ex, x-Ex, Math.abs(x-Ex)]);
 	}
 	return expected;
 }
@@ -218,5 +218,58 @@ function dataCorrelation(arrVariables, arrNeighborhoods) {
 		}
 	}
 	aReturns = {variables: aVariables, correlations: aCorrelations};
+	return aReturns;
+}
+
+/***************************************************************************
+	This function retrieves the data for the network diagram dyamically.
+ ***************************************************************************/
+function dataNetwork(var1, var2, arrNeighborhoods) {
+	aNodes = [];	//id, group, size, name
+	aLinks = [];	//source, target, value
+	aReturns = [];
+	
+	var data1 = getValues(var1, arrNeighborhoods);
+	var data2 = getValues(var2, arrNeighborhoods);
+	var r = calcPearson(data1, data2);
+	var lr = calcRegress(data1, data2);
+	//--console.log(lr);
+	var expect = expectedValues(lr['slope'], lr['intercept'], data1);	//expect[3]: |x-E(x)|
+	//--console.log(expect);
+	
+	// we have to normalize the absolute value of the differences: expect[i][3]
+	// Then we convert the value by (100-norm)/10: so ranges from 0 to 10.
+	// Since we still need to see the bubbles, we add 3 to them, so the size ranges from from 3 to 13.
+	var diffAbsExpected = [];
+	for (var i=0; i<expect.length; i++) {
+		diffAbsExpected.push(expect[i][3]);
+	}
+	diffAbsExpected = normalize(diffAbsExpected);
+
+	var diffExpected = [];
+	for (var i=0; i<expect.length; i++) {
+		diffExpected.push(expect[i][2]);
+	}
+	diffExpected = normalize(diffAbsExpected);
+	
+
+	//Lookup the neighborhood ID in our data and get the name.
+	for (var i=0; i<arrNeighborhoods.length; i++) {
+		var res = statData
+			.map(function (element) { return element.BU_CODE; })
+			.indexOf(arrNeighborhoods[i]);
+		
+		var iNode = {id: statData[res].BU_CODE, group: 1, size: (((100-diffAbsExpected[i])/10)+3), name: statData[res].BU_NAME}
+		aNodes.push(iNode);
+	}
+
+	// Loop through the nodes and define the link with the other nodes
+	for (var i=0; i<expect.length; i++) {
+		for var(j = i; j<expect: j++) {
+			var iLink = { source: i, target: j, value: (Math.abs(diffExpected[i]-diffExpected[j])/10) }
+			aLinks.push(iLink);
+		}
+	}
+	aReturns.push(nodes: aNodes, links: aLinks);
 	return aReturns;
 }

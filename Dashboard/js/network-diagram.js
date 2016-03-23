@@ -13,8 +13,10 @@ function  plotNetworkDiagram(networkJson){
       .attr("width", netDiagWidth)
       .attr("height", netDiagHeight);
 
-  d3.json(networkJson, function(error, graph) {
-    if (error) throw error;
+//  d3.json(networkJson, function(error, graph) {
+//    if (error) throw error;
+
+	graph = networkJson;
 
     var networkNodes = graph.nodes.slice(),
         links = [],
@@ -86,5 +88,5 @@ function  plotNetworkDiagram(networkJson){
         return "translate(" + d.x + "," + d.y + ")";
       });
     });
-  });
+//  });
 }

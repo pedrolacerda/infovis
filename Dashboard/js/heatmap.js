@@ -15,6 +15,7 @@ function plotHeatmap(heatmapJson){
     var row_number;
 
 	data = heatmapJson;
+	
     var colorScale = d3.scale.quantile()
         .domain([0, 100]) //This receives the input range
         .range(heatmapColors); //This gives the output range

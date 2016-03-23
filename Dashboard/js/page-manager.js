@@ -527,8 +527,14 @@ function heatmapData() {
 
 function correlationData() {
 	dsCorrelation = dataCorrelation(mergePropertiesYears(),visualizationParameters.neighborhoods);
-	console.log(dsCorrelation);
+	//console.log(dsCorrelation);
 	dsCorrelation = JSON.stringify(dsCorrelation);
 	return dsCorrelation;
 }
 
+function networkData() {
+	dsNetwork = dataNetwork(visualizationParameters.corVar1, visualizationParameters.corVar2, visualizationParameters.neighborhoods);
+	console.log(dsNetwork);
+	dsNetwork = JSON.stringify(dsNetwork);
+	return dsNetwork;
+}
