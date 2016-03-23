@@ -406,13 +406,6 @@ function deselectNeighborhoods(buurt){
     //mark the corresponding checkbox as 'checked'
 	$("input:checkbox[value='"+buurt+"']").prop("checked", false);
 
-	//Update heatmap
-	//Clean the area
-	$("#heatmap").children().remove();
-	//Reinsert swapper button into the widgets
-	$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
-	plotHeatmap(JSON.parse(heatmapData()));
-
     //deselect the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",false);
 
@@ -435,13 +428,6 @@ function selectVariables(variable){
 	}
 
 	//Update heatmap
-	//Clean the area
-	$("#heatmap").children().remove();
-	//Reinsert swapper button into the widgets
-	$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
-	plotHeatmap(JSON.parse(heatmapData()));
-
-    //Update heatmap
 	//Clean the area
 	$("#heatmap").children().remove();
 	//Reinsert swapper button into the widgets
