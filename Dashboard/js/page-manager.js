@@ -306,6 +306,9 @@ var swapWidgets = function(id1, id2){
 	setCurrentSizeValues(); 
 
 	if(id1 == "map" || id2 == "map"){
+		var parent = $("#map").parent();
+		$("#map").remove();
+		parent.append("<div class='panel-body' id='map'</div>");
 		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
 	}
 	if(id1 == "heatmap" || id2 == "heatmap") {
