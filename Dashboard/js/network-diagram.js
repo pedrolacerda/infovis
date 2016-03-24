@@ -5,16 +5,19 @@ function  plotNetworkDiagram(networkJson){
   var netDiagColor = d3.scale.category10();
 
   var force = d3.layout.force() //[TO-DO] test other algorithm
-      //.linkDistance(60)
-      //.linkStrength(10)
+	  .charge(-120)		// was not there
+      .linkDistance(30)	// was 60
+      // .linkStrength(10)
       .size([netDiagWidth, netDiagHeight]);
 
   var networkSvg = d3.select("#network-diagram").append("svg")
       .attr("width", netDiagWidth)
       .attr("height", netDiagHeight);
 
-  d3.json(networkJson, function(error, graph) {
-    if (error) throw error;
+//  d3.json(networkJson, function(error, graph) {
+//    if (error) throw error;
+
+	var graph = networkJson;
 
     var networkNodes = graph.nodes.slice(),
         links = [],
@@ -86,5 +89,5 @@ function  plotNetworkDiagram(networkJson){
         return "translate(" + d.x + "," + d.y + ")";
       });
     });
-  });
+//  });
 }

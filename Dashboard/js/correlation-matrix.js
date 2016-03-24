@@ -10,31 +10,18 @@ function  plotCorrelationMatrix(correlationMatrixJson){
     corr_row_number,
     coorelatioinCellSize;
 
-  d3.json(correlationMatrixJson,
-  /* function(d) {
-    return {
-      row:   +d.variable1,
-      col:   +d.variable2,
-      value: +d.value
-    };
-  },
-  */
-  function(error, data) {
-
-    /*var colorScale = d3.scale.quantile()
-        .domain([0, correlationBuckets - 1, d3.max(data, function (d) { return d.value; })])
-        .range(correlationBuckets);
-    */
+	
+	var cdata = correlationMatrixJson;
 
     //Define the number of rows and columns
-    corr_row_number = data.variables.length;
+    corr_row_number = cdata.variables.length;
 
     corhcrow = d3.range(0, corr_row_number);
 
     coorelatioinCellSize = calcCellSize(correlationWidth, correlationHeight, corr_row_number, corr_row_number);
 
-    for (var i in data.variables){
-      correlationRowLabel.push(data.variables[i].name)
+    for (var i in cdata.variables){
+      correlationRowLabel.push(cdata.variables[i].name)
     }
 
     var correlationSvg = d3.select("#correlation").append("svg")
@@ -81,7 +68,7 @@ function  plotCorrelationMatrix(correlationMatrixJson){
 
     var  correlationMatrix = correlationSvg.append("g").attr("class","g4")
           .selectAll(".cellg")
-          .data(data.correlations,function(d){return d.row+":"+d.col;})
+          .data(cdata.correlations,function(d){return d.row+":"+d.col;})
           .enter()
           .append("rect")
           .attr("x", function(d) { return corhcrow.indexOf(d.col) * coorelatioinCellSize; })
@@ -98,8 +85,17 @@ function  plotCorrelationMatrix(correlationMatrixJson){
           .on("click", function(d) {
                  if(this.classList.contains("cell-selected")==false){
                     selectVariables(d.row);
+
+                    visualizationParameters.corVar1 = cdata.variables[d.row].name;
+                    visualizationParameters.corVar2 = cdata.variables[d.col].name;
+					
+					$("#network-diagram").children().remove();
+					$("#network-diagram").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+
+					plotNetworkDiagram(JSON.parse(networkData()));
+
                  }else{
-                   deselectVariables(d.row);
+                    deselectVariables(d.row);
                  }
           })
           .on("mouseover", function(d){
@@ -124,189 +120,5 @@ function  plotCorrelationMatrix(correlationMatrixJson){
                  d3.select("#correlation-tooltip").classed("hidden", true);
           });
 
-  /* To insert legend uncomment here
 
-    var legend = correlationSvg.selectAll(".legend")
-        .data([-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10])
-        .enter().append("g")
-        .attr("class", "legend");
-   
-    legend.append("rect")
-      .attr("x", function(d, i) { return legendElementWidth * i; })
-      .attr("y", height+(cellSize*2))
-      .attr("width", legendElementWidth)
-      .attr("height", cellSize)
-      .style("fill", function(d, i) { return heatmapColors[i]; });
-   
-    legend.append("text")
-      .attr("class", "mono")
-      .text(function(d) { return d; })
-      .attr("width", legendElementWidth)
-      .attr("x", function(d, i) { return legendElementWidth * i; })
-      .attr("y", height + (cellSize*4));
-  */
-
-/* To reactivate reordering, just comment here
-  // Change ordering of cells
-
-    function sortCorrBylabel(rORc,i,sortOrder){
-
-         var t = correlationSvg.transition().duration(3000);
-         var log2r=[];
-         var sorted; // sorted is zero-based index
-         d3.selectAll(".c"+rORc+i) 
-           .filter(function(ce){
-              log2r.push(ce.value);
-            });
-
-         if(rORc=="r"){ // sort value of a row
-
-           sorted=d3.range(corr_row_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
-
-           t.selectAll(".cell")
-             .attr("x", function(d) { return sorted.indexOf(d.col) * coorelatioinCellSize; });
-
-           t.selectAll(".colLabel")
-            .attr("y", function (d, i) { return sorted.indexOf(i) * coorelatioinCellSize; });
-
-         }else{ // sort value of a column
-
-          sorted=d3.range(corr_row_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
-
-           t.selectAll(".cell")
-             .attr("y", function(d) { return sorted.indexOf(d.row) * coorelatioinCellSize; });
-
-           t.selectAll(".rowLabel")
-            .attr("y", function (d, i) { return sorted.indexOf(i) * coorelatioinCellSize; });
-
-         }
-    }
-*/
-/* To activate the ordering, just uncomment here 
-
-    d3.select("#correlation-order").on("change",function(){
-      order(this.value);
-    });
-    
-    function order(value){
-     if (value=="row"){
-
-      var t = correlationSvg.transition().duration(3000);
-      t.selectAll(".cell")
-        .attr("y", function(d) { return (d.row) * coorelatioinCellSize; });
-
-      t.selectAll(".rowLabel")
-        .attr("y", function (d, i) { return i * coorelatioinCellSize; });
-
-     }else if (value=="column"){
-
-      var t = correlationSvg.transition().duration(3000);
-      t.selectAll(".cell")
-        .attr("x", function(d) { return (d.col) * coorelatioinCellSize; });
-
-      t.selectAll(".colLabel")
-        .attr("y", function (d, i) { return i * coorelatioinCellSize; });
-
-     }
-    }
-/*
-    /*
-    var correlation_sa=d3.select(".g4")
-        .on("mousedown", function() {
-            if( !d3.event.altKey) {
-               d3.selectAll(".cell-selected").classed("cell-selected",false);
-               d3.selectAll(".rowLabel").classed("text-selected",false);
-               d3.selectAll(".colLabel").classed("text-selected",false);
-            }
-           var p = d3.mouse(this);
-           correlation_sa.append("rect")
-           .attr({
-               rx      : 0,
-               ry      : 0,
-               class   : "selection",
-               x       : p[0],
-               y       : p[1],
-               width   : 1,
-               height  : 1
-           })
-        })
-        .on("mousemove", function() {
-           var s = correlation_sa.select("rect.selection");
-        
-           if(!s.empty()) {
-               var p = d3.mouse(this),
-                   d = {
-                       x       : parseInt(s.attr("x"), 10),
-                       y       : parseInt(s.attr("y"), 10),
-                       width   : parseInt(s.attr("width"), 10),
-                       height  : parseInt(s.attr("height"), 10)
-                   },
-                   move = {
-                       x : p[0] - d.x,
-                       y : p[1] - d.y
-                   }
-               ;
-        
-               if(move.x < 1 || (move.x*2<d.width)) {
-                   d.x = p[0];
-                   d.width -= move.x;
-               } else {
-                   d.width = move.x;       
-               }
-        
-               if(move.y < 1 || (move.y*2<d.height)) {
-                   d.y = p[1];
-                   d.height -= move.y;
-               } else {
-                   d.height = move.y;       
-               }
-               s.attr(d);
-        
-                   // deselect all temporary selected state objects
-               d3.selectAll('.cell-selection.cell-selected').classed("cell-selected", false);
-               d3.selectAll(".text-selection.text-selected").classed("text-selected",false);
-
-               d3.selectAll('.cell').filter(function(cell_d, i) {
-                   if(
-                       !d3.select(this).classed("cell-selected") && 
-                           // inner circle inside selection frame
-                       (this.x.baseVal.value)+coorelatioinCellSize >= d.x && (this.x.baseVal.value)<=d.x+d.width && 
-                       (this.y.baseVal.value)+coorelatioinCellSize >= d.y && (this.y.baseVal.value)<=d.y+d.height
-                   ) {
-        
-                       d3.select(this)
-                       .classed("cell-selection", true)
-                       .classed("cell-selected", true);
-
-                       d3.select(".r"+(cell_d.row-1))
-                       .classed("text-selection",true)
-                       .classed("text-selected",true);
-
-                       d3.select(".c"+(cell_d.col-1))
-                       .classed("text-selection",true)
-                       .classed("text-selected",true);
-                   }
-               });
-           }
-        })
-        .on("mouseup", function() {
-              // remove selection frame
-           correlation_sa.selectAll("rect.selection").remove();
-        
-               // remove temporary selection marker class
-           d3.selectAll('.cell-selection').classed("cell-selection", false);
-           d3.selectAll(".text-selection").classed("text-selection",false);
-        })
-        .on("mouseout", function() {
-           if(d3.event.relatedTarget.tagName=='html') {
-                   // remove selection frame
-               correlation_sa.selectAll("rect.selection").remove();
-                   // remove temporary selection marker class
-               d3.selectAll('.cell-selection').classed("cell-selection", false);
-               d3.selectAll(".rowLabel").classed("text-selected",false);
-               d3.selectAll(".colLabel").classed("text-selected",false);
-           }
-        });
-        */
-  });
 }
