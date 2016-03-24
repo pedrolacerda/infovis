@@ -501,10 +501,8 @@ $("#submitParametersButton").click(function(){
 	setTimeout(function(){
 		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
 		plotHeatmap(JSON.parse(heatmapData()));
-		//plotNetworkDiagram(JSON.parse(networkData());
 		plotCorrelationMatrix(JSON.parse(correlationData()));
-		//plotCorrelationMatrix("data/correlation-matrix.json");
-	}, 2000);
+	}, 3000);
 });
 
 setCurrentSizeValues();
@@ -520,6 +518,7 @@ function mergePropertiesYears() {
 
 function heatmapData() {
 	heatmapDataset = dataHeatmap(mergePropertiesYears(),visualizationParameters.neighborhoods);
+	
 	// Normalization of a specific value (column) in the dataset
 	var toNormalize = [];
 	for (var i=0; i<heatmapDataset["variables"].length; i++) {
