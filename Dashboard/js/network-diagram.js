@@ -5,8 +5,9 @@ function  plotNetworkDiagram(networkJson){
   var netDiagColor = d3.scale.category10();
 
   var force = d3.layout.force() //[TO-DO] test other algorithm
-      //.linkDistance(60)
-      //.linkStrength(10)
+	  .charge(-120)		// was not there
+      .linkDistance(30)	// was 60
+      // .linkStrength(10)
       .size([netDiagWidth, netDiagHeight]);
 
   var networkSvg = d3.select("#network-diagram").append("svg")
@@ -16,7 +17,7 @@ function  plotNetworkDiagram(networkJson){
 //  d3.json(networkJson, function(error, graph) {
 //    if (error) throw error;
 
-	graph = networkJson;
+	var graph = networkJson;
 
     var networkNodes = graph.nodes.slice(),
         links = [],

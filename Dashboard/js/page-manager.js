@@ -6,7 +6,9 @@ var visualizationParameters = {
 	normalizeValues: false,
 	yearBase: "2015", // Year selected
 	yearComp: "",
-	neighborhoods: [] // List of neighborhoods
+	neighborhoods: [], // List of neighborhoods
+	corVar1: "",
+	corVar2: ""
 	
 };
 
@@ -310,7 +312,7 @@ var swapWidgets = function(id1, id2){
 		plotNetworkDiagram("data/network-diagram.json");
 	}
 	if(id1 == "correlation" || id2 == "correlation") {
-		plotCorrelationMatrix("data/correlation-matrix.json");
+		plotCorrelationMatrix(JSON.parse(correlationData()));
 	}
 
 	//Reinsert swapper button into the widgets
@@ -422,8 +424,13 @@ function deselectNeighborhoods(buurt){
 
 function selectVariables(variable){
 
-	//put the clicked variable in the list of selected variables
-    visualizationParameters.properties.push(variable);
+	/*put the clicked variable in the list of selected variables
+	if(visualizationParameters.properties.indexOf(variable) == -1){
+		visualizationParameters.properties.push(variable);
+	}
+
+	//mark the corresponding checkbox as 'checked'
+	$("input:checkbox[value='"+variable+"']").prop("checked", true);
 
     //Update heatmap
 	//Clean the area
@@ -431,6 +438,7 @@ function selectVariables(variable){
 	//Reinsert swapper button into the widgets
 	$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
 	plotHeatmap(JSON.parse(heatmapData()));
+	*/
 
 	//highlight the row with the selected variable in the heatmap
     d3.selectAll(".g3").selectAll(".cr"+ variable)
@@ -445,15 +453,21 @@ function selectVariables(variable){
 }
 
 function deselectVariables(variable){
+	/*
 	//remove the clicked variable from the list of selected variables
     visualizationParameters.properties.splice(visualizationParameters.properties.indexOf(variable),1);
 
+    //mark the corresponding checkbox as 'checked'
+	$("input:checkbox[value='"+variable+"']").prop("checked", true);
+
+	
     //Update heatmap
 	//Clean the area
 	$("#heatmap").children().remove();
 	//Reinsert swapper button into the widgets
 	$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
 	plotHeatmap(JSON.parse(heatmapData()));
+	*/
 
 	//deselect the row with the selected variable in the heatmap
     d3.selectAll(".g3").selectAll(".cr"+ variable)
@@ -487,7 +501,7 @@ $("#submitParametersButton").click(function(){
 	setTimeout(function(){
 		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
 		plotHeatmap(JSON.parse(heatmapData()));
-		plotNetworkDiagram("data/network-diagram.json");
+		//plotNetworkDiagram(JSON.parse(networkData());
 		plotCorrelationMatrix(JSON.parse(correlationData()));
 		//plotCorrelationMatrix("data/correlation-matrix.json");
 	}, 2000);
@@ -527,7 +541,6 @@ function heatmapData() {
 
 function correlationData() {
 	dsCorrelation = dataCorrelation(mergePropertiesYears(),visualizationParameters.neighborhoods);
-	//console.log(dsCorrelation);
 	dsCorrelation = JSON.stringify(dsCorrelation);
 	return dsCorrelation;
 }

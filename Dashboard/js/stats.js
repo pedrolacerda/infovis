@@ -265,11 +265,11 @@ function dataNetwork(var1, var2, arrNeighborhoods) {
 
 	// Loop through the nodes and define the link with the other nodes
 	for (var i=0; i<expect.length; i++) {
-		for var(j = i; j<expect: j++) {
+		for (var j=i; j<expect.length; j++) {
 			var iLink = { source: i, target: j, value: (Math.abs(diffExpected[i]-diffExpected[j])/10) }
 			aLinks.push(iLink);
 		}
 	}
-	aReturns.push(nodes: aNodes, links: aLinks);
+	aReturns = {nodes: aNodes, links: aLinks};
 	return aReturns;
 }

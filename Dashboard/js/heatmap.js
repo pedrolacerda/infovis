@@ -14,27 +14,27 @@ function plotHeatmap(heatmapJson){
     var col_number;
     var row_number;
 
-	data = heatmapJson;
-	
+	  var hdata = heatmapJson;
+
     var colorScale = d3.scale.quantile()
         .domain([0, 100]) //This receives the input range
         .range(heatmapColors); //This gives the output range
 	
     //Define the number of rows and columns
-    col_number = data.neighborhoods.length;
-    row_number = data.variables.length;
+    col_number = hdata.neighborhoods.length;
+    row_number = hdata.variables.length;
 
     hcrow = d3.range(0, row_number);
     hccol = d3.range(0, col_number);
 
     cellSize = calcCellSize(heatmapWidth, heatmapHeight, col_number, row_number);
 
-    for (var i in data.variables){
-      heatmapRowLabel.push(data.variables[i].name);
+    for (var i in hdata.variables){
+      heatmapRowLabel.push(hdata.variables[i].name);
     }
 
-    for (var i in data.neighborhoods){
-      heatmapColLabel.push(data.neighborhoods[i].id);
+    for (var i in hdata.neighborhoods){
+      heatmapColLabel.push(hdata.neighborhoods[i].id);
     }
 
     var heatmapSvg = d3.select("#heatmap").append("svg")
@@ -83,7 +83,7 @@ function plotHeatmap(heatmapJson){
 
     var heatMap = heatmapSvg.append("g").attr("class","g3")
           .selectAll(".cellg")
-          .data(data.correlations, function(d){ return d.row+":"+d.col;})
+          .data(hdata.correlations, function(d){ return d.row+":"+d.col;})
           .enter()
           .append("rect")
           .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; })
@@ -96,13 +96,13 @@ function plotHeatmap(heatmapJson){
           .on("click", function(d) {
                  if(this.classList.contains("cell-selected")==false){
                      //select the neighborhoods in all charts
-                    selectNeighborhoods(data.neighborhoods[d.col].id);
+                    selectNeighborhoods(hdata.neighborhoods[d.col].id);
 
                      //highlight the row and column with the selected variable in the correlation matrix
                     selectVariables(d.row);                    
 
                  }else{
-                     deselectNeighborhoods(data.neighborhoods[d.col].id);
+                     deselectNeighborhoods(hdata.neighborhoods[d.col].id);
 
                      deselectVariables(d.row);
                  }
