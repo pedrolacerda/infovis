@@ -506,7 +506,29 @@ function calcCellSize(width, height, col_number, row_number) {
 
 $("#submitParametersButton").click(function(){
 	//setTimeout(function(){
-		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);			
+	
+	$("#map").removeClass("leaflet-container leaflet-fade-anim");
+
+	//Define charts new positions
+	setCurrentSizeValues(); 
+
+	
+		var parent = $("#map").parent();
+		$("#map").remove();
+		parent.append("<div class='panel-body' id='map'</div>");
+		
+		$("#heatmap").children().remove();
+		$("#correlation").children().remove();
+		$("#network-diagram").children().remove();
+		
+		$("#map").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+		$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+		$("#correlation").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+		$("#network-diagram").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+	
+		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
+
+		
 		plotHeatmap(JSON.parse(heatmapData()));
 		plotCorrelationMatrix(JSON.parse(correlationData()));
 		
