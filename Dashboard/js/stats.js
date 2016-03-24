@@ -17,13 +17,25 @@ function initData() {
  ***************************************************************************/
 function getValues(varName, arrNeighborhoods) {
 	var returns = [];
+	var n;
 	// Loop through all features, find if the active neighborhood
 	// 		is selected, if so add the value to the array and return.
 	for (var i=0; i<statData.length; i++) {
-		if (arrNeighborhoods.indexOf(statData[i]["BU_CODE"]) != -1) {
-			returns.push(statData[i][varName]);
+		n = arrNeighborhoods.indexOf(statData[i]["BU_CODE"])
+		if (n != -1) {
+			returns[n] = (statData[i][varName]);
 		}
 	}
+
+	/*for (var i=0; i<arrNeighborhoods.length; i++) {
+		for (var j=0; j<statData.length; j++) {
+			if(statData[j].BU_CODE) === arrNeighborhoods[i]) {
+				returns.push(statData[j][varName]);
+				//console.log(statData[j].BU_CODE);
+			}
+		}		
+	}*/
+	//console.log(returns);
 	return returns;
 }
 
@@ -65,7 +77,7 @@ function calcPearson(arrX, arrY) {
 	Please note that this function does not check that both arrays need
 	to have the same sizeToContent and no NULL values are not handled.
  ***************************************************************************/
-function calcRegress(arrY, arrX) {
+function calcRegress(arrX, arrY) {
 	var lr = {};
 	var n = arrY.length;
 	var sum_x = 0;
@@ -73,18 +85,21 @@ function calcRegress(arrY, arrX) {
 	var sum_xy = 0;
 	var sum_xx = 0;
 	var sum_yy = 0;
-
+	
 	for (var i=0; i<n; i++) {
 		sum_x += arrX[i];
 		sum_y += arrY[i];
 		sum_xy += (arrX[i]*arrY[i]);
 		sum_xx += (arrX[i]*arrX[i]);
-		sum_yy += (arrY[i]*arrY[i]);
+		//sum_yy += (arrY[i]*arrY[i]);
 	} 
-
-	lr['slope'] = (n * sum_xy - sum_x * sum_y) / (n*sum_xx - sum_x * sum_x);
-	lr['intercept'] = (sum_y - lr.slope * sum_x)/n;
-	lr['r2'] = Math.pow((n*sum_xy - sum_x*sum_y)/Math.sqrt((n*sum_xx-sum_x*sum_x)*(n*sum_yy-sum_y*sum_y)),2);
+	
+	var slope = ((n*sum_xy) - (sum_x*sum_y)) / ((n*sum_xx) - (sum_x*sum_x));	
+	var intercept = ((sum_y - (slope*sum_x)) / n);
+	
+	lr['slope'] = slope
+	lr['intercept'] = intercept
+	//lr['r2'] = Math.pow((n*sum_xy - sum_x*sum_y)/Math.sqrt((n*sum_xx-sum_x*sum_x)*(n*sum_yy-sum_y*sum_y)),2);
 
 	return lr;
 }
@@ -93,13 +108,18 @@ function calcRegress(arrY, arrX) {
 	This function calculated the exepcted values of the given array
 	based on the retrieved parameters from the regression function.
  ***************************************************************************/
-function expectedValues(slope, intercept, arrX) {
+function expectedValues(slope, intercept, arrX, arrY) {
+	console.log(slope);
+	console.log(intercept);
 	var expected = [];
 	for (var i=0; i<arrX.length; i++) {
 		x = arrX[i];
-		Ex = (slope * x) + intercept;
-		expected.push([x, Ex, x-Ex, Math.abs(x-Ex)]);
+		y = arrY[i];
+		console.log(x);
+		Ex = ((slope * x) + intercept);
+		expected.push([x, Ex, y-Ex, Math.abs(y-Ex)]);
 	}
+	console.log(expected);
 	return expected;
 }
 
@@ -183,6 +203,7 @@ function dataHeatmap(arrVariables, arrNeighborhoods) {
 			var res = statData
 				.map(function (element) { return element.BU_CODE; })
 				.indexOf(arrNeighborhoods[j]);
+			//[TO-DO] Check if defined, otherwise do again...
 			
 			var iCorrelation = {row: i, col: j, value: statData[res][arrVariables[i]], normalizedValue: 0 }
 			aCorrelations.push(iCorrelation);
@@ -224,17 +245,17 @@ function dataCorrelation(arrVariables, arrNeighborhoods) {
 /***************************************************************************
 	This function retrieves the data for the network diagram dyamically.
  ***************************************************************************/
-function dataNetwork(var1, var2, arrNeighborhoods) {
+function dataNetwork(varX, varY, arrNeighborhoods) {
 	aNodes = [];	//id, group, size, name
 	aLinks = [];	//source, target, value
 	aReturns = [];
 	
-	var data1 = getValues(var1, arrNeighborhoods);
-	var data2 = getValues(var2, arrNeighborhoods);
-	var r = calcPearson(data1, data2);
-	var lr = calcRegress(data1, data2);
+	var dataX = getValues(varX, arrNeighborhoods);
+	var dataY = getValues(varY, arrNeighborhoods);
+	var r = calcPearson(dataX, dataY);
+	var lr = calcRegress(dataX, dataY);
 	//--console.log(lr);
-	var expect = expectedValues(lr['slope'], lr['intercept'], data1);	//expect[3]: |x-E(x)|
+	var expect = expectedValues(lr['slope'], lr['intercept'], dataX, dataY);	//expect[3]: |x-E(x)|
 	//--console.log(expect);
 	
 	// we have to normalize the absolute value of the differences: expect[i][3]
@@ -245,28 +266,33 @@ function dataNetwork(var1, var2, arrNeighborhoods) {
 		diffAbsExpected.push(expect[i][3]);
 	}
 	diffAbsExpected = normalize(diffAbsExpected);
+	console.log(diffAbsExpected);
 
 	var diffExpected = [];
 	for (var i=0; i<expect.length; i++) {
 		diffExpected.push(expect[i][2]);
 	}
-	diffExpected = normalize(diffAbsExpected);
+	diffExpected = normalize(diffExpected);
 	
 
 	//Lookup the neighborhood ID in our data and get the name.
 	for (var i=0; i<arrNeighborhoods.length; i++) {
+		var vGroup = 0;
 		var res = statData
 			.map(function (element) { return element.BU_CODE; })
 			.indexOf(arrNeighborhoods[i]);
 		
-		var iNode = {id: statData[res].BU_CODE, group: 1, size: (((100-diffAbsExpected[i])/10)+3), name: statData[res].BU_NAME}
+		if ((expect[i][2])<0) { vGroup = 1 } else { vGroup = 2}
+		
+		var iNode = {id: statData[res].BU_CODE, group: vGroup, size: (((100-diffAbsExpected[i])/10)+3), name: statData[res].BU_NAME}
 		aNodes.push(iNode);
 	}
 
 	// Loop through the nodes and define the link with the other nodes
-	for (var i=0; i<expect.length; i++) {
-		for (var j=i; j<expect.length; j++) {
-			var iLink = { source: i, target: j, value: (Math.abs(diffExpected[i]-diffExpected[j])/10) }
+	console.log(diffExpected);
+	for (var i=0; i<diffExpected.length-1; i++) {
+		for (var j=i+1; j<diffExpected.length; j++) {
+			var iLink = { source: i, target: j, value: ((100-Math.abs(diffExpected[i]-diffExpected[j]))/10) }
 			aLinks.push(iLink);
 		}
 	}

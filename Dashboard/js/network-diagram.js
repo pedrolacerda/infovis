@@ -14,9 +14,6 @@ function  plotNetworkDiagram(networkJson){
       .attr("width", netDiagWidth)
       .attr("height", netDiagHeight);
 
-//  d3.json(networkJson, function(error, graph) {
-//    if (error) throw error;
-
 	var graph = networkJson;
 
     var networkNodes = graph.nodes.slice(),
@@ -42,13 +39,13 @@ function  plotNetworkDiagram(networkJson){
 
     var link = networkSvg.selectAll(".link")
         .data(bilinks)
-      .enter().append("path")
+		.enter().append("path")
         .attr("class", "link")
         .attr("style", function(d) { return ("stroke-width:"+ d[3] + "px"); });
 
     var node = networkSvg.selectAll(".node")
         .data(graph.nodes)
-      .enter().append("circle")
+		.enter().append("circle")
         .attr("class", "node")
         .attr("r", function(d) { return d.size }) // [TO-DO] change here to adapt circle size regarding to the correlation
         .style("fill", function(d) { return netDiagColor(d.group); })
@@ -59,15 +56,13 @@ function  plotNetworkDiagram(networkJson){
                    .style("left", (d3.event.pageX+10) + "px")
                    .style("top", (d3.event.pageY-10) + "px")
                    .select("#network-value")
-                   .text("Neigborhood: " + d.id + " | Value: " + d.size);  
+                   .text(d.id + ": " + d.name);
 
                  //Show the tooltip
                  d3.select("#network-tooltip").classed("hidden", false);
           })
           .on("mouseout", function(){
                  d3.select(this).classed("cell-hover",false);
-                 //d3.selectAll(".rowLabel").classed("text-highlight",false);
-                 //d3.selectAll(".colLabel").classed("text-highlight",false);
                  d3.select("#network-tooltip").classed("hidden", true);
           })
         .on("click", function(d) {
@@ -89,5 +84,4 @@ function  plotNetworkDiagram(networkJson){
         return "translate(" + d.x + "," + d.y + ")";
       });
     });
-//  });
 }

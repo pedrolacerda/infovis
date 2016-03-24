@@ -15,6 +15,9 @@ var visualizationParameters = {
 //This variable is used to update the colors of the selected neighborhood when the selections
 var mapColor;
 
+//[TO-DO] Remove later because it wont make sense when everything is synchronous
+var isLive;
+
 function appendOption(select, value, text) {
 	select.append($('<option>', {
     	value: value,
@@ -309,7 +312,7 @@ var swapWidgets = function(id1, id2){
 		plotHeatmap(JSON.parse(heatmapData()));	
 	} 
 	if(id1 == "network-diagram" || id2 == "network-diagram") {
-		plotNetworkDiagram("data/network-diagram.json");
+		plotNetworkDiagram(JSON.parse(networkData()));
 	}
 	if(id1 == "correlation" || id2 == "correlation") {
 		plotCorrelationMatrix(JSON.parse(correlationData()));
@@ -368,13 +371,15 @@ function selectNeighborhoods(buurt){
 
 	//mark the corresponding checkbox as 'checked'
 	$("input:checkbox[value='"+buurt+"']").prop("checked", true);
-
-	//Update heatmap
-	//Clean the area
-	$("#heatmap").children().remove();
-	//Reinsert swapper button into the widgets
-	$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
-	plotHeatmap(JSON.parse(heatmapData()));
+	
+	if(isLive){
+		//Update heatmap
+		//Clean the area
+		$("#heatmap").children().remove();
+		//Reinsert swapper button into the widgets
+		$("#heatmap").append("<div class='button swapper'><button type='button' class='btn btn-primary btn-block'><span class='glyphicon glyphicon-retweet' aria-hidden='true'></span></button></div>");
+		plotHeatmap(JSON.parse(heatmapData()));
+	}
 
 	//highlight the area of the neighborhood on the map
     d3.selectAll(".leaflet-zoom-hide").selectAll("path").filter(function(d){ return d.properties.BU_CODE == buurt; }).classed("selected",true);
@@ -497,14 +502,14 @@ function calcCellSize(width, height, col_number, row_number) {
 }
 
 $("#submitParametersButton").click(function(){
-	initData();
-	setTimeout(function(){
-		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
+	//setTimeout(function(){
+		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);			
 		plotHeatmap(JSON.parse(heatmapData()));
-		//plotNetworkDiagram(JSON.parse(networkData());
 		plotCorrelationMatrix(JSON.parse(correlationData()));
-		//plotCorrelationMatrix("data/correlation-matrix.json");
-	}, 2000);
+		
+		//[TO-DO]Remove because now it's used only to not create a Heatmap while the submit wasnt created yet
+		isLive = true;
+	//}, 3000);
 });
 
 setCurrentSizeValues();
@@ -520,6 +525,7 @@ function mergePropertiesYears() {
 
 function heatmapData() {
 	heatmapDataset = dataHeatmap(mergePropertiesYears(),visualizationParameters.neighborhoods);
+	
 	// Normalization of a specific value (column) in the dataset
 	var toNormalize = [];
 	for (var i=0; i<heatmapDataset["variables"].length; i++) {
