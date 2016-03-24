@@ -17,13 +17,25 @@ function initData() {
  ***************************************************************************/
 function getValues(varName, arrNeighborhoods) {
 	var returns = [];
+	var n;
 	// Loop through all features, find if the active neighborhood
 	// 		is selected, if so add the value to the array and return.
 	for (var i=0; i<statData.length; i++) {
-		if (arrNeighborhoods.indexOf(statData[i]["BU_CODE"]) != -1) {
-			returns.push(statData[i][varName]);
+		n = arrNeighborhoods.indexOf(statData[i]["BU_CODE"])
+		if (n != -1) {
+			returns[n] = (statData[i][varName]);
 		}
 	}
+
+	/*for (var i=0; i<arrNeighborhoods.length; i++) {
+		for (var j=0; j<statData.length; j++) {
+			if(statData[j].BU_CODE) === arrNeighborhoods[i]) {
+				returns.push(statData[j][varName]);
+				//console.log(statData[j].BU_CODE);
+			}
+		}		
+	}*/
+	//console.log(returns);
 	return returns;
 }
 
@@ -73,10 +85,6 @@ function calcRegress(arrX, arrY) {
 	var sum_xy = 0;
 	var sum_xx = 0;
 	var sum_yy = 0;
-
-	console.log(arrY.length);
-	console.log(arrX);
-	console.log(arrY);
 	
 	for (var i=0; i<n; i++) {
 		sum_x += arrX[i];
@@ -258,13 +266,13 @@ function dataNetwork(varX, varY, arrNeighborhoods) {
 		diffAbsExpected.push(expect[i][3]);
 	}
 	diffAbsExpected = normalize(diffAbsExpected);
+	console.log(diffAbsExpected);
 
 	var diffExpected = [];
 	for (var i=0; i<expect.length; i++) {
 		diffExpected.push(expect[i][2]);
 	}
-	diffExpected = normalize(diffAbsExpected);
-	//console.log(diffAbsExpected);
+	diffExpected = normalize(diffExpected);
 	
 
 	//Lookup the neighborhood ID in our data and get the name.
@@ -275,17 +283,16 @@ function dataNetwork(varX, varY, arrNeighborhoods) {
 			.indexOf(arrNeighborhoods[i]);
 		
 		if ((expect[i][2])<0) { vGroup = 1 } else { vGroup = 2}
-		//console.log(expect[i][2]);
-		//console.log(vGroup);
 		
 		var iNode = {id: statData[res].BU_CODE, group: vGroup, size: (((100-diffAbsExpected[i])/10)+3), name: statData[res].BU_NAME}
 		aNodes.push(iNode);
 	}
 
 	// Loop through the nodes and define the link with the other nodes
-	for (var i=0; i<expect.length; i++) {
-		for (var j=i; j<expect.length; j++) {
-			var iLink = { source: i, target: j, value: (Math.abs(diffExpected[i]-diffExpected[j])/10) }
+	console.log(diffExpected);
+	for (var i=0; i<diffExpected.length-1; i++) {
+		for (var j=i+1; j<diffExpected.length; j++) {
+			var iLink = { source: i, target: j, value: ((100-Math.abs(diffExpected[i]-diffExpected[j]))/10) }
 			aLinks.push(iLink);
 		}
 	}

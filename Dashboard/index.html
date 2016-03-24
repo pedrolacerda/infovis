@@ -394,7 +394,7 @@
                 <select id="var-interest" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
                   <option selected value=" ">None</option>
                 </select>
-          Denominator:
+<!--          Denominator:
                 <select id="denominator" class="selectpicker" data-max-options="1" title="Select one variable" data-width="auto">
                   <option selected value=" ">None</option>
                 </select>
@@ -408,7 +408,7 @@
               <label>
                 <input id="normValues" type="checkbox" value="norm">Normalize Values
               </label>
-            </div>
+            </div> -->
           </div> 
           <!-- /Select Variable of Interest -->
           <!-- Select Denominator-->
@@ -437,9 +437,10 @@
                 <option value="2012">2012</option>
                 <option value="2013">2013</option>
                 <option value="2014">2014</option>
-                <option selected value="2015">2015</option>
+                <option value="2015">2015</option>
+				<option selected value="NONE">None</option>
               </select>
-              Compare:
+<!--              Compare:
               <select id="yearComp" class="selectpicker" data-max-options="1" title="Compared To" data-width="auto">
                 <option selected value="none">none</option>
                 <option value="2010">2010</option>
@@ -448,7 +449,7 @@
                 <option value="2013">2013</option>
                 <option value="2014">2014</option>
                 <option value="2015">2015</option>
-              </select>
+              </select> -->
             </div> 
           </div><!-- /Select Year-->
 
@@ -1062,6 +1063,9 @@
     <script src="js/heatmap.js"></script>
     <script src="js/network-diagram.js"></script>
     <script src="js/correlation-matrix.js"></script>
+	<script type = 'text/javascript'>
+		initData();
+	</script>
 	
   </body>
 </html>

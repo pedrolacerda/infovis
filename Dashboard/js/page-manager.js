@@ -309,7 +309,7 @@ var swapWidgets = function(id1, id2){
 		plotHeatmap(JSON.parse(heatmapData()));	
 	} 
 	if(id1 == "network-diagram" || id2 == "network-diagram") {
-		plotNetworkDiagram("data/network-diagram.json");
+		plotNetworkDiagram(JSON.parse(networkData()));
 	}
 	if(id1 == "correlation" || id2 == "correlation") {
 		plotCorrelationMatrix(JSON.parse(correlationData()));
@@ -497,12 +497,11 @@ function calcCellSize(width, height, col_number, row_number) {
 }
 
 $("#submitParametersButton").click(function(){
-	initData();
-	setTimeout(function(){
+	//setTimeout(function(){
 		plotMap("data/amsterdam.geojson", visualizationParameters.varInterest+"\_"+visualizationParameters.yearBase);
 		plotHeatmap(JSON.parse(heatmapData()));
 		plotCorrelationMatrix(JSON.parse(correlationData()));
-	}, 3000);
+	//}, 3000);
 });
 
 setCurrentSizeValues();
